@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.teamdefine.signease.databinding.FragmentRegisterBinding
 
 class RegisterFragment : Fragment() {
@@ -25,7 +28,6 @@ class RegisterFragment : Fragment() {
             val email = binding.editTextEmail.text.toString().trim()
             val password = binding.editTextPassword.text.toString()
             registerUser(fullName, uid, email, password)
-
         }
         return binding.root
     }
@@ -38,14 +40,30 @@ class RegisterFragment : Fragment() {
     ) {
         auth = FirebaseAuth.getInstance()
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-            if (task.isSuccessful)
-                Toast.makeText(activity, "User Registered", Toast.LENGTH_SHORT).show()
-            else
+            if (task.isSuccessful) {
+                val currentUser = Firebase.auth.currentUser
+                if (currentUser != null) {
+                    saveUserData(fullName, uid, currentUser.uid)
+                }
+            } else
                 Toast.makeText(
                     activity,
                     task.exception!!.message.toString(),
                     Toast.LENGTH_LONG
                 ).show()
+        }
+    }
+
+    private fun saveUserData(fullName: String, uid: String, currentUser: String) {
+        val database = FirebaseFirestore.getInstance()
+        val user: MutableMap<String, Any> = HashMap()
+        user["fullName"] = fullName
+        user["uid"] = uid
+
+        database.collection("Users").document(currentUser).set(user).addOnSuccessListener {
+            Toast.makeText(activity, "User registered", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener { e ->
+            Toast.makeText(activity, e.toString(), Toast.LENGTH_LONG).show()
         }
     }
 }
