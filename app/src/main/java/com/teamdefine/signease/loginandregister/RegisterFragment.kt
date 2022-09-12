@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.teamdefine.signease.databinding.FragmentRegisterBinding
 
@@ -39,17 +37,15 @@ class RegisterFragment : Fragment() {
         password: String
     ) {
         auth = FirebaseAuth.getInstance()
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
-            OnCompleteListener { task ->
-                if (task.isSuccessful)
-                    Toast.makeText(activity, "User Registered", Toast.LENGTH_SHORT).show()
-                else
-                    Toast.makeText(
-                        activity,
-                        task.exception!!.message.toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-            }
-        )
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+            if (task.isSuccessful)
+                Toast.makeText(activity, "User Registered", Toast.LENGTH_SHORT).show()
+            else
+                Toast.makeText(
+                    activity,
+                    task.exception!!.message.toString(),
+                    Toast.LENGTH_LONG
+                ).show()
+        }
     }
 }
