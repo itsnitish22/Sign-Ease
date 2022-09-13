@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".loginandregister.RegisterFragment">
 
-
     <EditText
         android:id="@+id/editTextTextPersonFullName"
         android:layout_width="wrap_content"

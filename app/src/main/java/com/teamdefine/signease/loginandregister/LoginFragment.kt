@@ -25,7 +25,6 @@ class LoginFragment : Fragment() {
             val password = binding.editTextTextPersonName2.text.toString()
             loginUser(email, password)
         }
-
         return binding.root
     }
 
@@ -46,5 +45,4 @@ class LoginFragment : Fragment() {
                 }
             )
     }
-
 }
