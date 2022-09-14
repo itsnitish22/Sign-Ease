@@ -20,6 +20,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
+        firebaseAuth = FirebaseAuth.getInstance()
         binding.button.setOnClickListener {
             val email = binding.editTextTextPersonName.text.toString()
             val password = binding.editTextTextPersonName2.text.toString()

@@ -25,6 +25,6 @@ class TemplateListAdapter : RecyclerView.Adapter<TemplateListAdapter.ViewHolder>
 
     //    To return the number of items
     override fun getItemCount(): Int {
-        return 5
+        return 3
     }
 }
