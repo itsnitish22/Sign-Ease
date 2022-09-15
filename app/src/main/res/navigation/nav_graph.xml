@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/confirmationFragment">
+    app:startDestination="@id/registerFragment">
 
     <fragment
         android:id="@+id/registerFragment"
@@ -15,9 +15,4 @@
         android:name="com.teamdefine.signease.loginandregister.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
-    <fragment
-        android:id="@+id/confirmationFragment"
-        android:name="com.teamdefine.signease.confirmation.ConfirmationFragment"
-        android:label="fragment_confirmation"
-        tools:layout="@layout/fragment_confirmation" />
 </navigation>
