@@ -3,6 +3,7 @@ package com.teamdefine.signease.confirmation
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.teamdefine.signease.api.RetrofitInstance
 import com.teamdefine.signease.api.modelspostrequest.Document
 import kotlinx.coroutines.launch
 
@@ -14,7 +15,7 @@ class ConfirmationViewModel : ViewModel() {
     fun sendDocumentForSignature(document: Document) {
         viewModelScope.launch {
             try {
-//                RetrofitInstance.api.sendDocForSignatures(document)
+                RetrofitInstance.api.sendDocForSignatures(document)
                 Log.i("Confirmation View Model", "Done")
             } catch (e: Exception) {
                 Log.i("Confirmation View Model", e.toString())

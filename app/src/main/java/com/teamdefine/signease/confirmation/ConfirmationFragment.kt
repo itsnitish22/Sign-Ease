@@ -51,7 +51,7 @@ class ConfirmationFragment : Fragment() {
         val template_ids = arrayListOf("270b0c8e3d2cc376908d367b252151038b32719f")
         val subject = "Application For Duty Leave"
         val message = "Kindly review and approve my Duty Leave application."
-        val tempSigners = Signers("HOD", "Aniket", "ani.khajanchi257@gmail.com")
+        val tempSigners = Signers("HOD", "Nitish", "nitish.sharma1186@gmail.com")
         val signers = arrayListOf(tempSigners)
         val f1 = CustomFields("Full Name", "Nitish Sharma")
         val f2 = CustomFields("UID", "20BCS4122")
