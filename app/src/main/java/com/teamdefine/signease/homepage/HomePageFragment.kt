@@ -14,8 +14,6 @@ import com.teamdefine.signease.databinding.FragmentHomePageBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import retrofit2.HttpException
 
 class HomePageFragment : Fragment() {
     private lateinit var binding: FragmentHomePageBinding
@@ -35,7 +33,7 @@ class HomePageFragment : Fragment() {
             getDataFromFirestore()
             CoroutineScope(Dispatchers.IO).launch {
                 val signatureRequestsResponse = RetrofitInstance.api.getSignatureRequests()
-                Log.i("helloabc",signatureRequestsResponse.toString())
+                Log.i("helloabc", signatureRequestsResponse.toString())
             }
 
         } else
