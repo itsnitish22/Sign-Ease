@@ -25,4 +25,9 @@
         android:name="com.teamdefine.signease.confirmation.ConfirmationFragment"
         android:label="fragment_confirmation"
         tools:layout="@layout/fragment_confirmation" />
+    <fragment
+        android:id="@+id/templateFragment"
+        android:name="com.teamdefine.signease.templates.TemplateFragment"
+        android:label="fragment_template"
+        tools:layout="@layout/fragment_template" />
 </navigation>

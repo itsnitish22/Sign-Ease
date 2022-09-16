@@ -1,6 +1,7 @@
 package com.teamdefine.signease.templates
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.teamdefine.signease.api.RetrofitInstance
 import com.teamdefine.signease.databinding.FragmentTemplateBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class TemplateFragment : Fragment() {
     private var layoutManager: RecyclerView.LayoutManager? = null
@@ -37,6 +42,10 @@ class TemplateFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity)
             // set the custom adapter to the RecyclerView
             adapter = TemplateListAdapter()
+        }
+        CoroutineScope(Dispatchers.IO).launch {
+            val templatesResponse=RetrofitInstance.api.getTemplates()
+            Log.i("helloabc",templatesResponse.toString())
         }
     }
 }
