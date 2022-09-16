@@ -1,17 +1,20 @@
 package com.teamdefine.signease.api
 
+import com.teamdefine.signease.BuildConfig
+import com.teamdefine.signease.api.RetrofitInstance.loggingInterceptor
+import com.teamdefine.signease.auth.BasicAuthInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val BASE_URL = "https://api.hellosign.com/v3/"
+private const val BASE_URL = "https://api.hellosign.com/"
 
 object RetrofitInstance {
     var loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     var clientBuilder: OkHttpClient.Builder = OkHttpClient.Builder().addInterceptor(
-        loggingInterceptor
-    )
+        loggingInterceptor).addInterceptor(BasicAuthInterceptor("${BuildConfig.API_KEY}",""))
+//        .addInterceptor(BasicAuthInterceptor(BuildConfig.API_KEY,""))
 
     private val retrofit by lazy {
         Retrofit.Builder()

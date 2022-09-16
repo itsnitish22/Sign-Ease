@@ -18,7 +18,7 @@ class ConfirmationViewModel : ViewModel() {
     fun sendDocumentForSignature(document: Document) {
         viewModelScope.launch {
             try {
-                RetrofitInstance.api.sendDocForSignatures(document)
+//                RetrofitInstance.api.sendDocForSignatures(document)
                 Log.i("Confirmation View Model", "Done")
             } catch (e: Exception) {
                 Log.i("Confirmation View Model", e.toString())

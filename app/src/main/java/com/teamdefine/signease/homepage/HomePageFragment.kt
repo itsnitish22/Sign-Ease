@@ -9,7 +9,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.teamdefine.signease.api.RetrofitInstance
 import com.teamdefine.signease.databinding.FragmentHomePageBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 
 class HomePageFragment : Fragment() {
     private lateinit var binding: FragmentHomePageBinding
@@ -25,9 +31,14 @@ class HomePageFragment : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         val loggedIn = checkUser()
-        if (loggedIn)
+        if (loggedIn) {
             getDataFromFirestore()
-        else
+            CoroutineScope(Dispatchers.IO).launch {
+                val signatureRequestsResponse = RetrofitInstance.api.getSignatureRequests()
+                Log.i("helloabc",signatureRequestsResponse.toString())
+            }
+
+        } else
             Toast.makeText(activity, "Log in first", Toast.LENGTH_SHORT).show()
 
         return binding.root
