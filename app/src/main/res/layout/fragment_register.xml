@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".loginandregister.RegisterFragment">
 
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/con1"
         android:layout_width="wrap_content"
@@ -73,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/sharp_grotesk_light20"
-            android:inputType="text"
+            android:inputType="textCapWords"
             tools:text="Sign Ease" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -117,7 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/sharp_grotesk_light20"
-            android:inputType="text"
+            android:inputType="textCapCharacters"
             tools:text="20XYZ1234" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -195,5 +196,15 @@
             android:textColor="#0061fe"
             android:textStyle="bold" />
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

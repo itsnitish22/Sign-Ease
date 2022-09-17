@@ -13,7 +13,7 @@ import com.google.firebase.ktx.Firebase
 import com.teamdefine.signease.databinding.FragmentRegisterBinding
 
 class RegisterFragment : Fragment() {
-    private lateinit var binding: FragmentRegisterBinding
+    private lateinit var binding: FragmentRegisterBinding //binding
     private lateinit var auth: FirebaseAuth //firebase auth
 
     override fun onCreateView(
@@ -22,16 +22,25 @@ class RegisterFragment : Fragment() {
     ): View? {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
 
+        //on click of sign up button
         binding.signUpButton.setOnClickListener {
             val fullName = binding.inputName.text.toString()
             val uid = binding.inputUid.text.toString()
             val email = binding.inputEmail.text.toString().trim()
             val password = binding.inputPassword.text.toString()
-            registerUser(fullName, uid, email, password)
+
+            //toast message if any one of the field is empty
+            if (fullName.isEmpty() || uid.isEmpty() || email.isEmpty() || password.isEmpty())
+                Toast.makeText(activity, "All fields are mandatory", Toast.LENGTH_SHORT).show()
+            else {
+                binding.progressBar.visibility = View.VISIBLE
+                registerUser(fullName, uid, email, password)
+            }
         }
         return binding.root
     }
 
+    //register the user on firebase (authenticate)
     private fun registerUser(
         fullName: String,
         uid: String,
@@ -43,6 +52,7 @@ class RegisterFragment : Fragment() {
             if (task.isSuccessful) {
                 val currentUser = Firebase.auth.currentUser
                 if (currentUser != null) {
+                    //once successfully authenticated, save user data to firestore
                     saveUserData(fullName, uid, currentUser.uid)
                 }
             } else
@@ -54,15 +64,19 @@ class RegisterFragment : Fragment() {
         }
     }
 
+    //saving user data to firestore
     private fun saveUserData(fullName: String, uid: String, currentUser: String) {
         val database = FirebaseFirestore.getInstance()
         val user: MutableMap<String, Any> = HashMap()
         user["fullName"] = fullName
         user["uid"] = uid
 
+        //name of collection on firestore is "Users", and the document will be mapped to firebase authentication uid
         database.collection("Users").document(currentUser).set(user).addOnSuccessListener {
-            Toast.makeText(activity, "User registered", Toast.LENGTH_SHORT).show()
+            binding.progressBar.visibility = View.GONE
+            Toast.makeText(activity, "Registered Successfully", Toast.LENGTH_SHORT).show()
         }.addOnFailureListener { e ->
+            binding.progressBar.visibility = View.GONE
             Toast.makeText(activity, e.toString(), Toast.LENGTH_LONG).show()
         }
     }
