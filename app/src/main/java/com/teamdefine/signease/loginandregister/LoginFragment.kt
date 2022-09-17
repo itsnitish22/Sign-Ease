@@ -21,9 +21,9 @@ class LoginFragment : Fragment() {
     ): View? {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
-        binding.button.setOnClickListener {
-            val email = binding.editTextTextPersonName.text.toString()
-            val password = binding.editTextTextPersonName2.text.toString()
+        binding.loginButton.setOnClickListener {
+            val email = binding.inputEmail.text.toString()
+            val password = binding.inputPassword.text.toString()
             loginUser(email, password)
         }
         return binding.root
