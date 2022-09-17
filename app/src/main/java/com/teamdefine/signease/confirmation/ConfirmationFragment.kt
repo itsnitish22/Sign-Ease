@@ -56,11 +56,13 @@ class ConfirmationFragment : Fragment() {
         val f1 = CustomFields("Full Name", "Nitish Sharma")
         val f2 = CustomFields("UID", "20BCS4122")
         val f3 = CustomFields("Date", dateSelectedByUser)
+//        val cc = CC("Father","ani.khajanchi257@gmail.com")
+//        val ccs= arrayListOf(cc)
         val custom_fields = arrayListOf<CustomFields>(f1, f2, f3)
         val signing_options = SigningOptions(true, true, true, false, "draw")
 
         val document =
-            Document(template_ids, subject, message, signers, custom_fields, signing_options)
+            Document(template_ids, subject, message, signers, custom_fields, signing_options, true)
 
         viewModel.sendDocumentForSignature(document)
 

@@ -9,9 +9,6 @@ import com.teamdefine.signease.api.modelspostrequest.Document
 import kotlinx.coroutines.launch
 
 class ConfirmationViewModel : ViewModel() {
-//    private val _sentConfirm: MutableLiveData<String> = MutableLiveData()
-//    val sentConfirm: LiveData<String>
-//        get() = _sentConfirm
 
     @SuppressLint("LongLogTag")
     fun sendDocumentForSignature(document: Document) {

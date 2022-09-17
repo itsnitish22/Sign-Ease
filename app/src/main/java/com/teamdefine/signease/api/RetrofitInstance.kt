@@ -13,7 +13,7 @@ object RetrofitInstance {
     var loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     var clientBuilder: OkHttpClient.Builder = OkHttpClient.Builder().addInterceptor(
         loggingInterceptor
-    ).addInterceptor(BasicAuthInterceptor("${BuildConfig.API_KEY}", ""))
+    ).addInterceptor(BasicAuthInterceptor(BuildConfig.API_KEY, ""))
 
     private val retrofit by lazy {
         Retrofit.Builder()

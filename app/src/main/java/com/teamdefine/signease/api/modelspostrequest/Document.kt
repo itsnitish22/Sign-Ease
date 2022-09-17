@@ -6,5 +6,6 @@ data class Document(
     val message: String,
     val signers: ArrayList<Signers>,
     val custom_fields: ArrayList<CustomFields>,
-    val signing_options: SigningOptions
+    val signing_options: SigningOptions,
+    val test_mode: Boolean
 )

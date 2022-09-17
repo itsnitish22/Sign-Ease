@@ -44,8 +44,8 @@ class TemplateFragment : Fragment() {
             adapter = TemplateListAdapter()
         }
         CoroutineScope(Dispatchers.IO).launch {
-            val templatesResponse=RetrofitInstance.api.getTemplates()
-            Log.i("helloabc",templatesResponse.toString())
+            val templatesResponse = RetrofitInstance.api.getTemplates()
+            Log.i("helloabc", templatesResponse.toString())
         }
     }
 }
