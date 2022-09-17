@@ -22,11 +22,11 @@ class RegisterFragment : Fragment() {
     ): View? {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
 
-        binding.registerButton.setOnClickListener {
-            val fullName = binding.editTextTextPersonFullName.text.toString()
-            val uid = binding.editTextUID.text.toString()
-            val email = binding.editTextEmail.text.toString().trim()
-            val password = binding.editTextPassword.text.toString()
+        binding.signUpButton.setOnClickListener {
+            val fullName = binding.inputName.text.toString()
+            val uid = binding.inputUid.text.toString()
+            val email = binding.inputEmail.text.toString().trim()
+            val password = binding.inputPassword.text.toString()
             registerUser(fullName, uid, email, password)
         }
         return binding.root
