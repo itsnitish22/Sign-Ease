@@ -69,7 +69,7 @@ class ConfirmationFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    private fun getCalendar() {
+    private fun getCalendar(){
         var date = ""
         val getDate = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(
@@ -90,5 +90,6 @@ class ConfirmationFragment : Fragment() {
         )
         datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
         datePickerDialog.show()
+//        return date
     }
 }
