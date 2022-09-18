@@ -2,6 +2,7 @@ package com.teamdefine.signease.confirmation
 
 import android.R
 import android.app.DatePickerDialog
+import android.content.Context
 import android.icu.text.SimpleDateFormat
 import android.os.Build
 import android.os.Bundle
@@ -36,7 +37,7 @@ class ConfirmationFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity())[ConfirmationViewModel::class.java]
 
         binding.selectDate.setOnClickListener {
-            getCalendar()
+            getCalendar(requireContext())
         }
 
         binding.confirmButton.setOnClickListener {
@@ -69,11 +70,11 @@ class ConfirmationFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    private fun getCalendar(){
+    fun getCalendar(context: Context):String{
         var date = ""
         val getDate = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(
-            requireContext(),
+            context,
             R.style.Theme_Holo_Light_Dialog_NoActionBar,
             { datePicker, i, i2, i3 ->
                 val selectDate = Calendar.getInstance()
@@ -81,8 +82,9 @@ class ConfirmationFragment : Fragment() {
                 selectDate.set(Calendar.MONTH, i2)
                 selectDate.set(Calendar.DAY_OF_MONTH, i3)
                 date = formatDate.format(selectDate.time)
-                binding.date.text = date
-                dateSelectedByUser = date
+                Log.i("helloabc3",date)
+//                binding.date.text = date
+//                dateSelectedByUser = date
             },
             getDate.get(Calendar.YEAR),
             getDate.get(Calendar.MONTH),
@@ -90,6 +92,6 @@ class ConfirmationFragment : Fragment() {
         )
         datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
         datePickerDialog.show()
-//        return date
+        return date
     }
 }

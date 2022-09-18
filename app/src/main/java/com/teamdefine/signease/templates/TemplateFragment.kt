@@ -43,7 +43,7 @@ class TemplateFragment : Fragment() {
             for(i in templates){
                 templateList.add(i.title)
             }
-            adapter=TemplateListAdapter(templateList)
+            adapter=TemplateListAdapter(templateList,requireContext())
             binding.recyclerView.adapter = adapter
         }
     }
