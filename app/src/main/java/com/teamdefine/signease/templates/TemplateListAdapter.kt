@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.teamdefine.signease.R
+import com.teamdefine.signease.api.modelsgetrequest.Templates
 
-class TemplateListAdapter : RecyclerView.Adapter<TemplateListAdapter.ViewHolder>() {
+class TemplateListAdapter(private val templateList:ArrayList<String>) : RecyclerView.Adapter<TemplateListAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var textView: TextView = itemView.findViewById(R.id.textView2)
     }
@@ -20,11 +21,11 @@ class TemplateListAdapter : RecyclerView.Adapter<TemplateListAdapter.ViewHolder>
 
     //    To bind the fields with the data
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textView.text = "Hello"
+        holder.textView.text = templateList[position]
     }
 
     //    To return the number of items
     override fun getItemCount(): Int {
-        return 3
+        return templateList.size
     }
 }

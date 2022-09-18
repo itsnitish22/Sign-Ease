@@ -3,13 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/drawable/circle_shape.xml" value="0.1185" />
-        <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/drawable/circular_progress_bar.xml" value="0.1185" />
+        <entry key="..\:/Android Studio/Sign-Ease/app/src/main/res/layout/fragment_confirmation.xml" value="0.1578125" />
+        <entry key="..\:/Android Studio/Sign-Ease/app/src/main/res/layout/fragment_login.xml" value="0.1421875" />
+        <entry key="..\:/Android Studio/Sign-Ease/app/src/main/res/layout/fragment_register.xml" value="0.1578125" />
+        <entry key="..\:/Android Studio/Sign-Ease/app/src/main/res/layout/fragment_template.xml" value="0.1" />
+        <entry key="..\:/Android Studio/Sign-Ease/app/src/main/res/layout/itemtemplate.xml" value="0.1" />
         <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/activity_main.xml" value="0.17074275362318841" />
         <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/fragment_confirmation.xml" value="0.18297101449275363" />
         <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/fragment_home_page.xml" value="0.16893115942028986" />
-        <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/fragment_login.xml" value="0.2" />
-        <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/fragment_register.xml" value="0.22" />
+        <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/fragment_login.xml" value="0.17074275362318841" />
+        <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/fragment_register.xml" value="0.18" />
         <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/fragment_template.xml" value="0.22" />
         <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/itemtemplate.xml" value="0.16893115942028986" />
       </map>
