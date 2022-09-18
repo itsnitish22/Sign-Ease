@@ -80,24 +80,19 @@ class TemplateFragment : Fragment() {
             object : TemplateListAdapter.ItemClickListener {
                 override fun onItemClick(template: Pair<String, String>) {
                     templatePair = template
+                    getCalendar(requireContext())
                     //show calendar and get a date from user
                     Log.i("Template Frag", dateSelectedByUser)
                 }
             })
-//        if()
-//        {
-//            CoroutineScope(Dispatchers.IO).launch {
-//                getCalendar(requireContext())
-//                requestBody()
-//            }
-//        }
+
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
     //get calendar function
     @RequiresApi(Build.VERSION_CODES.N)
-    suspend fun getCalendar(requireContext: Context): String {
+    fun getCalendar(requireContext: Context): String {
         var date = ""
         val getDate = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(
@@ -110,6 +105,7 @@ class TemplateFragment : Fragment() {
                 selectDate.set(Calendar.DAY_OF_MONTH, i3)
                 dateSelectedByUser = formatDate.format(selectDate.time)
                 Log.i("Template Frag", dateSelectedByUser)
+                requestBody()
             },
             getDate.get(Calendar.YEAR),
             getDate.get(Calendar.MONTH),
@@ -120,7 +116,7 @@ class TemplateFragment : Fragment() {
         return date
     }
 
-    fun requestBody() {
+    private fun requestBody() {
 //        Creating the request body for Post request
         val template_ids = arrayListOf(templatePair.first)
         val subject = templatePair.second
