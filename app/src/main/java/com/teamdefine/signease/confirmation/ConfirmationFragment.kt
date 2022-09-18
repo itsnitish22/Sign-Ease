@@ -36,9 +36,9 @@ class ConfirmationFragment : Fragment() {
         binding = FragmentConfirmationBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(requireActivity())[ConfirmationViewModel::class.java]
 
-        binding.selectDate.setOnClickListener {
-            getCalendar(requireContext())
-        }
+//        binding.selectDate.setOnClickListener {
+//            getCalendar(requireContext())
+//        }
 
         binding.confirmButton.setOnClickListener {
             sendDocForSignatures()
@@ -69,8 +69,9 @@ class ConfirmationFragment : Fragment() {
 
     }
 
+
     @RequiresApi(Build.VERSION_CODES.N)
-    fun getCalendar(context: Context):String{
+    fun getCalendar(context: Context): String {
         var date = ""
         val getDate = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(
@@ -82,7 +83,7 @@ class ConfirmationFragment : Fragment() {
                 selectDate.set(Calendar.MONTH, i2)
                 selectDate.set(Calendar.DAY_OF_MONTH, i3)
                 date = formatDate.format(selectDate.time)
-                Log.i("helloabc3",date)
+                Log.i("helloabc3", date)
 //                binding.date.text = date
 //                dateSelectedByUser = date
             },

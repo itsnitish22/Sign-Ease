@@ -9,15 +9,16 @@ import com.teamdefine.signease.api.RetrofitInstance
 import com.teamdefine.signease.api.modelsgetrequest.Templates
 import kotlinx.coroutines.launch
 
-class TemplateListViewModel: ViewModel() {
-    private val _templates:MutableLiveData<Templates> = MutableLiveData()
-    val templates:LiveData<Templates>
+class TemplateListViewModel : ViewModel() {
+    private val _templates: MutableLiveData<Templates> = MutableLiveData()
+    val templates: LiveData<Templates>
         get() = _templates
-    fun getTemplates(){
+
+    fun getTemplates() {
         viewModelScope.launch {
             val templatesResponse = RetrofitInstance.api.getTemplates()
             Log.i("Template List VM", templatesResponse.toString())
-            _templates.value=templatesResponse
+            _templates.value = templatesResponse
         }
     }
 }

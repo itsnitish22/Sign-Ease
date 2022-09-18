@@ -6,11 +6,11 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        app:cardBackgroundColor="@color/light_blue"
-        android:layout_height="60dp"
         android:focusable="true"
+        app:cardBackgroundColor="@color/light_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,13 +18,13 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:fontFamily="@font/sharp_grotesk_light20"
-            android:textSize="20sp"
-            android:layout_marginStart="10dp"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="TextView" />
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/sharp_grotesk_light20"
+            android:gravity="center_vertical"
+            android:text="TextView"
+            android:textSize="20sp" />
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
