@@ -1,51 +1,32 @@
 package com.teamdefine.signease.templates
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.teamdefine.signease.api.RetrofitInstance
 import com.teamdefine.signease.databinding.FragmentTemplateBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class TemplateFragment : Fragment() {
-    private var layoutManager: RecyclerView.LayoutManager? = null
-    private var adapter: RecyclerView.Adapter<TemplateListAdapter.ViewHolder>? = null
+    private var layoutManager: RecyclerView.LayoutManager? = null //layout of recycler
+    private var adapter: RecyclerView.Adapter<TemplateListAdapter.ViewHolder>? =
+        null // recycler adapter
     private lateinit var binding: FragmentTemplateBinding
+    private lateinit var viewModel: TemplateListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTemplateBinding.inflate(inflater, container, false)
-        with(binding.recyclerView) {
-            setHasFixedSize(true)
-            val divider = DividerItemDecoration(context, LinearLayoutManager(context).orientation)
-            addItemDecoration(divider)
-        }
-        // Inflate the layout for this fragment
-        return binding.root
-    }
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        viewModel = ViewModelProvider(requireActivity())[TemplateListViewModel::class.java]
 
-    override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(itemView, savedInstanceState)
-        binding.recyclerView.apply {
-            // set a LinearLayoutManager to handle Android
-            // RecyclerView behavior
-            layoutManager = LinearLayoutManager(activity)
-            // set the custom adapter to the RecyclerView
-            adapter = TemplateListAdapter()
-        }
-        CoroutineScope(Dispatchers.IO).launch {
-            val templatesResponse = RetrofitInstance.api.getTemplates()
-            Log.i("helloabc", templatesResponse.toString())
-        }
+        viewModel.getTemplates()
+
+        return binding.root
     }
 }
