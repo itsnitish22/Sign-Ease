@@ -10,13 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.teamdefine.signease.R
 
 class TemplateListAdapter(
-    private val templateList: ArrayList<String>,
+    private val templateList: ArrayList<Pair<String, String>>,
     private val itemClickListener: ItemClickListener
 ) : RecyclerView.Adapter<TemplateListAdapter.ViewHolder>() {
 
     //interface for handling clicks
     interface ItemClickListener {
-        fun onItemClick(template: String)
+        fun onItemClick(template: Pair<String, String>)
     }
 
     //view holder class
@@ -33,7 +33,7 @@ class TemplateListAdapter(
     //to bind the fields with the data
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textView.text = templateList[position]
+        holder.textView.text = templateList[position].second
         holder.itemView.setOnClickListener {
             itemClickListener.onItemClick(templateList[position])
         }

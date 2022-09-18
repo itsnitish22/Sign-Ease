@@ -4,6 +4,7 @@ import okhttp3.Credentials
 import okhttp3.Interceptor
 
 class BasicAuthInterceptor(username: String, password: String) : Interceptor {
+    //    Generate a credential token by accepting basic auth username and password
     private var credentials: String = Credentials.basic(username, password)
 
     override fun intercept(chain: Interceptor.Chain): okhttp3.Response {

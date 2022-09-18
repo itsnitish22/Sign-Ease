@@ -17,6 +17,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.teamdefine.signease.api.modelsgetrequest.Templates
+import com.teamdefine.signease.api.modelspostrequest.CustomFields
+import com.teamdefine.signease.api.modelspostrequest.Document
+import com.teamdefine.signease.api.modelspostrequest.Signers
+import com.teamdefine.signease.api.modelspostrequest.SigningOptions
 import com.teamdefine.signease.databinding.FragmentTemplateBinding
 import java.util.*
 
@@ -26,7 +30,8 @@ class TemplateFragment : Fragment() {
         null // recycler adapter
     private lateinit var binding: FragmentTemplateBinding
     private lateinit var viewModel: TemplateListViewModel
-    private val templateList: ArrayList<String> = arrayListOf()
+    private val templateList: ArrayList<Pair<String, String>> = arrayListOf()
+    private var templatePair: Pair<String, String> = Pair("", "")
 
     //just calendar things
     var dateSelectedByUser: String = ""
@@ -34,6 +39,7 @@ class TemplateFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     var formatDate = SimpleDateFormat("dd MMMM YYYY", Locale.US)
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,11 +59,12 @@ class TemplateFragment : Fragment() {
     }
 
     //after getting templates, adding those to array list so as to send to recycler view
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun addDataToArrayList(template: Templates?) {
         val templates = template?.templates
         if (templates != null) {
             for (i in templates) {
-                templateList.add(i.title)
+                templateList.add(Pair(i.template_id, i.title))
             }
 
             //sending array list to recycler view
@@ -66,23 +73,31 @@ class TemplateFragment : Fragment() {
     }
 
     //sending array list with data to recyler view
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun sendToRecyclerView() {
         adapter = TemplateListAdapter(
             templateList,
             object : TemplateListAdapter.ItemClickListener {
-                @RequiresApi(Build.VERSION_CODES.N)
-                override fun onItemClick(template: String) {
+                override fun onItemClick(template: Pair<String, String>) {
+                    templatePair = template
                     //show calendar and get a date from user
-                    getCalendar(requireContext())
+                    Log.i("Template Frag", dateSelectedByUser)
                 }
             })
+//        if()
+//        {
+//            CoroutineScope(Dispatchers.IO).launch {
+//                getCalendar(requireContext())
+//                requestBody()
+//            }
+//        }
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
     //get calendar function
     @RequiresApi(Build.VERSION_CODES.N)
-    private fun getCalendar(requireContext: Context): String {
+    suspend fun getCalendar(requireContext: Context): String {
         var date = ""
         val getDate = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(
@@ -103,5 +118,23 @@ class TemplateFragment : Fragment() {
         datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
         datePickerDialog.show()
         return date
+    }
+
+    fun requestBody() {
+//        Creating the request body for Post request
+        val template_ids = arrayListOf(templatePair.first)
+        val subject = templatePair.second
+        val message = "Kindly review and approve my Duty Leave application."
+        val tempSigners = Signers("HOD", "Aniket", "ani.khajanchi257@gmail.com")
+        val signers = arrayListOf(tempSigners)
+        val f1 = CustomFields("Full Name", "Nitish Sharma")
+        val f2 = CustomFields("UID", "20BCS4122")
+        val f3 = CustomFields("Date", dateSelectedByUser)
+        val custom_fields = arrayListOf<CustomFields>(f1, f2, f3)
+        val signing_options = SigningOptions(true, true, true, false, "draw")
+
+        val document =
+            Document(template_ids, subject, message, signers, custom_fields, signing_options, true)
+        Log.i("helloabc123", document.toString())
     }
 }
