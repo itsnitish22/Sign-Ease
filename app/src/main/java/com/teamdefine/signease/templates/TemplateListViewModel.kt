@@ -1,7 +1,6 @@
 package com.teamdefine.signease.templates
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,9 +17,9 @@ class TemplateListViewModel : ViewModel() {
         get() = _templates
     private lateinit var firebaseAuth: FirebaseAuth
     var firebaseData = mutableMapOf<String, Any>() //global variable which will store user data
-    private val _data:MutableLiveData<MutableMap<String,Any>> = MutableLiveData()
-    val data:LiveData<MutableMap<String,Any>>
-        get()=_data
+    private val _data: MutableLiveData<MutableMap<String, Any>> = MutableLiveData()
+    val data: LiveData<MutableMap<String, Any>>
+        get() = _data
 
     fun getTemplates() {
         viewModelScope.launch {
@@ -29,6 +28,7 @@ class TemplateListViewModel : ViewModel() {
             _templates.value = templatesResponse
         }
     }
+
     //getting current user data from firestore
     fun getDataFromFirestore() {
         viewModelScope.launch {
@@ -41,7 +41,7 @@ class TemplateListViewModel : ViewModel() {
                         if (document != null) {
                             firebaseData =
                                 document.data as MutableMap<String, Any> //setting data to global variable
-                            _data.value=firebaseData
+                            _data.value = firebaseData
                             Log.i("HomePageFragment", "DocumentSnapshot: $firebaseData")
                         }
                     }

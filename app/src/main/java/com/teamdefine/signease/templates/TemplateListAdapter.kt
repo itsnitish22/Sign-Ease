@@ -1,27 +1,29 @@
 package com.teamdefine.signease.templates
 
-import android.os.Build
+import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.teamdefine.signease.R
+import com.teamdefine.signease.api.models.get_all_templates.Template
+import java.util.*
 
 class TemplateListAdapter(
-    private val templateList: ArrayList<Pair<String, String>>,
+    private val templateList: ArrayList<Template>,
     private val itemClickListener: ItemClickListener
 ) : RecyclerView.Adapter<TemplateListAdapter.ViewHolder>() {
 
     //interface for handling clicks
     interface ItemClickListener {
-        fun onItemClick(template: Pair<String, String>)
+        fun onItemClick(template: Template)
     }
 
     //view holder class
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var textView: TextView = itemView.findViewById(R.id.textView2)
+        var date: TextView = itemView.findViewById(R.id.templateDate)
     }
 
     //to create the views of Recycler View items
@@ -31,9 +33,14 @@ class TemplateListAdapter(
     }
 
     //to bind the fields with the data
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textView.text = templateList[position].second
+        holder.textView.text = templateList[position].title
+
+        val date = templateList[position].updated_at  //extracted unix timestamp from response body
+        val simpleDateFormat = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
+        val dt = simpleDateFormat.format(date * 1000L)  //formatting the timestamp as date only
+
+        holder.date.text = dt
         holder.itemView.setOnClickListener {
             itemClickListener.onItemClick(templateList[position])
         }

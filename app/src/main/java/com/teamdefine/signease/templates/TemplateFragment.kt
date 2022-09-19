@@ -4,19 +4,18 @@ import android.R
 import android.app.DatePickerDialog
 import android.content.Context
 import android.icu.text.SimpleDateFormat
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.teamdefine.signease.api.models.get_all_templates.Template
 import com.teamdefine.signease.api.models.get_all_templates.Templates
 import com.teamdefine.signease.api.models.post_template_for_sign.CustomFields
 import com.teamdefine.signease.api.models.post_template_for_sign.Document
@@ -31,17 +30,17 @@ class TemplateFragment : Fragment() {
         null // recycler adapter
     private lateinit var binding: FragmentTemplateBinding
     private lateinit var viewModel: TemplateListViewModel
-    private val templateList: ArrayList<Pair<String, String>> = arrayListOf()
-    private var templatePair: Pair<String, String> = Pair("", "")
-    private lateinit var userDetail:MutableMap<String,Any>
+    private val templateList: ArrayList<Template> =
+        arrayListOf()   //List of Templates to pass in the recycler view
+    private var templateSelected: Template =
+        Template("", "", 0)   //Empty template created to further store the clicked template
+    private lateinit var currentUserDetail: MutableMap<String, Any>
 
     //will be initialized when calendar returns the date on selection
     var dateSelectedByUser: String = ""
 
-    @RequiresApi(Build.VERSION_CODES.N)
     var formatDate = SimpleDateFormat("dd MMMM YYYY", Locale.US)
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,41 +49,40 @@ class TemplateFragment : Fragment() {
         viewModel =
             ViewModelProvider(requireActivity())[TemplateListViewModel::class.java] //setting viewModel
 
-        //getting templates and observing changes
-        viewModel.getTemplates()
-        viewModel.templates.observe(requireActivity(), Observer { template ->
+        viewModel.getTemplates()    //getting templates and observing changes
+        viewModel.templates.observe(requireActivity()) { template ->
             Log.i("Template Fragment", template.toString())
             addDataToArrayList(template)
-        })
-        viewModel.getDataFromFirestore()
-        viewModel.data.observe(requireActivity(), Observer { data->
-            userDetail=data
-            Log.i("helloabc89",data.toString())
+        }
+
+        viewModel.getDataFromFirestore()    //getting current user data from Firestore
+        viewModel.data.observe(requireActivity(), Observer { data ->
+            currentUserDetail = data
+            Log.i("helloabc89", data.toString())
         })
 
         return binding.root
     }
 
     //after getting templates, adding those to array list so as to send to recycler view
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun addDataToArrayList(template: Templates?) {
         val templates = template?.templates
         if (templates != null) {
-            for (i in templates)
-                templateList.add(Pair(i.template_id, i.title))
-
+            for (i in templates) {
+                val t = Template(i.template_id, i.title, i.updated_at)
+                templateList.add(t)
+            }
             sendToRecyclerView()        //sending array list to recycler view
         }
     }
 
     //sending array list with data to recycler view
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun sendToRecyclerView() {
         adapter = TemplateListAdapter(
             templateList,
             object : TemplateListAdapter.ItemClickListener {
-                override fun onItemClick(template: Pair<String, String>) {
-                    templatePair = template //initializing template details which is clicked
+                override fun onItemClick(template: Template) {
+                    templateSelected = template //initializing template details which is clicked
                     getCalendar(requireContext())   //show calendar and get a date from user
                 }
             })
@@ -92,7 +90,6 @@ class TemplateFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     fun getCalendar(requireContext: Context): String {    //get calendar function to pick a date
         var date = ""
         val getDate = Calendar.getInstance()
@@ -119,19 +116,19 @@ class TemplateFragment : Fragment() {
 
     private fun requestBody() {     //Creating the request body for Post request
 
-        val template_ids = arrayListOf(templatePair.first)
-        val subject = templatePair.second
+        val template_ids = arrayListOf(templateSelected.template_id)
+        val subject = templateSelected.title
         val message = "Kindly review and approve my Duty Leave application."
         val tempSigners = Signers("HOD", "Aniket", "ani.khajanchi257@gmail.com")
         val signers = arrayListOf(tempSigners)
-        val f1 = CustomFields("Full Name", "${userDetail.getValue("fullName")}")
-        val f2 = CustomFields("UID", "${userDetail.getValue("uid")}")
+        val f1 = CustomFields("Full Name", "${currentUserDetail.getValue("fullName")}")
+        val f2 = CustomFields("UID", "${currentUserDetail.getValue("uid")}")
         val f3 = CustomFields("Date", dateSelectedByUser)
-        val custom_fields = arrayListOf<CustomFields>(f1, f2, f3)
-        val signing_options = SigningOptions(true, true, true, false, "draw")
+        val customFields = arrayListOf<CustomFields>(f1, f2, f3)
+        val signingOptions = SigningOptions(true, true, true, false, "draw")
 
         val document =
-            Document(template_ids, subject, message, signers, custom_fields, signing_options, true)
+            Document(template_ids, subject, message, signers, customFields, signingOptions, true)
         Log.i("helloabc123", document.toString())
 
         findNavController().navigate(   //Navigating to Confirmation Fragment with the request body for Post Request
