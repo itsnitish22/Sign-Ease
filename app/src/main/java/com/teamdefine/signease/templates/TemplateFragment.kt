@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.teamdefine.signease.api.models.get_all_templates.Templates
@@ -33,7 +34,7 @@ class TemplateFragment : Fragment() {
     private val templateList: ArrayList<Pair<String, String>> = arrayListOf()
     private var templatePair: Pair<String, String> = Pair("", "")
 
-    //just calendar things
+    //will be initialized when calendar returns the date on selection
     var dateSelectedByUser: String = ""
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -63,36 +64,30 @@ class TemplateFragment : Fragment() {
     private fun addDataToArrayList(template: Templates?) {
         val templates = template?.templates
         if (templates != null) {
-            for (i in templates) {
+            for (i in templates)
                 templateList.add(Pair(i.template_id, i.title))
-            }
 
-            //sending array list to recycler view
-            sendToRecyclerView()
+            sendToRecyclerView()        //sending array list to recycler view
         }
     }
 
-    //sending array list with data to recyler view
+    //sending array list with data to recycler view
     @RequiresApi(Build.VERSION_CODES.N)
     private fun sendToRecyclerView() {
         adapter = TemplateListAdapter(
             templateList,
             object : TemplateListAdapter.ItemClickListener {
                 override fun onItemClick(template: Pair<String, String>) {
-                    templatePair = template
-                    getCalendar(requireContext())
-                    //show calendar and get a date from user
-                    Log.i("Template Frag", dateSelectedByUser)
+                    templatePair = template //initializing template details which is clicked
+                    getCalendar(requireContext())   //show calendar and get a date from user
                 }
             })
-
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    //get calendar function
     @RequiresApi(Build.VERSION_CODES.N)
-    fun getCalendar(requireContext: Context): String {
+    fun getCalendar(requireContext: Context): String {    //get calendar function to pick a date
         var date = ""
         val getDate = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(
@@ -105,7 +100,7 @@ class TemplateFragment : Fragment() {
                 selectDate.set(Calendar.DAY_OF_MONTH, i3)
                 dateSelectedByUser = formatDate.format(selectDate.time)
                 Log.i("Template Frag", dateSelectedByUser)
-                requestBody()
+                requestBody()   //calling requestBody() to generate the body after getting the date
             },
             getDate.get(Calendar.YEAR),
             getDate.get(Calendar.MONTH),
@@ -116,8 +111,8 @@ class TemplateFragment : Fragment() {
         return date
     }
 
-    private fun requestBody() {
-//        Creating the request body for Post request
+    private fun requestBody() {     //Creating the request body for Post request
+
         val template_ids = arrayListOf(templatePair.first)
         val subject = templatePair.second
         val message = "Kindly review and approve my Duty Leave application."
@@ -132,5 +127,11 @@ class TemplateFragment : Fragment() {
         val document =
             Document(template_ids, subject, message, signers, custom_fields, signing_options, true)
         Log.i("helloabc123", document.toString())
+
+        findNavController().navigate(   //Navigating to Confirmation Fragment with the request body for Post Request
+            TemplateFragmentDirections.actionTemplateFragmentToConfirmationFragment(
+                document
+            )
+        )
     }
 }

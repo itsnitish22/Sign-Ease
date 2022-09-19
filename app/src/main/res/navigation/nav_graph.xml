@@ -24,10 +24,18 @@
         android:id="@+id/confirmationFragment"
         android:name="com.teamdefine.signease.confirmation.ConfirmationFragment"
         android:label="fragment_confirmation"
-        tools:layout="@layout/fragment_confirmation" />
+        tools:layout="@layout/fragment_confirmation">
+        <argument
+            android:name="requestBody"
+            app:argType="com.teamdefine.signease.api.models.post_template_for_sign.Document" />
+    </fragment>
     <fragment
         android:id="@+id/templateFragment"
         android:name="com.teamdefine.signease.templates.TemplateFragment"
         android:label="fragment_template"
-        tools:layout="@layout/fragment_template" />
+        tools:layout="@layout/fragment_template">
+        <action
+            android:id="@+id/action_templateFragment_to_confirmationFragment"
+            app:destination="@id/confirmationFragment" />
+    </fragment>
 </navigation>
