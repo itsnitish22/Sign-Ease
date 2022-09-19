@@ -33,6 +33,7 @@ class TemplateFragment : Fragment() {
     private lateinit var viewModel: TemplateListViewModel
     private val templateList: ArrayList<Pair<String, String>> = arrayListOf()
     private var templatePair: Pair<String, String> = Pair("", "")
+    private lateinit var userDetail:MutableMap<String,Any>
 
     //will be initialized when calendar returns the date on selection
     var dateSelectedByUser: String = ""
@@ -54,6 +55,11 @@ class TemplateFragment : Fragment() {
         viewModel.templates.observe(requireActivity(), Observer { template ->
             Log.i("Template Fragment", template.toString())
             addDataToArrayList(template)
+        })
+        viewModel.getDataFromFirestore()
+        viewModel.data.observe(requireActivity(), Observer { data->
+            userDetail=data
+            Log.i("helloabc89",data.toString())
         })
 
         return binding.root
@@ -118,8 +124,8 @@ class TemplateFragment : Fragment() {
         val message = "Kindly review and approve my Duty Leave application."
         val tempSigners = Signers("HOD", "Aniket", "ani.khajanchi257@gmail.com")
         val signers = arrayListOf(tempSigners)
-        val f1 = CustomFields("Full Name", "Nitish Sharma")
-        val f2 = CustomFields("UID", "20BCS4122")
+        val f1 = CustomFields("Full Name", "${userDetail.getValue("fullName")}")
+        val f2 = CustomFields("UID", "${userDetail.getValue("uid")}")
         val f3 = CustomFields("Date", dateSelectedByUser)
         val custom_fields = arrayListOf<CustomFields>(f1, f2, f3)
         val signing_options = SigningOptions(true, true, true, false, "draw")
