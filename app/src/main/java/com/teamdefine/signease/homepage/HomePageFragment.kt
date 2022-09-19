@@ -42,8 +42,15 @@ class HomePageFragment : Fragment() {
 
         //observing changes in received signature requests
         viewModel.requests.observe(requireActivity(), Observer { requests ->
+            if (binding.swipeRefresh.isRefreshing)
+                binding.swipeRefresh.isRefreshing = false
             Log.i("Home Page Fragment", requests.toString())
         })
+
+        //on swipe refresh, call the api can observer changes
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.getSignatureRequests()
+        }
 
         return binding.root
     }
