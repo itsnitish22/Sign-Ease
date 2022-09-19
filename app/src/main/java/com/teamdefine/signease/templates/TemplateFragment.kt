@@ -33,7 +33,7 @@ class TemplateFragment : Fragment() {
     private lateinit var viewModel: TemplateListViewModel
     private val templateList: ArrayList<Pair<String, String>> = arrayListOf()
     private var templatePair: Pair<String, String> = Pair("", "")
-    private lateinit var userDetail:MutableMap<String,Any>
+    private lateinit var userDetail: MutableMap<String, Any>
 
     //will be initialized when calendar returns the date on selection
     var dateSelectedByUser: String = ""
@@ -57,9 +57,9 @@ class TemplateFragment : Fragment() {
             addDataToArrayList(template)
         })
         viewModel.getDataFromFirestore()
-        viewModel.data.observe(requireActivity(), Observer { data->
-            userDetail=data
-            Log.i("helloabc89",data.toString())
+        viewModel.data.observe(requireActivity(), Observer { data ->
+            userDetail = data
+            Log.i("helloabc89", data.toString())
         })
 
         return binding.root
@@ -118,7 +118,6 @@ class TemplateFragment : Fragment() {
     }
 
     private fun requestBody() {     //Creating the request body for Post request
-
         val template_ids = arrayListOf(templatePair.first)
         val subject = templatePair.second
         val message = "Kindly review and approve my Duty Leave application."
