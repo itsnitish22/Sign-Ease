@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamdefine.signease.api.RetrofitInstance
-import com.teamdefine.signease.api.modelspostrequest.Document
+import com.teamdefine.signease.api.models.post_template_for_sign.Document
 import kotlinx.coroutines.launch
 
 class ConfirmationViewModel : ViewModel() {

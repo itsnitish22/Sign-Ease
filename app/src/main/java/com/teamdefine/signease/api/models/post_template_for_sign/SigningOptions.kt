@@ -1,4 +1,4 @@
-package com.teamdefine.signease.api.modelspostrequest
+package com.teamdefine.signease.api.models.post_template_for_sign
 
 data class SigningOptions(
     val draw: Boolean = true,

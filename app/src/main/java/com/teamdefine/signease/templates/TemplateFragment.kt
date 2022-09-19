@@ -16,11 +16,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.teamdefine.signease.api.modelsgetrequest.Templates
-import com.teamdefine.signease.api.modelspostrequest.CustomFields
-import com.teamdefine.signease.api.modelspostrequest.Document
-import com.teamdefine.signease.api.modelspostrequest.Signers
-import com.teamdefine.signease.api.modelspostrequest.SigningOptions
+import com.teamdefine.signease.api.models.get_all_templates.Templates
+import com.teamdefine.signease.api.models.post_template_for_sign.CustomFields
+import com.teamdefine.signease.api.models.post_template_for_sign.Document
+import com.teamdefine.signease.api.models.post_template_for_sign.Signers
+import com.teamdefine.signease.api.models.post_template_for_sign.SigningOptions
 import com.teamdefine.signease.databinding.FragmentTemplateBinding
 import java.util.*
 

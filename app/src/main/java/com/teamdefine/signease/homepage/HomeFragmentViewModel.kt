@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamdefine.signease.api.RetrofitInstance
-import com.teamdefine.signease.api.modelsgetrequest.SignatureRequests
+import com.teamdefine.signease.api.models.get_all_sign_requests.SignatureRequests
 import kotlinx.coroutines.launch
 
 class HomeFragmentViewModel : ViewModel() {

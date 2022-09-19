@@ -9,10 +9,10 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.teamdefine.signease.api.modelspostrequest.CustomFields
-import com.teamdefine.signease.api.modelspostrequest.Document
-import com.teamdefine.signease.api.modelspostrequest.Signers
-import com.teamdefine.signease.api.modelspostrequest.SigningOptions
+import com.teamdefine.signease.api.models.post_template_for_sign.CustomFields
+import com.teamdefine.signease.api.models.post_template_for_sign.Document
+import com.teamdefine.signease.api.models.post_template_for_sign.Signers
+import com.teamdefine.signease.api.models.post_template_for_sign.SigningOptions
 import com.teamdefine.signease.databinding.FragmentConfirmationBinding
 
 class ConfirmationFragment : Fragment() {

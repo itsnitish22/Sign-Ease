@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamdefine.signease.api.RetrofitInstance
-import com.teamdefine.signease.api.modelsgetrequest.Templates
+import com.teamdefine.signease.api.models.get_all_templates.Templates
 import kotlinx.coroutines.launch
 
 class TemplateListViewModel : ViewModel() {

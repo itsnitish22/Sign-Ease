@@ -1,9 +1,9 @@
 package com.teamdefine.signease.api
 
-import com.teamdefine.signease.api.modelsgetrequest.SignatureRequests
-import com.teamdefine.signease.api.modelsgetrequest.Templates
-import com.teamdefine.signease.api.modelspostrequest.Document
-import com.teamdefine.signease.api.modelspostresponserequest.ResponseSign
+import com.teamdefine.signease.api.models.get_all_sign_requests.SignatureRequests
+import com.teamdefine.signease.api.models.get_all_templates.Templates
+import com.teamdefine.signease.api.models.post_template_for_sign.Document
+import com.teamdefine.signease.api.models.post_template_for_sign.response.ResponseSign
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
