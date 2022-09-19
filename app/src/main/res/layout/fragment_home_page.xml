@@ -11,14 +11,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
+        app:layout_constraintGuide_percent="0.02" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/con2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35" />
+        app:layout_constraintGuide_percent="0.32" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/con3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
 
     <TextView
         android:id="@+id/welcomeText"
@@ -26,11 +33,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:fontFamily="@font/sharp_grotesk_medium20"
-        android:gravity="center"
-        android:text="Welcome Nitish"
+        android:gravity="start|center"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/con1" />
+        app:layout_constraintTop_toTopOf="@+id/con1"
+        tools:text="Welcome Nitish" />
 
     <TextView
         android:id="@+id/yourStats"
@@ -61,9 +68,9 @@
         android:id="@+id/view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="12dp"
         android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="12dp"
         android:background="@drawable/round_corners"
         app:layout_constraintBottom_toBottomOf="@id/con2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,12 +96,12 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/sharp_grotesk_light20"
         android:gravity="center"
-        android:text="Last Updated: 19th Sept, 2020"
         android:textColor="@color/white"
         android:textSize="13sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintStart_toStartOf="@id/signReqYouSent"
-        app:layout_constraintTop_toBottomOf="@id/signReqYouSent" />
+        app:layout_constraintTop_toBottomOf="@id/signReqYouSent"
+        tools:text="Last Updated: 19th Sept, 2020" />
 
     <TextView
         android:id="@+id/totalRequests"
@@ -103,19 +110,20 @@
         android:layout_marginStart="10dp"
         android:fontFamily="@font/sharp_grotesk_medium20"
         android:gravity="center"
-        android:text="15"
         android:textColor="@color/white"
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/view"
         app:layout_constraintStart_toStartOf="@id/view"
-        app:layout_constraintTop_toTopOf="@id/view" />
+        app:layout_constraintTop_toTopOf="@id/view"
+        tools:text="15" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/con3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/con2">
@@ -128,6 +136,30 @@
             android:layout_alignParentTop="true" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="#0061FE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/con3"
+        app:tint="@color/white" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="#0061fe"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

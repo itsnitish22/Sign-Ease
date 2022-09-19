@@ -51,4 +51,20 @@ class HomeFragmentViewModel : ViewModel() {
         }
     }
 
+//    fun downloadPdf(url: URL, nameOfFile: String){
+//        viewModelScope.launch {
+//            url.openStream().use { inp ->
+//                BufferedInputStream(inp).use { bis ->
+//                    FileOutputStream(nameOfFile).use { fos ->
+//                        val data = ByteArray(1024)
+//                        var count: Int
+//                        while (bis.read(data, 0, 1024).also { count = it } != -1) {
+//                            fos.write(data, 0, count)
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+
 }

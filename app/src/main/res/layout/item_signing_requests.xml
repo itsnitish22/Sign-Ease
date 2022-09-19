@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    android:backgroundTint="@color/light_blue"
+    app:cardCornerRadius="15dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="4dp">
+
+        <TextView
+            android:id="@+id/nameOfRequest"
+            android:layout_width="300dp"
+            android:layout_height="35dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/sharp_grotesk_medium20"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="Application For Duty Leave"
+            android:textSize="18dp" />
+
+        <ImageView
+            android:id="@+id/statusOfRequest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/nameOfRequest"
+            android:layout_alignBottom="@+id/timeOfRequest"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/nameOfRequest"
+            app:srcCompat="@drawable/hourglass" />
+
+        <TextView
+            android:id="@+id/timeOfRequest"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameOfRequest"
+            android:layout_alignStart="@id/nameOfRequest"
+            android:layout_alignEnd="@+id/nameOfRequest"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/sharp_grotesk_light20"
+            android:gravity="center"
+            android:text="13:05 PM"
+            android:textSize="12dp" />
+
+    </RelativeLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
