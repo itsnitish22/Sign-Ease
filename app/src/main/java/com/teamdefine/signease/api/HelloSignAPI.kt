@@ -23,4 +23,9 @@ interface HelloSignAPI {
         @Path("sign_id") sign_id: String,
         @Query("get_url") get_url: Boolean
     ): Download
+
+    @POST("v3/signature_request/cancel/{sign_id}")
+    suspend fun deleteRequest(
+        @Path("sign_id") sign_id: String
+    )
 }

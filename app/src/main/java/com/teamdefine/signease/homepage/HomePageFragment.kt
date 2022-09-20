@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +30,7 @@ class HomePageFragment : Fragment() {
     private lateinit var viewModel: HomeFragmentViewModel
     var firebaseData = mutableMapOf<String, Any>() //global variable which will store user data
     private var adapter: RecyclerView.Adapter<HomePageAdapter.ViewHolder>? = null
+    private lateinit var dialog: BottomSheetDialog
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onCreateView(
@@ -37,6 +40,7 @@ class HomePageFragment : Fragment() {
         binding = FragmentHomePageBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(requireActivity())[HomeFragmentViewModel::class.java]
         firebaseAuth = FirebaseAuth.getInstance()
+        dialog = BottomSheetDialog(requireContext())
 
         //checking if user is logged in or not
         val loggedIn = checkUser()
@@ -51,12 +55,14 @@ class HomePageFragment : Fragment() {
         viewModel.requests.observe(requireActivity()) { requests ->
             if (binding.swipeRefresh.isRefreshing)
                 binding.swipeRefresh.isRefreshing = false
-
+            Log.i("helloabc", "called again")
             val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
             val currentDate = sdf.format(Date())
+            Log.i("helloabc", requests.list_info.num_results.toString())
 
             binding.totalRequests.text = requests.list_info.num_results.toString()
             binding.lastUpdated.text = "Last Updated: $currentDate"
+            Log.i("helloabc", "called again")
 
             sendSignRequestsToRecycler(requests.signature_requests)
         }
@@ -70,6 +76,18 @@ class HomePageFragment : Fragment() {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(url)
             startActivity(intent)
+        }
+
+        viewModel.check.observe(requireActivity()) { check ->
+            if (check == true) {
+                dialog.dismiss()
+                binding.swipeRefresh.isRefreshing = true
+                Handler().postDelayed({
+                    viewModel.getSignatureRequests()
+                    //doSomethingHere()
+                }, 1000)
+//                viewModel.getSignatureRequests()
+            }
         }
 
         //on swipe refresh, call the api can observer changes
@@ -92,15 +110,27 @@ class HomePageFragment : Fragment() {
     }
 
     private fun showBottomSheet(signature: SignatureRequest) {
-        val dialog = BottomSheetDialog(requireContext())
+//        val dialog = BottomSheetDialog(requireContext())
         val view = layoutInflater.inflate(R.layout.bottom_sheet, null)
         val downloadButton = view.findViewById<Button>(R.id.downloadButton)
         val showNameText = view.findViewById<TextView>(R.id.subjectRequest)
+        val deleteButton = view.findViewById<Button>(R.id.deleteButton)
+        deleteButton.isActivated = false
+        deleteButton.isClickable = false
         showNameText.text = signature.subject
         downloadButton.setOnClickListener {
             viewModel.getFileUrl(signature.signature_request_id)
             dialog.dismiss()
         }
+        if (!signature.is_complete) {
+            deleteButton.isActivated = true
+            deleteButton.isClickable = true
+            deleteButton.setOnClickListener {
+                viewModel.deleteRequest(signature.signature_request_id)
+            }
+        }
+
+
         dialog.setCancelable(true)
         dialog.setContentView(view)
         dialog.show()

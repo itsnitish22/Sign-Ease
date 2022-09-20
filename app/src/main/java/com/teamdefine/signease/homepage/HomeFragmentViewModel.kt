@@ -28,6 +28,10 @@ class HomeFragmentViewModel : ViewModel() {
     val url: LiveData<String>
         get() = _url
 
+    private val _check: MutableLiveData<Boolean> = MutableLiveData(false)
+    val check: LiveData<Boolean>
+        get() = _check
+
     fun getSignatureRequests() {
         viewModelScope.launch {
             val signatureRequestsResponse = RetrofitInstance.api.getSignatureRequests()
@@ -59,6 +63,13 @@ class HomeFragmentViewModel : ViewModel() {
         viewModelScope.launch {
             val fileUrl = RetrofitInstance.api.getURL(sign_id, true)
             _url.value = fileUrl.file_url
+        }
+    }
+
+    fun deleteRequest(sign_id: String) {
+        viewModelScope.launch {
+            RetrofitInstance.api.deleteRequest(sign_id)
+            _check.value = true
         }
     }
 }
