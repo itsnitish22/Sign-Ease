@@ -10,6 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 private const val BASE_URL = "https://api.hellosign.com/"
 
 object RetrofitInstance {
+    //interceptors
     var loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     var clientBuilder: OkHttpClient.Builder = OkHttpClient.Builder().addInterceptor(
         loggingInterceptor
@@ -18,8 +19,9 @@ object RetrofitInstance {
             BuildConfig.API_KEY,
             ""
         )
-    )         //Sending username and password to Basic Auth Interceptor to generate the token
+    ) //Sending username and password to Basic Auth Interceptor to generate the token
 
+    //private instance
     private val retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -28,6 +30,7 @@ object RetrofitInstance {
             .build()
     }
 
+    //public instance
     val api: HelloSignAPI by lazy {
         retrofit.create(HelloSignAPI::class.java)
     }

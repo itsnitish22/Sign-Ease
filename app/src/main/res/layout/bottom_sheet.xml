@@ -29,7 +29,6 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
             android:backgroundTint="#0061fe"
             android:fontFamily="@font/sharp_grotesk_medium20"
             android:text="Download"
@@ -45,10 +44,26 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:backgroundTint="#0061fe"
+            android:backgroundTint="#FF0000"
             android:fontFamily="@font/sharp_grotesk_medium20"
             android:text="Delete"
             android:textAllCaps="false"
+            app:cornerRadius="10dp" />
+
+        <Button
+            android:id="@+id/deleteButton2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/downloadButton"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#808080"
+            android:fontFamily="@font/sharp_grotesk_medium20"
+            android:text="Delete"
+            android:textAllCaps="false"
+            android:visibility="gone"
             app:cornerRadius="10dp" />
     </RelativeLayout>
 

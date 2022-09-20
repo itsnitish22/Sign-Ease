@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class HomeFragmentViewModel : ViewModel() {
     private lateinit var firebaseAuth: FirebaseAuth
-    var firebaseData = mutableMapOf<String, Any>() //global variable which will store user data
+    var firebaseData = mutableMapOf<String, Any>()
 
     private val _requests: MutableLiveData<SignatureRequests> = MutableLiveData()
     val requests: LiveData<SignatureRequests>
@@ -32,6 +32,7 @@ class HomeFragmentViewModel : ViewModel() {
     val check: LiveData<Boolean>
         get() = _check
 
+    //getting signature requests
     fun getSignatureRequests() {
         viewModelScope.launch {
             val signatureRequestsResponse = RetrofitInstance.api.getSignatureRequests()
@@ -39,6 +40,7 @@ class HomeFragmentViewModel : ViewModel() {
         }
     }
 
+    //getting data from firestore
     @SuppressLint("LongLogTag")
     fun getDataFromFirestore() {
         viewModelScope.launch {
@@ -59,6 +61,7 @@ class HomeFragmentViewModel : ViewModel() {
         }
     }
 
+    //getting public download link of file
     fun getFileUrl(sign_id: String) {
         viewModelScope.launch {
             val fileUrl = RetrofitInstance.api.getURL(sign_id, true)
@@ -66,6 +69,7 @@ class HomeFragmentViewModel : ViewModel() {
         }
     }
 
+    //delete request
     fun deleteRequest(sign_id: String) {
         viewModelScope.launch {
             RetrofitInstance.api.deleteRequest(sign_id)
