@@ -19,5 +19,8 @@ interface HelloSignAPI {
     suspend fun getTemplates(): Templates
 
     @GET("v3/signature_request/files/{sign_id}")
-    suspend fun getURL(@Path("sign_id") sign_id:String,@Query("get_url") get_url:Boolean):Download
+    suspend fun getURL(
+        @Path("sign_id") sign_id: String,
+        @Query("get_url") get_url: Boolean
+    ): Download
 }

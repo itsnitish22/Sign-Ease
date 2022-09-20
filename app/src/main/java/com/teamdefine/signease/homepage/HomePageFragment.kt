@@ -4,18 +4,17 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.teamdefine.signease.R
 import com.teamdefine.signease.api.models.get_all_sign_requests.SignatureRequest
@@ -84,7 +83,7 @@ class HomePageFragment : Fragment() {
     private fun sendSignRequestsToRecycler(signatureRequests: ArrayList<SignatureRequest>) {
         adapter = HomePageAdapter(signatureRequests, object : HomePageAdapter.ItemClickListener {
             override fun onItemClick(signature: SignatureRequest, position: Int) {
-                performOptionsMenuClick(signature, position)
+                showBottomSheet(signature)
             }
         })
         binding.recyclerView.adapter = adapter
@@ -92,23 +91,19 @@ class HomePageFragment : Fragment() {
         binding.progressBar.visibility = View.GONE
     }
 
-    private fun performOptionsMenuClick(signature: SignatureRequest, position: Int) {
-        val popupMenu =
-            PopupMenu(activity, binding.recyclerView[position].findViewById(R.id.optionsMenu))
-        popupMenu.inflate(R.menu.main_menu)
-        popupMenu.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
-            override fun onMenuItemClick(item: MenuItem?): Boolean {
-                when (item?.itemId) {
-                    R.id.downloadOption -> {
-                        Log.i("HomePageFrag Menu", "Download ${signature.subject}")
-                        downloadFile(signature.signature_request_id)
-                        return true
-                    }
-                }
-                return false
-            }
-        })
-        popupMenu.show()
+    private fun showBottomSheet(signature: SignatureRequest) {
+        val dialog = BottomSheetDialog(requireContext())
+        val view = layoutInflater.inflate(R.layout.bottom_sheet, null)
+        val downloadButton = view.findViewById<Button>(R.id.downloadButton)
+        val showNameText = view.findViewById<TextView>(R.id.subjectRequest)
+        showNameText.text = signature.subject
+        downloadButton.setOnClickListener {
+            viewModel.getFileUrl(signature.signature_request_id)
+            dialog.dismiss()
+        }
+        dialog.setCancelable(true)
+        dialog.setContentView(view)
+        dialog.show()
     }
 
     private fun downloadFile(signatureRequestId: String) {

@@ -24,8 +24,8 @@ class HomeFragmentViewModel : ViewModel() {
     val data: LiveData<MutableMap<String, Any>>
         get() = _data
 
-    private val _url:MutableLiveData<String> = MutableLiveData()
-    val url:LiveData<String>
+    private val _url: MutableLiveData<String> = MutableLiveData()
+    val url: LiveData<String>
         get() = _url
 
     fun getSignatureRequests() {
@@ -54,10 +54,11 @@ class HomeFragmentViewModel : ViewModel() {
             }
         }
     }
-    fun getFileUrl(sign_id:String){
+
+    fun getFileUrl(sign_id: String) {
         viewModelScope.launch {
-            val fileUrl=RetrofitInstance.api.getURL(sign_id,true)
-            _url.value=fileUrl.file_url
+            val fileUrl = RetrofitInstance.api.getURL(sign_id, true)
+            _url.value = fileUrl.file_url
         }
     }
 }
