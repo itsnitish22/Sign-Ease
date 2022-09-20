@@ -1,6 +1,8 @@
 package com.teamdefine.signease.homepage
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -63,6 +65,12 @@ class HomePageFragment : Fragment() {
             binding.welcomeText.text = "Welcome $firstName"
         }
 
+        viewModel.url.observe(requireActivity()) {url->
+            val intent= Intent(Intent.ACTION_VIEW)
+            intent.data= Uri.parse(url)
+            startActivity(intent)
+        }
+
         //on swipe refresh, call the api can observer changes
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.getSignatureRequests()
@@ -76,6 +84,8 @@ class HomePageFragment : Fragment() {
             override fun onItemClick(signature: SignatureRequest, position: Int) {
                 val url = URL(signature.files_url)
                 val outputFileName = "${signature.subject} + $position"
+                viewModel.getFileUrl(signature.signature_request_id)
+
 //                viewModel.downloadPdf(url, outputFileName)
             }
         })

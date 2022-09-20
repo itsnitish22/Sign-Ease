@@ -24,6 +24,10 @@ class HomeFragmentViewModel : ViewModel() {
     val data: LiveData<MutableMap<String, Any>>
         get() = _data
 
+    private val _url:MutableLiveData<String> = MutableLiveData()
+    val url:LiveData<String>
+        get() = _url
+
     fun getSignatureRequests() {
         viewModelScope.launch {
             val signatureRequestsResponse = RetrofitInstance.api.getSignatureRequests()
@@ -50,21 +54,10 @@ class HomeFragmentViewModel : ViewModel() {
             }
         }
     }
-
-//    fun downloadPdf(url: URL, nameOfFile: String){
-//        viewModelScope.launch {
-//            url.openStream().use { inp ->
-//                BufferedInputStream(inp).use { bis ->
-//                    FileOutputStream(nameOfFile).use { fos ->
-//                        val data = ByteArray(1024)
-//                        var count: Int
-//                        while (bis.read(data, 0, 1024).also { count = it } != -1) {
-//                            fos.write(data, 0, count)
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-
+    fun getFileUrl(sign_id:String){
+        viewModelScope.launch {
+            val fileUrl=RetrofitInstance.api.getURL(sign_id,true)
+            _url.value=fileUrl.file_url
+        }
+    }
 }

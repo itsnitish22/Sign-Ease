@@ -4,5 +4,6 @@ data class SignatureRequest(
     val subject: String,
     val created_at: Long,
     val is_complete: Boolean,
-    val files_url: String
+    val files_url: String,
+    val signature_request_id:String
 )

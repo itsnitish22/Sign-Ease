@@ -18,8 +18,9 @@
             android:layout_height="35dp"
             android:ellipsize="end"
             android:fontFamily="@font/sharp_grotesk_medium20"
-            android:gravity="center"
+            android:gravity="center|start"
             android:maxLines="1"
+            android:layout_marginStart="15dp"
             android:text="Application For Duty Leave"
             android:textSize="18dp" />
 
@@ -42,7 +43,7 @@
             android:layout_alignEnd="@+id/nameOfRequest"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/sharp_grotesk_light20"
-            android:gravity="center"
+            android:gravity="center|start"
             android:text="13:05 PM"
             android:textSize="12dp" />
 
