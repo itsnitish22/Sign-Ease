@@ -23,15 +23,29 @@
             android:text="Application For Duty Leave"
             android:textSize="18dp" />
 
-        <ImageView
-            android:id="@+id/statusOfRequest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <!--        <ImageView-->
+        <!--            android:id="@+id/statusOfRequest"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_alignTop="@+id/nameOfRequest"-->
+        <!--            android:layout_alignBottom="@+id/timeOfRequest"-->
+        <!--            android:layout_marginStart="5dp"-->
+        <!--            android:layout_toEndOf="@+id/nameOfRequest"-->
+        <!--            app:srcCompat="@drawable/hourglass" />-->
+
+
+        <TextView
+            android:id="@+id/optionsMenu"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
             android:layout_alignTop="@+id/nameOfRequest"
             android:layout_alignBottom="@+id/timeOfRequest"
-            android:layout_marginStart="5dp"
-            android:layout_toEndOf="@+id/nameOfRequest"
-            app:srcCompat="@drawable/hourglass" />
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:text="⋮"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/timeOfRequest"

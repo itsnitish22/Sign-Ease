@@ -4,17 +4,20 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.teamdefine.signease.R
 import com.teamdefine.signease.api.models.get_all_sign_requests.SignatureRequest
 import com.teamdefine.signease.databinding.FragmentHomePageBinding
-import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -58,7 +61,6 @@ class HomePageFragment : Fragment() {
         }
 
         viewModel.data.observe(requireActivity()) { data ->
-            Log.i("Home Page Frag 2", firebaseData.toString())
             val firstName = data["fullName"].toString().substringBefore(" ", "Not Found")
             binding.welcomeText.text = "Welcome $firstName"
         }
@@ -74,14 +76,30 @@ class HomePageFragment : Fragment() {
     private fun sendSignRequestsToRecycler(signatureRequests: ArrayList<SignatureRequest>) {
         adapter = HomePageAdapter(signatureRequests, object : HomePageAdapter.ItemClickListener {
             override fun onItemClick(signature: SignatureRequest, position: Int) {
-                val url = URL(signature.files_url)
-                val outputFileName = "${signature.subject} + $position"
-//                viewModel.downloadPdf(url, outputFileName)
+                performOptionsMenuClick(signature, position)
             }
         })
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.progressBar.visibility = View.GONE
+    }
+
+    private fun performOptionsMenuClick(signature: SignatureRequest, position: Int) {
+        val popupMenu =
+            PopupMenu(activity, binding.recyclerView[position].findViewById(R.id.optionsMenu))
+        popupMenu.inflate(R.menu.main_menu)
+        popupMenu.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
+            override fun onMenuItemClick(item: MenuItem?): Boolean {
+                when (item?.itemId) {
+                    R.id.downloadOption -> {
+                        Log.i("HomePageFrag Menu", "Download ${signature.subject}")
+                        return true
+                    }
+                }
+                return false
+            }
+        })
+        popupMenu.show()
     }
 
     //checking and returning if the user is logged in or not
