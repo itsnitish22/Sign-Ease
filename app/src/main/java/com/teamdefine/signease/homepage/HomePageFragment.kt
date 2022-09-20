@@ -1,6 +1,8 @@
 package com.teamdefine.signease.homepage
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -65,6 +67,12 @@ class HomePageFragment : Fragment() {
             binding.welcomeText.text = "Welcome $firstName"
         }
 
+        viewModel.url.observe(requireActivity()) { url ->
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+        }
+
         //on swipe refresh, call the api can observer changes
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.getSignatureRequests()
@@ -93,6 +101,7 @@ class HomePageFragment : Fragment() {
                 when (item?.itemId) {
                     R.id.downloadOption -> {
                         Log.i("HomePageFrag Menu", "Download ${signature.subject}")
+                        downloadFile(signature.signature_request_id)
                         return true
                     }
                 }
@@ -100,6 +109,10 @@ class HomePageFragment : Fragment() {
             }
         })
         popupMenu.show()
+    }
+
+    private fun downloadFile(signatureRequestId: String) {
+        viewModel.getFileUrl(signatureRequestId)
     }
 
     //checking and returning if the user is logged in or not
