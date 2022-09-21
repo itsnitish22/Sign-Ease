@@ -1,8 +1,10 @@
 package com.teamdefine.signease.homepage
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.teamdefine.signease.R
@@ -23,6 +25,7 @@ class HomePageAdapter(
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameOfRequest: TextView = itemView.findViewById(R.id.nameOfRequest)
         val timeOfRequest: TextView = itemView.findViewById(R.id.timeOfRequest)
+        val image:ImageView=itemView.findViewById(R.id.statusButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,6 +41,10 @@ class HomePageAdapter(
         holder.itemView.setOnClickListener {
             itemClickListener.onItemClick(signatureList[position], position)
         }
+        if(signature.is_complete)
+            holder.image.setColorFilter(Color.GREEN)
+        else
+            holder.image.setColorFilter(Color.YELLOW)
     }
 
     override fun getItemCount(): Int {

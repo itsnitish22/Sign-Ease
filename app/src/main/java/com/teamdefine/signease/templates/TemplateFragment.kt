@@ -48,7 +48,6 @@ class TemplateFragment : Fragment() {
         binding = FragmentTemplateBinding.inflate(inflater, container, false) //binding
         viewModel =
             ViewModelProvider(requireActivity())[TemplateListViewModel::class.java] //setting viewModel
-
         viewModel.getTemplates()    //getting templates and observing changes
         viewModel.templates.observe(requireActivity()) { template ->
             Log.i("Template Fragment", template.toString())
