@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="6dp"
@@ -21,32 +22,8 @@
             android:fontFamily="@font/sharp_grotesk_medium20"
             android:gravity="center|start"
             android:maxLines="1"
-            android:text="Application For Duty Leave"
-            android:textSize="18dp" />
-
-        <!--        <ImageView-->
-        <!--            android:id="@+id/statusOfRequest"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_alignTop="@+id/nameOfRequest"-->
-        <!--            android:layout_alignBottom="@+id/timeOfRequest"-->
-        <!--            android:layout_marginStart="5dp"-->
-        <!--            android:layout_toEndOf="@+id/nameOfRequest"-->
-        <!--            app:srcCompat="@drawable/hourglass" />-->
-
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/optionsMenu"-->
-        <!--            android:layout_width="20dp"-->
-        <!--            android:layout_height="30dp"-->
-        <!--            android:layout_alignTop="@+id/nameOfRequest"-->
-        <!--            android:layout_alignBottom="@+id/timeOfRequest"-->
-        <!--            android:layout_alignParentTop="true"-->
-        <!--            android:layout_alignParentEnd="true"-->
-        <!--            android:gravity="center"-->
-        <!--            android:text="⋮"-->
-        <!--            android:textAppearance="?android:textAppearanceLarge"-->
-        <!--            android:textStyle="bold" />-->
+            android:textSize="18dp"
+            tools:text="Application For Duty Leave" />
 
         <TextView
             android:id="@+id/timeOfRequest"
@@ -57,8 +34,8 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/sharp_grotesk_light20"
             android:gravity="center|start"
-            android:text="13:05 PM"
-            android:textSize="12dp" />
+            android:textSize="12dp"
+            tools:text="13:05 PM" />
 
         <ImageView
             android:id="@+id/statusButton"

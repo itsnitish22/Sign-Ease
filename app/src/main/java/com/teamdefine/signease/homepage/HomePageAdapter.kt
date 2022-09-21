@@ -40,10 +40,6 @@ class HomePageAdapter(
         holder.itemView.setOnClickListener {
             itemClickListener.onItemClick(signatureList[position], position)
         }
-//        if (signature.is_complete)
-//            holder.statusButton.setColorFilter(Color.GREEN)
-//        else
-//            holder.statusButton.setColorFilter(Color.YELLOW)
         if (signature.is_complete)
             holder.statusButton.setImageResource(R.drawable.radio_button_2)
         else

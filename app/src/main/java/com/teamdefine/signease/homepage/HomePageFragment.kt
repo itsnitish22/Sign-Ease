@@ -53,6 +53,17 @@ class HomePageFragment : Fragment() {
         } else
             Toast.makeText(activity, "Log in first", Toast.LENGTH_SHORT).show()
 
+        //log out button
+        binding.logOut.setOnClickListener {
+            val loggedIn = checkUser() //checks if the user if logged in
+            if (loggedIn) { //if yes, log out
+                firebaseAuth.signOut()
+                val navigation = HomePageFragmentDirections.actionHomePageFragmentToLoginFragment()
+                findNavController().navigate(navigation)
+
+            }
+        }
+
         //observing changes in the received signature requests
         viewModel.requests.observe(requireActivity()) { requests ->
             //if already refreshing, stop it
