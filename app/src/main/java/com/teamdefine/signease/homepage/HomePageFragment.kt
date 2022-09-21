@@ -132,6 +132,7 @@ class HomePageFragment : Fragment() {
 
     @SuppressLint("ResourceAsColor")
     private fun showBottomSheet(signature: SignatureRequest) {
+        //inflated bottom sheet
         val view = layoutInflater.inflate(R.layout.bottom_sheet, null)
 
         //views, without binding
