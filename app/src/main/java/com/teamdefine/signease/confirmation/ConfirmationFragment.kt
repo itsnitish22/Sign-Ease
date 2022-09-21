@@ -35,10 +35,14 @@ class ConfirmationFragment : Fragment() {
             viewModel.sendDocumentForSignature(requestBody) //sending request body to Post request
         }
 
-        viewModel.check.observe(requireActivity()){check->
-            if(check){
+        viewModel.check.observe(requireActivity()) { check ->
+            if (check) {
                 Handler().postDelayed({ //delay of 1 sec, server takes some time to update the total no of requests
-                    findNavController().navigate(ConfirmationFragmentDirections.actionConfirmationFragmentToHomePageFragment(1))
+                    findNavController().navigate(
+                        ConfirmationFragmentDirections.actionConfirmationFragmentToHomePageFragment(
+                            1
+                        )
+                    )
                 }, 5000)
             }
         }
