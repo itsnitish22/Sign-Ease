@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,21 +24,19 @@ import com.teamdefine.signease.databinding.FragmentTemplateBinding
 import java.util.*
 
 class TemplateFragment : Fragment() {
-    private var layoutManager: RecyclerView.LayoutManager? = null //layout of recycler
     private var adapter: RecyclerView.Adapter<TemplateListAdapter.ViewHolder>? =
         null // recycler adapter
-    private lateinit var binding: FragmentTemplateBinding
-    private lateinit var viewModel: TemplateListViewModel
+    private lateinit var binding: FragmentTemplateBinding //binding
+    private lateinit var viewModel: TemplateListViewModel //viewmodel
     private val templateList: ArrayList<Template> =
         arrayListOf()   //List of Templates to pass in the recycler view
     private var templateSelected: Template =
         Template("", "", 0)   //Empty template created to further store the clicked template
-    private lateinit var currentUserDetail: MutableMap<String, Any>
+    private lateinit var currentUserDetail: MutableMap<String, Any> //users detail
 
     //will be initialized when calendar returns the date on selection
-    var dateSelectedByUser: String = ""
-
-    var formatDate = SimpleDateFormat("dd MMMM YYYY", Locale.US)
+    var dateSelectedByUser: String = "" //date selected by user, initially empty
+    var formatDate = SimpleDateFormat("dd MMMM YYYY", Locale.US) //date formatting
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,17 +45,26 @@ class TemplateFragment : Fragment() {
         binding = FragmentTemplateBinding.inflate(inflater, container, false) //binding
         viewModel =
             ViewModelProvider(requireActivity())[TemplateListViewModel::class.java] //setting viewModel
+        binding.progressBar.visibility =
+            View.VISIBLE //on initial opening of screen, show progress bar
+
         viewModel.getTemplates()    //getting templates and observing changes
         viewModel.templates.observe(requireActivity()) { template ->
             Log.i("Template Fragment", template.toString())
-            addDataToArrayList(template)
+            addDataToArrayList(template) //adding the data to array list
         }
 
-        viewModel.getDataFromFirestore()    //getting current user data from Firestore
-        viewModel.data.observe(requireActivity(), Observer { data ->
-            currentUserDetail = data
-            Log.i("helloabc89", data.toString())
-        })
+        //getting current user data from firestore
+        viewModel.getDataFromFirestore()
+        viewModel.data.observe(requireActivity()) { data ->
+            currentUserDetail = data //setting global variables
+        }
+
+        //observing, if the templates are received or not
+        viewModel.completed.observe(requireActivity()) { completed ->
+            if (completed) //if completed, hide progress bar
+                binding.progressBar.visibility = View.GONE
+        }
 
         return binding.root
     }
@@ -72,7 +78,7 @@ class TemplateFragment : Fragment() {
                 val t = Template(i.template_id, i.title, i.updated_at)
                 templateList.add(t)
             }
-            sendToRecyclerView()        //sending array list to recycler view
+            sendToRecyclerView() //sending array list to recycler view
         }
     }
 
@@ -83,14 +89,15 @@ class TemplateFragment : Fragment() {
             object : TemplateListAdapter.ItemClickListener {
                 override fun onItemClick(template: Template) {
                     templateSelected = template //initializing template details which is clicked
-                    getCalendar(requireContext())   //show calendar and get a date from user
+                    getCalendar(requireContext()) //show calendar and get a date from user
                 }
             })
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
     }
 
-    fun getCalendar(requireContext: Context): String {    //get calendar function to pick a date
+    //get calendar function to pick a date
+    fun getCalendar(requireContext: Context): String {
         var date = ""
         val getDate = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(
@@ -114,7 +121,8 @@ class TemplateFragment : Fragment() {
         return date
     }
 
-    private fun requestBody() {     //Creating the request body for Post request
+    //creating the request body for post request
+    private fun requestBody() {
         val template_ids = arrayListOf(templateSelected.template_id)
         val subject = templateSelected.title
         val message = "Kindly review and approve my Duty Leave application."

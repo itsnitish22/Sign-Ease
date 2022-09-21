@@ -15,6 +15,11 @@ class TemplateListViewModel : ViewModel() {
     private val _templates: MutableLiveData<Templates> = MutableLiveData()
     val templates: LiveData<Templates>
         get() = _templates
+
+    private val _completed: MutableLiveData<Boolean> = MutableLiveData(false)
+    val completed: LiveData<Boolean>
+        get() = _completed
+
     private lateinit var firebaseAuth: FirebaseAuth
     var firebaseData = mutableMapOf<String, Any>() //global variable which will store user data
     private val _data: MutableLiveData<MutableMap<String, Any>> = MutableLiveData()
@@ -26,6 +31,7 @@ class TemplateListViewModel : ViewModel() {
             val templatesResponse = RetrofitInstance.api.getTemplates()
             Log.i("Template List VM", templatesResponse.toString())
             _templates.value = templatesResponse
+            _completed.value = true
         }
     }
 
