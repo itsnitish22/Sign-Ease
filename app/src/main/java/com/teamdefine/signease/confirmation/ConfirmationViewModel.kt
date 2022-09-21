@@ -12,16 +12,17 @@ import kotlinx.coroutines.launch
 
 class ConfirmationViewModel : ViewModel() {
 
-    private val _check:MutableLiveData<Boolean> = MutableLiveData()
-    val check:LiveData<Boolean>
+    private val _check: MutableLiveData<Boolean> = MutableLiveData()
+    val check: LiveData<Boolean>
         get() = _check
+
     @SuppressLint("LongLogTag")
     fun sendDocumentForSignature(document: Document) {
         viewModelScope.launch {
             try {
                 Log.i("Confirmation View Model 1", document.toString())
                 val response = RetrofitInstance.api.sendDocForSignatures(document)
-                _check.value=true
+                _check.value = true
                 Log.i("Confirmation View Model 2", "Done")
                 Log.i("Confirmation View Model 3", response.toString())
             } catch (e: Exception) {

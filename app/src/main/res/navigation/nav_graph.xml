@@ -19,14 +19,14 @@
         android:id="@+id/homePageFragment"
         android:name="com.teamdefine.signease.homepage.HomePageFragment"
         android:label="fragment_home_page"
-        tools:layout="@layout/fragment_home_page" >
+        tools:layout="@layout/fragment_home_page">
         <action
             android:id="@+id/action_homePageFragment_to_templateFragment"
             app:destination="@id/templateFragment" />
         <argument
             android:name="temp"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/confirmationFragment"

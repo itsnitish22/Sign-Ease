@@ -31,7 +31,7 @@ class HomePageFragment : Fragment() {
     private lateinit var viewModel: HomeFragmentViewModel //viewmodel
     private var adapter: RecyclerView.Adapter<HomePageAdapter.ViewHolder>? = null //adapter
     private lateinit var dialog: BottomSheetDialog //bottom sheet
-    private val flag:HomePageFragmentArgs by navArgs()
+    private val flag: HomePageFragmentArgs by navArgs()
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onCreateView(
@@ -100,12 +100,12 @@ class HomePageFragment : Fragment() {
             viewModel.getSignatureRequests() //calling getSignatureRequests() to update in views
         }
 
-        binding.floatingActionButton.setOnClickListener{
+        binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(
                 HomePageFragmentDirections.actionHomePageFragmentToTemplateFragment()
             )
         }
-        if(flag.temp==1){
+        if (flag.temp == 1) {
             binding.swipeRefresh.isRefreshing = true
             viewModel.getSignatureRequests()
         }
