@@ -65,6 +65,7 @@ class TemplateFragment : Fragment() {
 
     //after getting templates, adding those to array list so as to send to recycler view
     private fun addDataToArrayList(template: Templates?) {
+        templateList.clear()
         val templates = template?.templates
         if (templates != null) {
             for (i in templates) {
@@ -86,7 +87,7 @@ class TemplateFragment : Fragment() {
                 }
             })
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
     }
 
     fun getCalendar(requireContext: Context): String {    //get calendar function to pick a date
@@ -114,7 +115,6 @@ class TemplateFragment : Fragment() {
     }
 
     private fun requestBody() {     //Creating the request body for Post request
-
         val template_ids = arrayListOf(templateSelected.template_id)
         val subject = templateSelected.title
         val message = "Kindly review and approve my Duty Leave application."
@@ -135,5 +135,6 @@ class TemplateFragment : Fragment() {
                 document
             )
         )
+        activity?.fragmentManager?.popBackStack();
     }
 }
