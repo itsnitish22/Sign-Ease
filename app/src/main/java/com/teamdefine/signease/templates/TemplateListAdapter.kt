@@ -22,7 +22,7 @@ class TemplateListAdapter(
 
     //view holder class
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var textView: TextView = itemView.findViewById(R.id.textView2)
+        var titleOfTemplate: TextView = itemView.findViewById(R.id.title)
         var date: TextView = itemView.findViewById(R.id.templateDate)
     }
 
@@ -34,7 +34,7 @@ class TemplateListAdapter(
 
     //to bind the fields with the data
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textView.text = templateList[position].title
+        holder.titleOfTemplate.text = templateList[position].title
 
         val date = templateList[position].updated_at  //extracted unix timestamp from response body
         val simpleDateFormat = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)

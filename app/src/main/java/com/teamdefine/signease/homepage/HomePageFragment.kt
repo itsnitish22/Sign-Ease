@@ -57,10 +57,11 @@ class HomePageFragment : Fragment() {
         binding.logOut.setOnClickListener {
             val loggedIn = checkUser(firebaseAuth) //checks if the user if logged in
             if (loggedIn) { //if yes, log out
+                binding.progressBar.visibility = View.VISIBLE
                 firebaseAuth.signOut()
+                binding.progressBar.visibility = View.GONE
                 val navigation = HomePageFragmentDirections.actionHomePageFragmentToLoginFragment()
                 findNavController().navigate(navigation)
-
             }
         }
 
@@ -135,7 +136,7 @@ class HomePageFragment : Fragment() {
         })
         //recycler view stuff
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
 
         //once data is shown in recycler view, disable prgress bar
         binding.progressBar.visibility = View.GONE

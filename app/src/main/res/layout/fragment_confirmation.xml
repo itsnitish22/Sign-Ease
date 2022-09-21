@@ -11,31 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.85" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/con2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
-
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/logoCon6.5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.80" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/logoCon5.5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.70" />
-
-
+        app:layout_constraintGuide_percent="0.95" />
 
     <Button
         android:id="@+id/confirmButton"
@@ -50,42 +33,51 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:cornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="@id/logoCon6.5"
+        app:layout_constraintBottom_toBottomOf="@id/con2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/logoCon5.5" />
+        app:layout_constraintTop_toTopOf="@id/con1" />
 
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Date"
-        app:layout_constraintBottom_toTopOf="@+id/con1"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/confirmButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/userName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintTop_toTopOf="@+id/con1"
-        tools:layout_editor_absoluteX="16dp" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/date"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="Date"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/con1"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent" />-->
 
-    <TextView
-        android:id="@+id/userUID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintTop_toBottomOf="@+id/userName"
-        tools:layout_editor_absoluteX="16dp" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/userName"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="TextView"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/con1"-->
+    <!--        tools:layout_editor_absoluteX="16dp" />-->
 
-    <TextView
-        android:id="@+id/templateSelected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintTop_toBottomOf="@+id/userUID"
-        tools:layout_editor_absoluteX="16dp" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/userUID"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="TextView"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/userName"-->
+    <!--        tools:layout_editor_absoluteX="16dp" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/templateSelected"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="TextView"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/userUID"-->
+    <!--        tools:layout_editor_absoluteX="16dp" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
