@@ -45,7 +45,7 @@ class HomePageFragment : Fragment() {
         dialog = BottomSheetDialog(requireContext()) //bottom sheet
 
         //checking if user is logged in or not
-        val loggedIn = checkUser()
+        val loggedIn = checkUser(firebaseAuth)
         if (loggedIn) { //if logged in
             binding.progressBar.visibility = View.VISIBLE
             viewModel.getSignatureRequests() // getting all signature requests made till date
@@ -55,7 +55,7 @@ class HomePageFragment : Fragment() {
 
         //log out button
         binding.logOut.setOnClickListener {
-            val loggedIn = checkUser() //checks if the user if logged in
+            val loggedIn = checkUser(firebaseAuth) //checks if the user if logged in
             if (loggedIn) { //if yes, log out
                 firebaseAuth.signOut()
                 val navigation = HomePageFragmentDirections.actionHomePageFragmentToLoginFragment()
@@ -179,7 +179,7 @@ class HomePageFragment : Fragment() {
     }
 
     //checking and returning if the user is logged in or not
-    private fun checkUser(): Boolean {
+    fun checkUser(firebaseAuth: FirebaseAuth): Boolean {
         val firebaseUser = firebaseAuth.currentUser
         if (firebaseUser != null)
             return true

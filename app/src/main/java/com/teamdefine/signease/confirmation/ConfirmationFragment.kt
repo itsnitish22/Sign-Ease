@@ -22,7 +22,6 @@ class ConfirmationFragment : Fragment() {
     private val flag: ConfirmationFragmentArgs by navArgs()
     private lateinit var requestBody: Document
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,6 +30,7 @@ class ConfirmationFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity())[ConfirmationViewModel::class.java]
         requestBody = flag.requestBody
         Log.i("helloabc56", requestBody.toString())
+        displayData()
         binding.confirmButton.setOnClickListener {
             viewModel.sendDocumentForSignature(requestBody) //sending request body to Post request
         }
@@ -47,5 +47,16 @@ class ConfirmationFragment : Fragment() {
             }
         }
         return binding.root
+    }
+
+    private fun displayData() {
+        binding.date.text=requestBody.custom_fields[2].value
+        binding.userName.text=requestBody.custom_fields[0].value
+        binding.userUID.text=requestBody.custom_fields[1].value
+        binding.templateSelected.text=requestBody.subject
+
+
+
+
     }
 }

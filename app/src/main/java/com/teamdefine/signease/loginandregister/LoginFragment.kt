@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.teamdefine.signease.databinding.FragmentLoginBinding
 
@@ -32,6 +33,9 @@ class LoginFragment : Fragment() {
                 loginUser(email, password)
             }
         }
+        binding.signUp.setOnClickListener {
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+        }
         return binding.root
     }
 
@@ -43,6 +47,7 @@ class LoginFragment : Fragment() {
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(activity, "Logged In", Toast.LENGTH_SHORT)
                         .show()
+                    findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
                 } else {
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(

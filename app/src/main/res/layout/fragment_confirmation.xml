@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/con2"
@@ -20,19 +20,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.25" />
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center"
-        android:text="When do you want to apply for the leave?"
-        android:textSize="18sp"
-        app:fontFamily="@font/sharp_grotesk_medium20"
-        app:layout_constraintBottom_toBottomOf="@id/con2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/con1" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/logoCon6.5"
@@ -48,34 +35,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.70" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/date"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginLeft="30dp"-->
-    <!--        android:layout_marginRight="10dp"-->
-    <!--        android:gravity="center|left"-->
-    <!--        android:text="01 January 2001"-->
-    <!--        android:textColor="@color/black"-->
-    <!--        android:textSize="18sp"-->
-    <!--        android:textStyle="bold"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toStartOf="@+id/selectDate"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <!--    <Button-->
-    <!--        android:id="@+id/selectDate"-->
-    <!--        android:layout_width="150dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginLeft="60dp"-->
-    <!--        android:layout_marginRight="30dp"-->
-    <!--        android:text="Select Date"-->
-    <!--        android:textAllCaps="false"-->
-    <!--        android:textColor="@color/black"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <Button
         android:id="@+id/confirmButton"
@@ -95,16 +55,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/logoCon5.5" />
 
-    <!--    <DatePicker-->
-    <!--        android:id="@+id/datePicker"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        android:calendarViewShown="false"-->
-    <!--        android:datePickerMode="spinner"/>-->
-    <!--    -->
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        app:layout_constraintBottom_toTopOf="@+id/con1"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintTop_toTopOf="@+id/con1"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <TextView
+        android:id="@+id/userUID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintTop_toBottomOf="@+id/userName"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <TextView
+        android:id="@+id/templateSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintTop_toBottomOf="@+id/userUID"
+        tools:layout_editor_absoluteX="16dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
