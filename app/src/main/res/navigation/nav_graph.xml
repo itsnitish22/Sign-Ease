@@ -19,7 +19,15 @@
         android:id="@+id/homePageFragment"
         android:name="com.teamdefine.signease.homepage.HomePageFragment"
         android:label="fragment_home_page"
-        tools:layout="@layout/fragment_home_page" />
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_homePageFragment_to_templateFragment"
+            app:destination="@id/templateFragment" />
+        <argument
+            android:name="temp"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
     <fragment
         android:id="@+id/confirmationFragment"
         android:name="com.teamdefine.signease.confirmation.ConfirmationFragment"
@@ -28,6 +36,9 @@
         <argument
             android:name="requestBody"
             app:argType="com.teamdefine.signease.api.models.post_template_for_sign.Document" />
+        <action
+            android:id="@+id/action_confirmationFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
     </fragment>
     <fragment
         android:id="@+id/templateFragment"

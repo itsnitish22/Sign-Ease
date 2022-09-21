@@ -13,6 +13,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -29,6 +31,7 @@ class HomePageFragment : Fragment() {
     private lateinit var viewModel: HomeFragmentViewModel //viewmodel
     private var adapter: RecyclerView.Adapter<HomePageAdapter.ViewHolder>? = null //adapter
     private lateinit var dialog: BottomSheetDialog //bottom sheet
+    private val flag:HomePageFragmentArgs by navArgs()
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onCreateView(
@@ -95,6 +98,16 @@ class HomePageFragment : Fragment() {
         //on swipe refresh, call the api can observer changes
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.getSignatureRequests() //calling getSignatureRequests() to update in views
+        }
+
+        binding.floatingActionButton.setOnClickListener{
+            findNavController().navigate(
+                HomePageFragmentDirections.actionHomePageFragmentToTemplateFragment()
+            )
+        }
+        if(flag.temp==1){
+            binding.swipeRefresh.isRefreshing = true
+            viewModel.getSignatureRequests()
         }
 
         return binding.root
