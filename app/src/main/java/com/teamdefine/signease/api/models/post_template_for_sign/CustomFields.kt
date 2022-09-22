@@ -6,5 +6,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class CustomFields(
     val name: String,
-    val value: String
+    var value: String
 ) : Parcelable

@@ -19,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamdefine.signease.api.models.get_all_templates.Template
 import com.teamdefine.signease.api.models.get_all_templates.Templates
 import com.teamdefine.signease.api.models.post_template_for_sign.CustomFields
@@ -44,12 +45,10 @@ class TemplateFragment : Fragment() {
     private lateinit var currentUserDetail: MutableMap<String, Any> //users detail
     private lateinit var dialog: BottomSheetDialog //bottom sheet
     private lateinit var bottomView:View
-//    private val bottomView=layoutInflater.inflate(com.teamdefine.signease.R.layout.template_bottom_sheet,null)
-
 
     //will be initialized when calendar returns the date on selection
     var dateSelectedByUser: String = "" //date selected by user, initially empty
-    var formatDate = SimpleDateFormat("dd MMMM YYYY", Locale.US) //date formatting
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -104,7 +103,7 @@ class TemplateFragment : Fragment() {
             object : TemplateListAdapter.ItemClickListener {
                 override fun onItemClick(template: Template) {
                     templateSelected = template //initializing template details which is clicked
-                    getCalendar(requireContext()) //show calendar and get a date from user
+                    getCalendar() //show calendar and get a date from user
                 }
             },
         object : TemplateListAdapter.ItemEyeClickListener{
@@ -116,29 +115,19 @@ class TemplateFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
     }
 
-    //get calendar function to pick a date
-    fun getCalendar(requireContext: Context): String {
-        var date = ""
-        val getDate = Calendar.getInstance()
-        val datePickerDialog = DatePickerDialog(
-            requireContext,
-            R.style.Theme_Holo_Light_Dialog_NoActionBar,
-            { datePicker, i, i2, i3 ->
-                val selectDate = Calendar.getInstance()
-                selectDate.set(Calendar.YEAR, i)
-                selectDate.set(Calendar.MONTH, i2)
-                selectDate.set(Calendar.DAY_OF_MONTH, i3)
-                dateSelectedByUser = formatDate.format(selectDate.time)
-                Log.i("Template Frag", dateSelectedByUser)
-                requestBody()   //calling requestBody() to generate the body after getting the date
-            },
-            getDate.get(Calendar.YEAR),
-            getDate.get(Calendar.MONTH),
-            getDate.get(Calendar.DAY_OF_MONTH)
-        )
-        datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
-        datePickerDialog.show()
-        return date
+    fun getCalendar(){
+        val datePicker =
+            MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Select date").setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .build()
+        datePicker.show(requireFragmentManager(),"tag")
+        datePicker.addOnPositiveButtonClickListener {
+            Log.i("helloabc",it.toString())
+            val simpleDateFormat = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
+            dateSelectedByUser = simpleDateFormat.format( Date(it))
+            requestBody()   //calling requestBody() to generate the body after getting the date
+
+        }
     }
 
     //creating the request body for post request

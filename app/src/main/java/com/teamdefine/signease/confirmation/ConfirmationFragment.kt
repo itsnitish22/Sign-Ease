@@ -1,8 +1,10 @@
 package com.teamdefine.signease.confirmation
 
 import android.annotation.SuppressLint
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamdefine.signease.R
 import com.teamdefine.signease.api.models.post_template_for_sign.Document
 import com.teamdefine.signease.databinding.FragmentConfirmationBinding
+import java.util.*
 
 class ConfirmationFragment : Fragment() {
     private lateinit var viewModel: ConfirmationViewModel
@@ -72,9 +76,7 @@ class ConfirmationFragment : Fragment() {
 
         //click on change template, go to template frag
         binding.changeDateText.setOnClickListener {
-            binding.progressBar.visibility = View.VISIBLE
-            findNavController().navigate(ConfirmationFragmentDirections.actionConfirmationFragmentToTemplateFragment())
-            binding.progressBar.visibility = View.GONE
+            getCalendar()
         }
 
         //on click of confirm  button
@@ -108,6 +110,19 @@ class ConfirmationFragment : Fragment() {
         binding.templateSelectedText.text = templateTitle
 
         binding.progressBar.visibility = View.GONE
+    }
+    private fun getCalendar(){
+        val datePicker =
+            MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Select date").setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .build()
+        datePicker.show(requireFragmentManager(),"tag")
+        datePicker.addOnPositiveButtonClickListener {
+            Log.i("helloabc",it.toString())
+            val newDateSelected = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).format(Date(it))
+            args.requestBody.custom_fields[2].value=newDateSelected
+            binding.dateSelected.text = "Date selected: $newDateSelected"
+        }
     }
 }
 
