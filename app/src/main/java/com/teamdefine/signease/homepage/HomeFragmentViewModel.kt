@@ -35,8 +35,12 @@ class HomeFragmentViewModel : ViewModel() {
     //getting signature requests
     fun getSignatureRequests() {
         viewModelScope.launch {
-            val signatureRequestsResponse = RetrofitInstance.api.getSignatureRequests()
-            _requests.value = signatureRequestsResponse
+            try {
+                val signatureRequestsResponse = RetrofitInstance.api.getSignatureRequests()
+                _requests.value = signatureRequestsResponse
+            } catch (e: Exception) {
+                Log.i("HomePage VM", e.toString())
+            }
         }
     }
 
@@ -64,16 +68,24 @@ class HomeFragmentViewModel : ViewModel() {
     //getting public download link of file
     fun getFileUrl(sign_id: String) {
         viewModelScope.launch {
-            val fileUrl = RetrofitInstance.api.getURL(sign_id, true)
-            _url.value = fileUrl.file_url
+            try {
+                val fileUrl = RetrofitInstance.api.getURL(sign_id, true)
+                _url.value = fileUrl.file_url
+            } catch (e: Exception) {
+                Log.i("HomePage VM", e.toString())
+            }
         }
     }
 
     //delete request
     fun deleteRequest(sign_id: String) {
         viewModelScope.launch {
-            RetrofitInstance.api.deleteRequest(sign_id)
-            _check.value = true
+            try {
+                RetrofitInstance.api.deleteRequest(sign_id)
+                _check.value = true
+            } catch (e: Exception) {
+                Log.i("HomePage VM", e.toString())
+            }
         }
     }
 }

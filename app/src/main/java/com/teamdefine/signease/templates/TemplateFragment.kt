@@ -152,7 +152,7 @@ class TemplateFragment : Fragment() {
     }
 
     @SuppressLint("ResourceAsColor")
-    private fun showBottomSheet(){
-        val view=layoutInflater.inflate(R.layout.)
+    private fun showBottomSheet() {
+//        val view=layoutInflater.inflate(R.layout.bottom_sheet)
     }
 }

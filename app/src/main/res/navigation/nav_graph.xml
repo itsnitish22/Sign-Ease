@@ -24,7 +24,7 @@
             app:destination="@id/registerFragment" />
         <action
             android:id="@+id/action_loginFragment_to_homePageFragment"
-            app:destination="@id/homePageFragment"/>
+            app:destination="@id/homePageFragment" />
     </fragment>
     <fragment
         android:id="@+id/homePageFragment"
@@ -40,7 +40,7 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_homePageFragment_to_loginFragment"
-            app:destination="@id/loginFragment"/>
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/confirmationFragment"

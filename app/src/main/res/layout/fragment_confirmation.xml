@@ -168,12 +168,12 @@
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/sharp_grotesk_medium20"
         android:gravity="center"
-        android:text="Date selected: 16th September, 2022"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@id/view2"
         app:layout_constraintEnd_toEndOf="@id/view2"
         app:layout_constraintStart_toStartOf="@id/view2"
-        app:layout_constraintTop_toTopOf="@id/view2" />
+        app:layout_constraintTop_toTopOf="@id/view2"
+        tools:text="Date selected: 16th September, 2022" />
 
     <TextView
         android:id="@+id/changeDateText"
@@ -205,12 +205,12 @@
         android:layout_marginStart="20dp"
         android:fontFamily="@font/sharp_grotesk_light20"
         android:gravity="start|center"
-        android:text="Nitish Sharma"
         android:textColor="@color/blue"
         android:textSize="19sp"
         app:layout_constraintBottom_toBottomOf="@id/con8"
         app:layout_constraintStart_toEndOf="@id/personName"
-        app:layout_constraintTop_toTopOf="@id/view4" />
+        app:layout_constraintTop_toTopOf="@id/view4"
+        tools:text="Nitish Sharma" />
 
     <ImageView
         android:id="@+id/userId"
@@ -227,16 +227,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:ellipsize="end"
         android:fontFamily="@font/sharp_grotesk_light20"
         android:gravity="start|center"
-        android:maxLines="1"
-        android:text="20BCS4122"
         android:textColor="@color/blue"
         android:textSize="19sp"
         app:layout_constraintBottom_toBottomOf="@id/con9"
         app:layout_constraintStart_toEndOf="@id/userId"
-        app:layout_constraintTop_toTopOf="@id/con8" />
+        app:layout_constraintTop_toTopOf="@id/con8"
+        tools:text="20BCS4122" />
 
     <TextView
         android:id="@+id/templateSelectedText"
@@ -248,12 +246,12 @@
         android:fontFamily="@font/sharp_grotesk_light20"
         android:gravity="start|center"
         android:maxLines="1"
-        android:text="Application For Duty Leave"
         android:textColor="@color/blue"
         android:textSize="19sp"
         app:layout_constraintBottom_toBottomOf="@id/con10"
         app:layout_constraintStart_toEndOf="@id/userId"
-        app:layout_constraintTop_toTopOf="@id/con9" />
+        app:layout_constraintTop_toTopOf="@id/con9"
+        tools:text="Application For Duty Leave" />
 
     <TextView
         android:id="@+id/changeTemplateText"
@@ -263,10 +261,10 @@
         android:fontFamily="@font/sharp_grotesk_medium20"
         android:gravity="start|center"
         android:text="Change Template"
-        app:layout_constraintTop_toBottomOf="@id/templateSelectedText"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/view4"
-        app:layout_constraintEnd_toEndOf="@id/dateSelected" />
+        app:layout_constraintEnd_toEndOf="@id/dateSelected"
+        app:layout_constraintTop_toBottomOf="@id/templateSelectedText" />
 
     <ImageView
         android:id="@+id/templateSelected"

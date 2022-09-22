@@ -11,11 +11,11 @@ import com.teamdefine.signease.api.models.post_template_for_sign.Document
 import kotlinx.coroutines.launch
 
 class ConfirmationViewModel : ViewModel() {
-
     private val _check: MutableLiveData<Boolean> = MutableLiveData()
     val check: LiveData<Boolean>
         get() = _check
 
+    //function to post doc for signs
     @SuppressLint("LongLogTag")
     fun sendDocumentForSignature(document: Document) {
         viewModelScope.launch {
