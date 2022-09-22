@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F1F9FF"
     tools:context=".confirmation.ConfirmationFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -20,13 +21,62 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.95" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/con3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/con4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.16" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/con5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/con6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/con8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.47" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/con9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.59" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/con10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.71" />
+
     <Button
         android:id="@+id/confirmButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:backgroundTint="#0061fe"
+        android:backgroundTint="#808080"
         android:fontFamily="@font/sharp_grotesk_medium20"
         android:text="Confirm"
         android:textColor="@color/white"
@@ -38,46 +88,224 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/con1" />
 
-    <WebView
-        android:id="@+id/webView"
+    <View
+        android:id="@+id/view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/confirmButton"
+        android:background="@drawable/round_corners_2"
+        app:layout_constraintBottom_toBottomOf="@id/con3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/date"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="Date"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/con1"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent" />-->
+    <View
+        android:id="@+id/view2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/round_corners_3"
+        app:layout_constraintBottom_toBottomOf="@id/con5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/con4" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/userName"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="TextView"-->
-    <!--        app:layout_constraintTop_toTopOf="@+id/con1"-->
-    <!--        tools:layout_editor_absoluteX="16dp" />-->
+    <View
+        android:id="@+id/view3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/round_corners_3"
+        app:layout_constraintBottom_toBottomOf="@id/con5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/con4" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/userUID"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="TextView"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/userName"-->
-    <!--        tools:layout_editor_absoluteX="16dp" />-->
+    <View
+        android:id="@+id/view4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/round_corners_3"
+        app:layout_constraintBottom_toBottomOf="@id/con10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/con6" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/templateSelected"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="TextView"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/userUID"-->
-    <!--        tools:layout_editor_absoluteX="16dp" />-->
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="35dp"
+        android:fontFamily="@font/sharp_grotesk_medium20"
+        android:gravity="center"
+        android:text="Sign Ease"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@id/con3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/sharp_grotesk_light20"
+        android:gravity="center"
+        android:text="Verify and confirm your choice"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appName" />
 
+    <TextView
+        android:id="@+id/dateSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/sharp_grotesk_medium20"
+        android:gravity="center"
+        android:text="Date selected: 16th September, 2022"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/view2"
+        app:layout_constraintEnd_toEndOf="@id/view2"
+        app:layout_constraintStart_toStartOf="@id/view2"
+        app:layout_constraintTop_toTopOf="@id/view2" />
+
+    <TextView
+        android:id="@+id/changeDateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/sharp_grotesk_light20"
+        android:gravity="center"
+        android:text="Change Date"
+        android:textColor="@color/blue"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/dateSelected"
+        app:layout_constraintTop_toBottomOf="@id/dateSelected" />
+
+    <ImageView
+        android:id="@+id/personName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:src="@drawable/person"
+        app:layout_constraintBottom_toTopOf="@+id/con8"
+        app:layout_constraintStart_toStartOf="@id/view4"
+        app:layout_constraintTop_toTopOf="@+id/con6" />
+
+    <TextView
+        android:id="@+id/personNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/sharp_grotesk_light20"
+        android:gravity="start|center"
+        android:text="Nitish Sharma"
+        android:textColor="@color/blue"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toBottomOf="@id/con8"
+        app:layout_constraintStart_toEndOf="@id/personName"
+        app:layout_constraintTop_toTopOf="@id/view4" />
+
+    <ImageView
+        android:id="@+id/userId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:src="@drawable/badge"
+        app:layout_constraintBottom_toBottomOf="@id/con9"
+        app:layout_constraintStart_toStartOf="@id/view4"
+        app:layout_constraintTop_toTopOf="@id/con8" />
+
+    <TextView
+        android:id="@+id/userIdText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/sharp_grotesk_light20"
+        android:gravity="start|center"
+        android:maxLines="1"
+        android:text="20BCS4122"
+        android:textColor="@color/blue"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toBottomOf="@id/con9"
+        app:layout_constraintStart_toEndOf="@id/userId"
+        app:layout_constraintTop_toTopOf="@id/con8" />
+
+    <TextView
+        android:id="@+id/templateSelectedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/sharp_grotesk_light20"
+        android:gravity="start|center"
+        android:maxLines="1"
+        android:text="Application For Duty Leave"
+        android:textColor="@color/blue"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toBottomOf="@id/con10"
+        app:layout_constraintStart_toEndOf="@id/userId"
+        app:layout_constraintTop_toTopOf="@id/con9" />
+
+    <TextView
+        android:id="@+id/changeTemplateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/sharp_grotesk_medium20"
+        android:gravity="start|center"
+        android:text="Change Template"
+        app:layout_constraintTop_toBottomOf="@id/templateSelectedText"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/view4"
+        app:layout_constraintEnd_toEndOf="@id/dateSelected" />
+
+    <ImageView
+        android:id="@+id/templateSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:src="@drawable/document"
+        app:layout_constraintBottom_toBottomOf="@id/con10"
+        app:layout_constraintStart_toStartOf="@id/view4"
+        app:layout_constraintTop_toTopOf="@id/con9" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:buttonTint="#0061fe"
+        android:text="@string/termsandconditions"
+        app:layout_constraintBottom_toTopOf="@id/con1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="#0061fe"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--    <WebView-->
+    <!--        android:id="@+id/webView"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/confirmButton"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
