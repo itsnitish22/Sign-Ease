@@ -32,7 +32,6 @@ class SplashScreenFragment : Fragment() {
             Handler().postDelayed({
                 findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToRegisterFragment())
             }, 3000)
-            findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToRegisterFragment())
         }
 
         return binding.root
