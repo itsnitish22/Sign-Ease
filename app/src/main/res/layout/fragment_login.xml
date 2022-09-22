@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.80" />
+        app:layout_constraintGuide_percent="0.77" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/logoCon5.5"
@@ -26,14 +26,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.65" />
+        app:layout_constraintGuide_percent="0.67" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/logoCon10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45" />
+        app:layout_constraintGuide_percent="0.43" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/logoCon4"
@@ -49,6 +49,41 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.90" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/designCon1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.30" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/designCon2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toBottomOf="@id/designCon1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/designCon2" />
+
+    <TextView
+        android:id="@+id/hookLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sharp_grotesk_medium20"
+        android:gravity="center"
+        android:text="Get Your Documents Signed\nWith Ease!"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/designCon1" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/useremail"
         android:layout_width="match_parent"
@@ -58,7 +93,6 @@
         android:fontFamily="@font/sharp_grotesk_light20"
         android:hint="Enter your email"
         app:boxBackgroundColor="@color/light_blue"
-        app:layout_constraintBottom_toBottomOf="@id/logoCon4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/logoCon10">
@@ -81,7 +115,6 @@
         android:fontFamily="@font/sharp_grotesk_light20"
         android:hint="Enter your password"
         app:boxBackgroundColor="@color/light_blue"
-        app:layout_constraintBottom_toBottomOf="@id/logoCon5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/logoCon4"
@@ -112,14 +145,13 @@
         app:layout_constraintBottom_toBottomOf="@id/logoCon6.5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/logoCon5.5" />
+        app:layout_constraintTop_toTopOf="@id/logoCon5" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@id/logoCon7.5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/logoCon6.5">

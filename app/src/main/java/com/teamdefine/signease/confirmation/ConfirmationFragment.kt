@@ -63,6 +63,20 @@ class ConfirmationFragment : Fragment() {
             }
         }
 
+        //click on change template, go to template frag
+        binding.changeTemplateText.setOnClickListener {
+            binding.progressBar.visibility = View.VISIBLE
+            findNavController().navigate(ConfirmationFragmentDirections.actionConfirmationFragmentToTemplateFragment())
+            binding.progressBar.visibility = View.GONE
+        }
+
+        //click on change template, go to template frag
+        binding.changeDateText.setOnClickListener {
+            binding.progressBar.visibility = View.VISIBLE
+            findNavController().navigate(ConfirmationFragmentDirections.actionConfirmationFragmentToTemplateFragment())
+            binding.progressBar.visibility = View.GONE
+        }
+
         //on click of confirm  button
         binding.confirmButton.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
