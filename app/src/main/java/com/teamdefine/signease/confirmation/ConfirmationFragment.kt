@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.teamdefine.signease.api.models.post_template_for_sign.Document
 import com.teamdefine.signease.databinding.FragmentConfirmationBinding
 import com.teamdefine.signease.templates.URLs
@@ -19,7 +20,7 @@ class ConfirmationFragment : Fragment() {
     private lateinit var viewModel: ConfirmationViewModel
     private lateinit var binding: FragmentConfirmationBinding
 
-    //    private val flag: ConfirmationFragmentArgs by navArgs()
+        private val flag: ConfirmationFragmentArgs by navArgs()
     private lateinit var requestBody: Document
 
     override fun onCreateView(
@@ -29,9 +30,14 @@ class ConfirmationFragment : Fragment() {
         binding = FragmentConfirmationBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(requireActivity())[ConfirmationViewModel::class.java]
 
-//        requestBody = flag.requestBody
-//        Log.i("helloabc56", requestBody.toString())
-
+        requestBody = flag.requestBody
+        Log.i("helloabc56", requestBody.toString())
+        val name=requestBody.custom_fields[0].value
+        val uid=requestBody.custom_fields[1].value
+        val date=requestBody.custom_fields[2].value
+        val template_title=requestBody.subject
+        val message=requestBody.message
+        val signers=requestBody.signers
 
         //web view stuff
         val webview = binding.webView

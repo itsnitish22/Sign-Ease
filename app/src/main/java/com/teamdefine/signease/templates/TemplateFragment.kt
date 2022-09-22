@@ -1,6 +1,7 @@
 package com.teamdefine.signease.templates
 
 import android.R
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
 import android.icu.text.SimpleDateFormat
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.teamdefine.signease.api.models.get_all_templates.Template
 import com.teamdefine.signease.api.models.get_all_templates.Templates
 import com.teamdefine.signease.api.models.post_template_for_sign.CustomFields
@@ -33,6 +35,7 @@ class TemplateFragment : Fragment() {
     private var templateSelected: Template =
         Template("", "", 0)   //Empty template created to further store the clicked template
     private lateinit var currentUserDetail: MutableMap<String, Any> //users detail
+    private lateinit var dialog: BottomSheetDialog //bottom sheet
 
     //will be initialized when calendar returns the date on selection
     var dateSelectedByUser: String = "" //date selected by user, initially empty
@@ -47,6 +50,8 @@ class TemplateFragment : Fragment() {
             ViewModelProvider(requireActivity())[TemplateListViewModel::class.java] //setting viewModel
         binding.progressBar.visibility =
             View.VISIBLE //on initial opening of screen, show progress bar
+        dialog = BottomSheetDialog(requireContext()) //bottom sheet
+
 
         viewModel.getTemplates()    //getting templates and observing changes
         viewModel.templates.observe(requireActivity()) { template ->
@@ -144,5 +149,10 @@ class TemplateFragment : Fragment() {
             )
         )
         activity?.fragmentManager?.popBackStack();
+    }
+
+    @SuppressLint("ResourceAsColor")
+    private fun showBottomSheet(){
+        val view=layoutInflater.inflate(R.layout.)
     }
 }
