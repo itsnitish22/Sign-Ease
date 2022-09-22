@@ -169,6 +169,7 @@ class TemplateFragment : Fragment() {
     @SuppressLint("ResourceAsColor")
     private fun showBottomSheet() {
 
+        binding.progressBar.visibility=View.VISIBLE
         val pdf = "https://firebasestorage.googleapis.com/v0/b/sign-ease.appspot.com/o/DL.pdf?alt=media&token=863e24b4-fd59-496c-ab63-7e3fb78a6476"
         val webView=bottomView.findViewById<WebView>(com.teamdefine.signease.R.id.webView2)
         webView.settings.javaScriptEnabled=true
@@ -177,8 +178,8 @@ class TemplateFragment : Fragment() {
         Log.i("helloabc","${webView.progress}")
 
         Handler().postDelayed({
-//            webView.setLayerType(View.LAYER_TYPE_HARDWARE,null)
             dialog.setContentView(bottomView)
+            binding.progressBar.visibility=View.GONE
             dialog.show()
             Log.i("helloabc","${webView.progress}")
         },5000)
