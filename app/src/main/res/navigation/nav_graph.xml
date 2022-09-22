@@ -53,6 +53,9 @@
         <action
             android:id="@+id/action_confirmationFragment_to_homePageFragment"
             app:destination="@id/homePageFragment" />
+        <action
+            android:id="@+id/action_confirmationFragment_to_templateFragment"
+            app:destination="@id/templateFragment" />
     </fragment>
     <fragment
         android:id="@+id/templateFragment"
