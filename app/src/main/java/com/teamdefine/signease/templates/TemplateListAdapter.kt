@@ -21,15 +21,16 @@ class TemplateListAdapter(
     interface ItemClickListener {
         fun onItemClick(template: Template)
     }
-    interface ItemEyeClickListener{
-        fun onItemEyeClickListener(template:Template)
+
+    interface ItemEyeClickListener {
+        fun onItemEyeClickListener(template: Template)
     }
 
     //view holder class
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var titleOfTemplate: TextView = itemView.findViewById(R.id.title)
         var date: TextView = itemView.findViewById(R.id.templateDate)
-        var preview:ImageView=itemView.findViewById(R.id.info)
+        var preview: ImageView = itemView.findViewById(R.id.info)
     }
 
     //to create the views of Recycler View items

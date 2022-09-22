@@ -1,9 +1,6 @@
 package com.teamdefine.signease.templates
 
-import android.R
 import android.annotation.SuppressLint
-import android.app.DatePickerDialog
-import android.content.Context
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.os.Handler
@@ -12,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -27,10 +23,6 @@ import com.teamdefine.signease.api.models.post_template_for_sign.Document
 import com.teamdefine.signease.api.models.post_template_for_sign.Signers
 import com.teamdefine.signease.api.models.post_template_for_sign.SigningOptions
 import com.teamdefine.signease.databinding.FragmentTemplateBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import org.w3c.dom.Text
 import java.util.*
 
 class TemplateFragment : Fragment() {
@@ -44,7 +36,7 @@ class TemplateFragment : Fragment() {
         Template("", "", 0)   //Empty template created to further store the clicked template
     private lateinit var currentUserDetail: MutableMap<String, Any> //users detail
     private lateinit var dialog: BottomSheetDialog //bottom sheet
-    private lateinit var bottomView:View
+    private lateinit var bottomView: View
 
     //will be initialized when calendar returns the date on selection
     var dateSelectedByUser: String = "" //date selected by user, initially empty
@@ -58,7 +50,8 @@ class TemplateFragment : Fragment() {
             ViewModelProvider(requireActivity())[TemplateListViewModel::class.java] //setting viewModel
         binding.progressBar.visibility =
             View.VISIBLE //on initial opening of screen, show progress bar
-        bottomView=layoutInflater.inflate(com.teamdefine.signease.R.layout.template_bottom_sheet,null)
+        bottomView =
+            layoutInflater.inflate(com.teamdefine.signease.R.layout.template_bottom_sheet, null)
         dialog = BottomSheetDialog(requireContext()) //bottom sheet
 
 
@@ -106,25 +99,26 @@ class TemplateFragment : Fragment() {
                     getCalendar() //show calendar and get a date from user
                 }
             },
-        object : TemplateListAdapter.ItemEyeClickListener{
-            override fun onItemEyeClickListener(template: Template) {
-                showBottomSheet()
-            }
-        })
+            object : TemplateListAdapter.ItemEyeClickListener {
+                override fun onItemEyeClickListener(template: Template) {
+                    showBottomSheet()
+                }
+            })
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
     }
 
-    fun getCalendar(){
+    fun getCalendar() {
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Select date").setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .setTitleText("Select date")
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
-        datePicker.show(requireFragmentManager(),"tag")
+        datePicker.show(requireFragmentManager(), "tag")
         datePicker.addOnPositiveButtonClickListener {
-            Log.i("helloabc",it.toString())
+            Log.i("helloabc", it.toString())
             val simpleDateFormat = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
-            dateSelectedByUser = simpleDateFormat.format( Date(it))
+            dateSelectedByUser = simpleDateFormat.format(Date(it))
             requestBody()   //calling requestBody() to generate the body after getting the date
 
         }
@@ -158,20 +152,21 @@ class TemplateFragment : Fragment() {
     @SuppressLint("ResourceAsColor")
     private fun showBottomSheet() {
 
-        binding.progressBar.visibility=View.VISIBLE
-        val pdf = "https://firebasestorage.googleapis.com/v0/b/sign-ease.appspot.com/o/DL.pdf?alt=media&token=863e24b4-fd59-496c-ab63-7e3fb78a6476"
-        val webView=bottomView.findViewById<WebView>(com.teamdefine.signease.R.id.webView2)
-        webView.settings.javaScriptEnabled=true
+        binding.progressBar.visibility = View.VISIBLE
+        val pdf =
+            "https://firebasestorage.googleapis.com/v0/b/sign-ease.appspot.com/o/DL.pdf?alt=media&token=863e24b4-fd59-496c-ab63-7e3fb78a6476"
+        val webView = bottomView.findViewById<WebView>(com.teamdefine.signease.R.id.webView2)
+        webView.settings.javaScriptEnabled = true
         webView.loadUrl("https://drive.google.com/viewerng/viewer?embedded=true&url=$pdf")
 
-        Log.i("helloabc","${webView.progress}")
+        Log.i("helloabc", "${webView.progress}")
 
         Handler().postDelayed({
             dialog.setContentView(bottomView)
-            binding.progressBar.visibility=View.GONE
+            binding.progressBar.visibility = View.GONE
             dialog.show()
-            Log.i("helloabc","${webView.progress}")
-        },5000)
+            Log.i("helloabc", "${webView.progress}")
+        }, 5000)
 
         dialog.setCancelable(true) //dialog can be dismissed upon swipe, back tap etc.
 

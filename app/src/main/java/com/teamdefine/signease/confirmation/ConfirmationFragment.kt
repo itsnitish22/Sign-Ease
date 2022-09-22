@@ -111,16 +111,18 @@ class ConfirmationFragment : Fragment() {
 
         binding.progressBar.visibility = View.GONE
     }
-    private fun getCalendar(){
+
+    private fun getCalendar() {
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Select date").setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .setTitleText("Select date")
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
-        datePicker.show(requireFragmentManager(),"tag")
+        datePicker.show(requireFragmentManager(), "tag")
         datePicker.addOnPositiveButtonClickListener {
-            Log.i("helloabc",it.toString())
+            Log.i("helloabc", it.toString())
             val newDateSelected = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).format(Date(it))
-            args.requestBody.custom_fields[2].value=newDateSelected
+            args.requestBody.custom_fields[2].value = newDateSelected
             binding.dateSelected.text = "Date selected: $newDateSelected"
         }
     }
