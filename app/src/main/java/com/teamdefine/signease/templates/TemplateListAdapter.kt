@@ -4,6 +4,7 @@ import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.teamdefine.signease.R
@@ -12,18 +13,23 @@ import java.util.*
 
 class TemplateListAdapter(
     private val templateList: ArrayList<Template>,
-    private val itemClickListener: ItemClickListener
+    private val itemClickListener: ItemClickListener,
+    private val itemEyeClickListener: ItemEyeClickListener
 ) : RecyclerView.Adapter<TemplateListAdapter.ViewHolder>() {
 
     //interface for handling clicks
     interface ItemClickListener {
         fun onItemClick(template: Template)
     }
+    interface ItemEyeClickListener{
+        fun onItemEyeClickListener(template:Template)
+    }
 
     //view holder class
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var titleOfTemplate: TextView = itemView.findViewById(R.id.title)
         var date: TextView = itemView.findViewById(R.id.templateDate)
+        var preview:ImageView=itemView.findViewById(R.id.info)
     }
 
     //to create the views of Recycler View items
@@ -43,6 +49,9 @@ class TemplateListAdapter(
         holder.date.text = dt
         holder.itemView.setOnClickListener {
             itemClickListener.onItemClick(templateList[position])
+        }
+        holder.preview.setOnClickListener {
+            itemEyeClickListener.onItemEyeClickListener(templateList[position])
         }
     }
 
