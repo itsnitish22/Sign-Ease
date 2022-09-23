@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,24 +11,34 @@
         android:layout_margin="2dp">
 
         <TextView
-            android:id="@+id/subjectRequest"
+            android:id="@+id/subjectTemplate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/sharp_grotesk_light20"
             android:gravity="center"
-            android:text="DSA Self Paced Course"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="DSA Self Paced Course" />
 
         <WebView
             android:id="@+id/webView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/subjectRequest"
+            android:layout_below="@id/subjectTemplate"
             android:layout_marginTop="10dp" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="#0061fe"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </RelativeLayout>
 

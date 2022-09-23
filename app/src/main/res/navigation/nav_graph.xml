@@ -65,6 +65,9 @@
         <action
             android:id="@+id/action_templateFragment_to_confirmationFragment"
             app:destination="@id/confirmationFragment" />
+        <action
+            android:id="@+id/action_templateFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"

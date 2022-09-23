@@ -169,7 +169,7 @@
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/sharp_grotesk_medium20"
         android:gravity="center"
-        android:textSize="15sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/view2"
         app:layout_constraintEnd_toEndOf="@id/view2"
         app:layout_constraintStart_toStartOf="@id/view2"

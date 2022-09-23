@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -41,6 +42,7 @@ class TemplateFragment : Fragment() {
     //will be initialized when calendar returns the date on selection
     var dateSelectedByUser: String = "" //date selected by user, initially empty
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,6 +56,16 @@ class TemplateFragment : Fragment() {
             layoutInflater.inflate(com.teamdefine.signease.R.layout.template_bottom_sheet, null)
         dialog = BottomSheetDialog(requireContext()) //bottom sheet
 
+        //load web view on start of fragment
+        val pdf =
+            "https://firebasestorage.googleapis.com/v0/b/sign-ease.appspot.com/o/DL.pdf?alt=media&token=863e24b4-fd59-496c-ab63-7e3fb78a6476"
+        val webView = bottomView.findViewById<WebView>(com.teamdefine.signease.R.id.webView2)
+        webView.settings.javaScriptEnabled = true
+        webView.loadUrl("https://drive.google.com/viewerng/viewer?embedded=true&url=$pdf")
+
+        binding.floatingActionButtonHome.setOnClickListener {
+            findNavController().navigate(TemplateFragmentDirections.actionTemplateFragmentToHomePageFragment())
+        }
 
         viewModel.getTemplates()    //getting templates and observing changes
         viewModel.templates.observe(requireActivity()) { template ->
@@ -101,13 +113,14 @@ class TemplateFragment : Fragment() {
             },
             object : TemplateListAdapter.ItemEyeClickListener {
                 override fun onItemEyeClickListener(template: Template) {
-                    showBottomSheet()
+                    showBottomSheet(template)
                 }
             })
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
     }
 
+    //getting the calendar for date selection
     fun getCalendar() {
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
@@ -120,7 +133,6 @@ class TemplateFragment : Fragment() {
             val simpleDateFormat = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
             dateSelectedByUser = simpleDateFormat.format(Date(it))
             requestBody()   //calling requestBody() to generate the body after getting the date
-
         }
     }
 
@@ -150,26 +162,24 @@ class TemplateFragment : Fragment() {
     }
 
     @SuppressLint("ResourceAsColor")
-    private fun showBottomSheet() {
-
+    //show bottom sheet
+    private fun showBottomSheet(template: Template) {
         binding.progressBar.visibility = View.VISIBLE
-        val pdf =
-            "https://firebasestorage.googleapis.com/v0/b/sign-ease.appspot.com/o/DL.pdf?alt=media&token=863e24b4-fd59-496c-ab63-7e3fb78a6476"
-        val webView = bottomView.findViewById<WebView>(com.teamdefine.signease.R.id.webView2)
-        webView.settings.javaScriptEnabled = true
-        webView.loadUrl("https://drive.google.com/viewerng/viewer?embedded=true&url=$pdf")
-
-        Log.i("helloabc", "${webView.progress}")
+//        val pdf =
+//            "https://firebasestorage.googleapis.com/v0/b/sign-ease.appspot.com/o/DL.pdf?alt=media&token=863e24b4-fd59-496c-ab63-7e3fb78a6476"
+//        val webView = bottomView.findViewById<WebView>(com.teamdefine.signease.R.id.webView2)
+//        webView.settings.javaScriptEnabled = true
+//        webView.loadUrl("https://drive.google.com/viewerng/viewer?embedded=true&url=$pdf")
+        bottomView.findViewById<TextView>(com.teamdefine.signease.R.id.subjectTemplate).text =
+            template.title
 
         Handler().postDelayed({
             dialog.setContentView(bottomView)
             binding.progressBar.visibility = View.GONE
             dialog.show()
-            Log.i("helloabc", "${webView.progress}")
         }, 5000)
 
         dialog.setCancelable(true) //dialog can be dismissed upon swipe, back tap etc.
-
     }
 
 }
