@@ -79,6 +79,7 @@ class RegisterFragment : Fragment() {
         database.collection("Users").document(currentUser).set(user).addOnSuccessListener {
             binding.progressBar.visibility = View.GONE
             Toast.makeText(activity, "Registered Successfully", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
         }.addOnFailureListener { e ->
             binding.progressBar.visibility = View.GONE
             Toast.makeText(activity, e.toString(), Toast.LENGTH_LONG).show()

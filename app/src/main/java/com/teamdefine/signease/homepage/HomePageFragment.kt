@@ -1,6 +1,7 @@
 package com.teamdefine.signease.homepage
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -57,11 +58,13 @@ class HomePageFragment : Fragment() {
         binding.logOut.setOnClickListener {
             val loggedIn = checkUser(firebaseAuth) //checks if the user if logged in
             if (loggedIn) { //if yes, log out
-                binding.progressBar.visibility = View.VISIBLE
-                firebaseAuth.signOut()
-                binding.progressBar.visibility = View.GONE
-                val navigation = HomePageFragmentDirections.actionHomePageFragmentToLoginFragment()
-                findNavController().navigate(navigation)
+                showAlert()
+//                binding.progressBar.visibility = View.VISIBLE
+//                firebaseAuth.signOut()
+//                Toast.makeText(activity, "Signed out successfully", Toast.LENGTH_SHORT).show()
+//                binding.progressBar.visibility = View.GONE
+//                val navigation = HomePageFragmentDirections.actionHomePageFragmentToLoginFragment()
+//                findNavController().navigate(navigation)
             }
         }
 
@@ -123,6 +126,24 @@ class HomePageFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun showAlert() {
+        val builder = AlertDialog.Builder(activity)
+        builder.setMessage("Do you really want to sign out?")
+
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+            binding.progressBar.visibility = View.VISIBLE
+            firebaseAuth.signOut()
+            Toast.makeText(activity, "Signed out successfully", Toast.LENGTH_SHORT).show()
+            binding.progressBar.visibility = View.GONE
+            val navigation = HomePageFragmentDirections.actionHomePageFragmentToLoginFragment()
+            findNavController().navigate(navigation)
+        }
+        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+            dialog.dismiss()
+        }
+        builder.show()
     }
 
     private fun sendSignRequestsToRecycler(signatureRequests: ArrayList<SignatureRequest>) {
