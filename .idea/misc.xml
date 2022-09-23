@@ -26,13 +26,11 @@
         <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/bottom_sheet.xml" value="0.2" />
         <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/fragment_confirmation.xml" value="0.16" />
         <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/fragment_home_page.xml" value="0.22" />
-        <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/fragment_login.xml" value="0.18" />
-        <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/fragment_register.xml" value="0.25" />
-        <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/fragment_splash_screen.xml" value="0.16417272338606242" />
+        <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/fragment_login.xml" value="0.2" />
+        <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/fragment_register.xml" value="0.18" />
         <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/fragment_template.xml" value="0.22" />
         <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/item_signing_requests.xml" value="0.36450381679389315" />
         <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/itemtemplate.xml" value="0.18" />
-        <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/layout/template_bottom_sheet.xml" value="0.16417272338606242" />
         <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/menu/main_menu.xml" value="0.21" />
         <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/menu/options_menu.xml" value="0.19895833333333332" />
       </map>
