@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F1F9FF"
     tools:context=".confirmation.ConfirmationFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -162,18 +161,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appName" />
 
+
     <TextView
         android:id="@+id/dateSelected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/sharp_grotesk_medium20"
-        android:gravity="center"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/view2"
         app:layout_constraintEnd_toEndOf="@id/view2"
-        app:layout_constraintStart_toStartOf="@id/view2"
         app:layout_constraintTop_toTopOf="@id/view2"
+        android:layout_marginEnd="10dp"
         tools:text="Date selected: 16th September, 2022" />
 
     <TextView

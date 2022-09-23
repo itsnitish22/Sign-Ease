@@ -3,10 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android Studio/Sign-Ease/app/src/main/res/layout/fragment_confirmation.xml" value="0.1578125" />
+        <entry key="..\:/Android Studio/Sign-Ease/app/src/main/res/drawable/badge.xml" value="0.1" />
+        <entry key="..\:/Android Studio/Sign-Ease/app/src/main/res/drawable/document.xml" value="0.1" />
+        <entry key="..\:/Android Studio/Sign-Ease/app/src/main/res/drawable/ic_calendar.xml" value="0.1" />
+        <entry key="..\:/Android Studio/Sign-Ease/app/src/main/res/drawable/person.xml" value="0.1" />
+        <entry key="..\:/Android Studio/Sign-Ease/app/src/main/res/layout/activity_main.xml" value="0.13541666666666666" />
+        <entry key="..\:/Android Studio/Sign-Ease/app/src/main/res/layout/fragment_confirmation.xml" value="0.5" />
+        <entry key="..\:/Android Studio/Sign-Ease/app/src/main/res/layout/fragment_home_page.xml" value="0.1" />
         <entry key="..\:/Android Studio/Sign-Ease/app/src/main/res/layout/fragment_login.xml" value="0.1421875" />
         <entry key="..\:/Android Studio/Sign-Ease/app/src/main/res/layout/fragment_register.xml" value="0.1578125" />
+        <entry key="..\:/Android Studio/Sign-Ease/app/src/main/res/layout/fragment_splash_screen.xml" value="0.13541666666666666" />
         <entry key="..\:/Android Studio/Sign-Ease/app/src/main/res/layout/fragment_template.xml" value="0.1" />
+        <entry key="..\:/Android Studio/Sign-Ease/app/src/main/res/layout/item_signing_requests.xml" value="0.1" />
         <entry key="..\:/Android Studio/Sign-Ease/app/src/main/res/layout/itemtemplate.xml" value="0.22" />
         <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/drawable/badge.xml" value="0.1175" />
         <entry key="..\:/Own-Work/Android/SignEase/app/src/main/res/drawable/document.xml" value="0.1175" />

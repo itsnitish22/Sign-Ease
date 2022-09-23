@@ -12,6 +12,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.teamdefine.signease.databinding.FragmentRegisterBinding
+import java.util.*
+import kotlin.collections.HashMap
 
 class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding //binding
@@ -26,7 +28,7 @@ class RegisterFragment : Fragment() {
         //on click of sign up button
         binding.signUpButton.setOnClickListener {
             val fullName = binding.inputName.text.toString()
-            val uid = binding.inputUid.text.toString()
+            val uid = binding.inputUid.text.toString().uppercase()
             val email = binding.inputEmail.text.toString().trim()
             val password = binding.inputPassword.text.toString()
 
