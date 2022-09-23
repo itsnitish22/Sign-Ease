@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -33,6 +34,7 @@ class HomePageFragment : Fragment() {
     private var adapter: RecyclerView.Adapter<HomePageAdapter.ViewHolder>? = null //adapter
     private lateinit var dialog: BottomSheetDialog //bottom sheet
     private val flag: HomePageFragmentArgs by navArgs()
+    private var backPressedTime: Long = 0
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onCreateView(
@@ -59,12 +61,6 @@ class HomePageFragment : Fragment() {
             val loggedIn = checkUser(firebaseAuth) //checks if the user if logged in
             if (loggedIn) { //if yes, log out
                 showAlert()
-//                binding.progressBar.visibility = View.VISIBLE
-//                firebaseAuth.signOut()
-//                Toast.makeText(activity, "Signed out successfully", Toast.LENGTH_SHORT).show()
-//                binding.progressBar.visibility = View.GONE
-//                val navigation = HomePageFragmentDirections.actionHomePageFragmentToLoginFragment()
-//                findNavController().navigate(navigation)
             }
         }
 
@@ -124,6 +120,20 @@ class HomePageFragment : Fragment() {
             binding.swipeRefresh.isRefreshing = true
             viewModel.getSignatureRequests()
         }
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val toast =
+                    Toast.makeText(requireContext(), "Press again to exit", Toast.LENGTH_SHORT)
+                if (backPressedTime + 2000 > System.currentTimeMillis()) {
+                    toast.show()
+                    activity?.finish()
+                } else
+                    toast.show()
+                backPressedTime = System.currentTimeMillis()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
 
         return binding.root
     }

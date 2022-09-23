@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -84,6 +85,13 @@ class TemplateFragment : Fragment() {
             if (completed) //if completed, hide progress bar
                 binding.progressBar.visibility = View.GONE
         }
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(TemplateFragmentDirections.actionTemplateFragmentToHomePageFragment())
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
 
         return binding.root
     }

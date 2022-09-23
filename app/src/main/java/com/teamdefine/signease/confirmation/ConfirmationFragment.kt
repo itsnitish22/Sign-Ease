@@ -8,8 +8,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -87,16 +89,29 @@ class ConfirmationFragment : Fragment() {
 
         viewModel.check.observe(requireActivity()) { check ->
             if (check) {
-                Handler().postDelayed({ //delay of 1 sec, server takes some time to update the total no of requests
+                Handler().postDelayed({ //delay of 3 sec, server takes some time to update the total no of requests
                     binding.progressBar.visibility = View.GONE
-                    findNavController().navigate(
-                        ConfirmationFragmentDirections.actionConfirmationFragmentToHomePageFragment(
-                            1
+                    //was crashing because of some threading issue, as we have added a postDelayed
+                    //lifecycle scope will help to handle that
+                    //will continue the navigation only when the fragment is resumed
+                    lifecycleScope.launchWhenResumed {
+                        findNavController().navigate(
+                            ConfirmationFragmentDirections.actionConfirmationFragmentToHomePageFragment(
+                                1
+                            )
                         )
-                    )
-                }, 5000)
+                    }
+                }, 3000)
             }
         }
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(ConfirmationFragmentDirections.actionConfirmationFragmentToTemplateFragment())
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
+
         return binding.root
     }
 

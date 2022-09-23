@@ -21,10 +21,14 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            app:popUpTo="@+id/splashScreenFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_loginFragment_to_homePageFragment"
-            app:destination="@id/homePageFragment" />
+            app:destination="@id/homePageFragment"
+            app:popUpTo="@+id/splashScreenFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/homePageFragment"
@@ -33,14 +37,18 @@
         tools:layout="@layout/fragment_home_page">
         <action
             android:id="@+id/action_homePageFragment_to_templateFragment"
-            app:destination="@id/templateFragment" />
+            app:destination="@id/templateFragment"
+            app:popUpTo="@+id/splashScreenFragment"
+            app:popUpToInclusive="false" />
         <argument
             android:name="temp"
             android:defaultValue="0"
             app:argType="integer" />
         <action
             android:id="@+id/action_homePageFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@+id/splashScreenFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/confirmationFragment"
@@ -52,10 +60,14 @@
             app:argType="com.teamdefine.signease.api.models.post_template_for_sign.Document" />
         <action
             android:id="@+id/action_confirmationFragment_to_homePageFragment"
-            app:destination="@id/homePageFragment" />
+            app:destination="@id/homePageFragment"
+            app:popUpTo="@+id/splashScreenFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_confirmationFragment_to_templateFragment"
-            app:destination="@id/templateFragment" />
+            app:destination="@id/templateFragment"
+            app:popUpTo="@+id/splashScreenFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/templateFragment"
@@ -67,7 +79,9 @@
             app:destination="@id/confirmationFragment" />
         <action
             android:id="@+id/action_templateFragment_to_homePageFragment"
-            app:destination="@id/homePageFragment" />
+            app:destination="@id/homePageFragment"
+            app:popUpTo="@+id/splashScreenFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"
