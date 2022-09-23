@@ -17,6 +17,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.teamdefine.signease.DatePicker
 import com.teamdefine.signease.R
 import com.teamdefine.signease.api.models.post_template_for_sign.Document
 import com.teamdefine.signease.databinding.FragmentConfirmationBinding
@@ -130,14 +131,7 @@ class ConfirmationFragment : Fragment() {
     }
 
     private fun getCalendar() {
-        val constraintsBuilder =
-            CalendarConstraints.Builder()
-                .setValidator(DateValidatorPointForward.now())
-        val datePicker =
-            MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Select date")
-                .setSelection(MaterialDatePicker.todayInUtcMilliseconds()).setCalendarConstraints(constraintsBuilder.build())
-                .build()
+        val datePicker= DatePicker().getCalendar(args.dateSelected) //show calendar and get a date from user
         datePicker.show(requireFragmentManager(), "tag")
         datePicker.addOnPositiveButtonClickListener {
             Log.i("helloabc", it.toString())

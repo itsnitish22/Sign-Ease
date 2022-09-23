@@ -68,6 +68,9 @@
             app:destination="@id/templateFragment"
             app:popUpTo="@+id/splashScreenFragment"
             app:popUpToInclusive="false" />
+        <argument
+            android:name="dateSelected"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/templateFragment"
