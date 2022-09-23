@@ -166,13 +166,13 @@
         android:id="@+id/dateSelected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/sharp_grotesk_medium20"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/view2"
         app:layout_constraintEnd_toEndOf="@id/view2"
         app:layout_constraintTop_toTopOf="@id/view2"
-        android:layout_marginEnd="10dp"
         tools:text="Date selected: 16th September, 2022" />
 
     <TextView

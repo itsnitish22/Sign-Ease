@@ -12,8 +12,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.teamdefine.signease.databinding.FragmentRegisterBinding
-import java.util.*
-import kotlin.collections.HashMap
 
 class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding //binding

@@ -14,9 +14,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DateValidatorPointForward
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamdefine.signease.DatePicker
 import com.teamdefine.signease.R
 import com.teamdefine.signease.api.models.post_template_for_sign.Document
@@ -131,7 +128,8 @@ class ConfirmationFragment : Fragment() {
     }
 
     private fun getCalendar() {
-        val datePicker= DatePicker().getCalendar(args.dateSelected) //show calendar and get a date from user
+        val datePicker =
+            DatePicker().getCalendar(args.dateSelected) //show calendar and get a date from user
         datePicker.show(requireFragmentManager(), "tag")
         datePicker.addOnPositiveButtonClickListener {
             Log.i("helloabc", it.toString())

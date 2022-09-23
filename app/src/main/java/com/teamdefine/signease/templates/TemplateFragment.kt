@@ -16,9 +16,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DateValidatorPointForward
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamdefine.signease.DatePicker
 import com.teamdefine.signease.api.models.get_all_templates.Template
 import com.teamdefine.signease.api.models.get_all_templates.Templates
@@ -27,14 +24,8 @@ import com.teamdefine.signease.api.models.post_template_for_sign.Document
 import com.teamdefine.signease.api.models.post_template_for_sign.Signers
 import com.teamdefine.signease.api.models.post_template_for_sign.SigningOptions
 import com.teamdefine.signease.databinding.FragmentTemplateBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
 import java.util.*
-import kotlin.collections.ArrayList
 
 class TemplateFragment : Fragment() {
     private var adapter: RecyclerView.Adapter<TemplateListAdapter.ViewHolder>? =
@@ -51,7 +42,7 @@ class TemplateFragment : Fragment() {
 
     //will be initialized when calendar returns the date on selection
     var dateSelectedByUser: String = "" //date selected by user, initially empty
-    var dateSelectedLong:Long=0
+    var dateSelectedLong: Long = 0
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreateView(
@@ -140,12 +131,13 @@ class TemplateFragment : Fragment() {
 
     //getting the calendar for date selection
     fun getCalendar() {
-        val datePicker=DatePicker().getCalendar(Date().time) //show calendar and get a date from user
+        val datePicker =
+            DatePicker().getCalendar(Date().time) //show calendar and get a date from user
         datePicker.show(requireFragmentManager(), "tag")
         datePicker.addOnPositiveButtonClickListener {
             val simpleDateFormat = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
             dateSelectedByUser = simpleDateFormat.format(Date(it))
-            dateSelectedLong=it
+            dateSelectedLong = it
             requestBody()   //calling requestBody() to generate the body after getting the date
         }
     }
@@ -169,7 +161,7 @@ class TemplateFragment : Fragment() {
 
         findNavController().navigate(   //Navigating to Confirmation Fragment with the request body for Post Request
             TemplateFragmentDirections.actionTemplateFragmentToConfirmationFragment(
-                document,dateSelectedLong
+                document, dateSelectedLong
             )
         )
         activity?.fragmentManager?.popBackStack();
