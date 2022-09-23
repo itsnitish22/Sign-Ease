@@ -121,6 +121,7 @@ class HomePageFragment : Fragment() {
             viewModel.getSignatureRequests()
         }
 
+        //on back press clicked listener
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val toast =

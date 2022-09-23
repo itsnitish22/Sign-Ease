@@ -87,6 +87,7 @@ class TemplateFragment : Fragment() {
                 binding.progressBar.visibility = View.GONE
         }
 
+        //on back press clicked listener
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 findNavController().navigate(TemplateFragmentDirections.actionTemplateFragmentToHomePageFragment())

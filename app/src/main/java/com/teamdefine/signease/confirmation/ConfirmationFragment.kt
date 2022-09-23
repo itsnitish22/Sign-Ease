@@ -105,6 +105,7 @@ class ConfirmationFragment : Fragment() {
             }
         }
 
+        //on back press clicked listener
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 findNavController().navigate(ConfirmationFragmentDirections.actionConfirmationFragmentToTemplateFragment())
