@@ -71,6 +71,9 @@
         <argument
             android:name="dateSelected"
             app:argType="long" />
+        <argument
+            android:name="endDateSelected"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/templateFragment"

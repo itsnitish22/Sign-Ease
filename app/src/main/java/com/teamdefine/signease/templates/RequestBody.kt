@@ -13,7 +13,8 @@ class RequestBody {
         reason: String,
         templateSelected: Template,
         currentUserDetail: MutableMap<String, Any>,
-        dateSelectedByUser: String
+        dateSelectedByUser: String,
+        endDateSelectedByUser:String
     ): Document {
         lateinit var tempSigners: Signers
         var customFields: ArrayList<CustomFields> = arrayListOf()
@@ -42,12 +43,14 @@ class RequestBody {
                 customFields.add(f3)
             }
             "Day-Pass" -> {
+                val f3 = CustomFields("Leave-Start", dateSelectedByUser)
+                customFields.add(f3)
                 val f5 = CustomFields("Reason", reason)
                 customFields.add(f5)
             }
             "Night-Pass" -> {
                 val f3 = CustomFields("Leave-Start", dateSelectedByUser)
-                val f4 = CustomFields("Leave-End", dateSelectedByUser)
+                val f4 = CustomFields("Leave-End", endDateSelectedByUser)
                 val f5 = CustomFields("Reason", reason)
                 customFields.add(f3)
                 customFields.add(f4)

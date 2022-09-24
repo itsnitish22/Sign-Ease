@@ -1,13 +1,17 @@
 package com.teamdefine.signease.templates
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
@@ -16,7 +20,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamdefine.signease.DatePicker
+import com.teamdefine.signease.R
 import com.teamdefine.signease.api.models.get_all_templates.Template
 import com.teamdefine.signease.api.models.get_all_templates.Templates
 import com.teamdefine.signease.databinding.FragmentTemplateBinding
@@ -37,7 +43,9 @@ class TemplateFragment : Fragment() {
 
     //will be initialized when calendar returns the date on selection
     var dateSelectedByUser: String = "" //date selected by user, initially empty
+    var endDateSelected:String=""
     var dateSelectedLong: Long = 0
+    var endDateSelectedLong:Long=0
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreateView(
@@ -115,7 +123,10 @@ class TemplateFragment : Fragment() {
             object : TemplateListAdapter.ItemClickListener {
                 override fun onItemClick(template: Template) {
                     templateSelected = template //initializing template details which is clicked
-                    getCalendar()
+                    if(templateSelected.title=="Night-Pass")
+                        getRangeCalendar()
+                    else
+                        getCalendar()
                 }
             },
             object : TemplateListAdapter.ItemEyeClickListener {
@@ -129,42 +140,82 @@ class TemplateFragment : Fragment() {
 
     //getting the calendar for date selection
     fun getCalendar() {
-        val datePicker =
-            DatePicker().getCalendar(Date().time) //show calendar and get a date from user
+        val datePicker:MaterialDatePicker<Long> =
+            DatePicker().getCalendar(Date().time)
+        //show calendar and get a date from user
         datePicker.show(requireFragmentManager(), "tag")
         datePicker.addOnPositiveButtonClickListener {
             val simpleDateFormat = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
             dateSelectedByUser = simpleDateFormat.format(Date(it))
             dateSelectedLong = it
-            requestBody()   //calling requestBody() to generate the body after getting the date
+            if(templateSelected.title=="Application For Duty Leave")
+                requestBody("")
+            else{
+                showdialog()
+            }
         }
     }
-
-    //creating the request body for post request
-    private fun requestBody() {
-        var reason = ""
-        when (templateSelected.title) {
-            "Application For Duty Leave" -> {
-                reason = "Application For Duty Leave"
+    fun getRangeCalendar(){
+        val datePicker=DatePicker().getCalendar2(Date().time,Date().time)
+//show calendar and get a date from user
+        datePicker.show(requireFragmentManager(), "tag")
+        datePicker.addOnPositiveButtonClickListener {
+            val simpleDateFormat = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
+            dateSelectedByUser = simpleDateFormat.format(Date(it.first))
+            dateSelectedLong = it.first
+            endDateSelected=simpleDateFormat.format(Date(it.second))
+            endDateSelectedLong=it.second
+            if(templateSelected.title=="Application For Duty Leave")
+                requestBody("")
+            else{
+                showdialog()
             }
+        }
+    }
+    private fun showdialog(){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Reason for Leave")
+
+// Set up the input
+        val input = EditText(requireContext())
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setHint("Enter Reason")
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
+
+// Set up the buttons
+        builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+            // Here you get get input text from the Edittext
+            var m_Text = input.text.toString()
+            requestBody(m_Text)   //calling requestBody() to generate the body after getting the date
+        })
+        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+
+        builder.show()
+    }
+    //creating the request body for post request
+    private fun requestBody(reason:String) {
+        var reasons = ""
+        when (templateSelected.title) {
             "Day-Pass" -> {
-                reason = "Day-Pass"
+                reasons = reason
             }
             "Night-Pass" -> {
-                reason = "Night-Pass"
+                reasons = reason
             }
         }
         val document = RequestBody().getRequestBody(
-            reason,
+            reasons,
             templateSelected,
             currentUserDetail,
-            dateSelectedByUser
+            dateSelectedByUser,
+            endDateSelected
         )
 
         //navigating to Confirmation Fragment with the request body for Post Request
         findNavController().navigate(
             TemplateFragmentDirections.actionTemplateFragmentToConfirmationFragment(
-                document, dateSelectedLong
+                document, dateSelectedLong,endDateSelectedLong
             )
         )
         activity?.fragmentManager?.popBackStack();

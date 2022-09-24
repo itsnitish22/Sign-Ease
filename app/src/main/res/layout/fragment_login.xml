@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".loginandregister.LoginFragment">
+    android:background="@color/white"
     android:backgroundTint="@color/backgroundLightTheme"
+    tools:context=".loginandregister.LoginFragment">
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/logoCon6.5"

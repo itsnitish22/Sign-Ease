@@ -42,10 +42,11 @@ class ConfirmationFragment : Fragment() {
         val name = requestBody.custom_fields[0].value
         val uid = requestBody.custom_fields[1].value
         val date = requestBody.custom_fields[2].value
+        val dateEnd=requestBody.custom_fields[3].value
         val templateTitle = requestBody.subject
 
         //displaying data
-        displayData(date, name, uid, templateTitle)
+        displayData(date, name, uid, templateTitle,dateEnd)
 
         //if check box is checked, confirm button becomes clickable
         binding.checkBox.setOnClickListener {
@@ -77,7 +78,10 @@ class ConfirmationFragment : Fragment() {
 
         //click on change template, go to template frag
         binding.changeDateText.setOnClickListener {
-            getCalendar()
+            if(templateTitle=="Night-Pass")
+                getRangeCalendar()
+            else
+                getCalendar()
         }
 
         //on click of confirm  button
@@ -112,11 +116,26 @@ class ConfirmationFragment : Fragment() {
         return binding.root
     }
 
-    //displaying data function
-    private fun displayData(date: String, name: String, uid: String, templateTitle: String) {
-        binding.progressBar.visibility = View.VISIBLE
+    private fun getRangeCalendar() {
+        val datePicker=DatePicker().getCalendar2(args.dateSelected,args.endDateSelected)
+        datePicker.show(requireFragmentManager(), "tag")
+        datePicker.addOnPositiveButtonClickListener {
+            Log.i("helloabc", it.toString())
+            val newDateSelected = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).format(Date(it.first))
+            val newEndDateSelected=SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).format(Date(it.second))
+            args.requestBody.custom_fields[2].value = newDateSelected
+            args.requestBody.custom_fields[3].value=newEndDateSelected
+            binding.dateSelected.text = "Date selected: $newDateSelected-$newEndDateSelected"
+        }
+    }
 
-        binding.dateSelected.text = "Date selected: $date"
+    //displaying data function
+    private fun displayData(date: String, name: String, uid: String, templateTitle: String,dateEnd:String) {
+        binding.progressBar.visibility = View.VISIBLE
+        if(templateTitle=="Night-Pass")
+            binding.dateSelected.text = "Date selected: $date-$dateEnd"
+        else
+            binding.dateSelected.text = "Date selected: $date"
         binding.personNameText.text = name
         binding.userIdText.text = uid
         binding.templateSelectedText.text = templateTitle
