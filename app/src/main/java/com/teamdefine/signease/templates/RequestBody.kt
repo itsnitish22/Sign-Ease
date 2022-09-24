@@ -1,6 +1,7 @@
 package com.teamdefine.signease.templates
 
 import android.util.Log
+import com.teamdefine.signease.SignerDetails
 import com.teamdefine.signease.api.models.get_all_templates.Template
 import com.teamdefine.signease.api.models.post_template_for_sign.CustomFields
 import com.teamdefine.signease.api.models.post_template_for_sign.Document
@@ -16,17 +17,13 @@ class RequestBody {
         for(i in  signerRole){
             when(i.name){
                 "HOD"-> {
-                    Log.i("helloabc","HOD")
-                    tempSigners = Signers("HOD", "Nitish", "nitish.sharma1186@gmail.com")
-                    signers.add(tempSigners)
+                    signers.add(SignerDetails().hod)
                 }
-                "Warden"->{                    Log.i("helloabc","warden")
-                    tempSigners = Signers("Warden", "Nikhil", "nikhils.sharma2409@gmail.com")
-                    signers.add(tempSigners)
+                "Warden"->{
+                    signers.add(SignerDetails().warden)
                 }
                 "Parent"->{
-                    tempSigners = Signers("Parent", "Aniket", "ani.khajanchi257@gmail.com")
-                    signers.add(tempSigners)
+                    signers.add(SignerDetails().parent)
                 }
             }
         }
