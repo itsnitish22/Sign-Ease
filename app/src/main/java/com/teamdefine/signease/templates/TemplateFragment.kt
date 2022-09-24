@@ -19,10 +19,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.teamdefine.signease.DatePicker
 import com.teamdefine.signease.api.models.get_all_templates.Template
 import com.teamdefine.signease.api.models.get_all_templates.Templates
-import com.teamdefine.signease.api.models.post_template_for_sign.CustomFields
-import com.teamdefine.signease.api.models.post_template_for_sign.Document
-import com.teamdefine.signease.api.models.post_template_for_sign.Signers
-import com.teamdefine.signease.api.models.post_template_for_sign.SigningOptions
 import com.teamdefine.signease.databinding.FragmentTemplateBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -105,7 +101,7 @@ class TemplateFragment : Fragment() {
         val templates = template?.templates
         if (templates != null) {
             for (i in templates) {
-                val t = Template(i.template_id, i.title, i.updated_at,i.signer_roles)
+                val t = Template(i.template_id, i.title, i.updated_at, i.signer_roles)
                 templateList.add(t)
             }
             sendToRecyclerView() //sending array list to recycler view
@@ -146,19 +142,24 @@ class TemplateFragment : Fragment() {
 
     //creating the request body for post request
     private fun requestBody() {
-        var reason=""
-        when(templateSelected.title){
-            "Application For Duty Leave"->{
-                reason="Application For Duty Leave"
+        var reason = ""
+        when (templateSelected.title) {
+            "Application For Duty Leave" -> {
+                reason = "Application For Duty Leave"
             }
-            "Day-Pass"->{
-                reason="Day-Pass"
+            "Day-Pass" -> {
+                reason = "Day-Pass"
             }
-            "Night-Pass"->{
-                reason="Night-Pass"
+            "Night-Pass" -> {
+                reason = "Night-Pass"
             }
         }
-        val document=RequestBody().getRequestBody(reason,templateSelected,currentUserDetail,dateSelectedByUser)
+        val document = RequestBody().getRequestBody(
+            reason,
+            templateSelected,
+            currentUserDetail,
+            dateSelectedByUser
+        )
         findNavController().navigate(   //Navigating to Confirmation Fragment with the request body for Post Request
             TemplateFragmentDirections.actionTemplateFragmentToConfirmationFragment(
                 document, dateSelectedLong
@@ -171,7 +172,7 @@ class TemplateFragment : Fragment() {
     //show bottom sheet
     private fun showBottomSheet(template: Template) {
         binding.progressBar.visibility = View.VISIBLE
-        val pdf =URLs.getUrlsFromData()[template.title]
+        val pdf = URLs.getUrlsFromData()[template.title]
         val webView = bottomView.findViewById<WebView>(com.teamdefine.signease.R.id.webView2)
         webView.settings.javaScriptEnabled = true
         webView.loadUrl("https://drive.google.com/viewerng/viewer?embedded=true&url=$pdf")
