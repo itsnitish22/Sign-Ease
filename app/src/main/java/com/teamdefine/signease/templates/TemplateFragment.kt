@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamdefine.signease.DatePicker
-import com.teamdefine.signease.R
 import com.teamdefine.signease.api.models.get_all_templates.Template
 import com.teamdefine.signease.api.models.get_all_templates.Templates
 import com.teamdefine.signease.databinding.FragmentTemplateBinding
@@ -43,9 +42,9 @@ class TemplateFragment : Fragment() {
 
     //will be initialized when calendar returns the date on selection
     var dateSelectedByUser: String = "" //date selected by user, initially empty
-    var endDateSelected:String=""
+    var endDateSelected: String = ""
     var dateSelectedLong: Long = 0
-    var endDateSelectedLong:Long=0
+    var endDateSelectedLong: Long = 0
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreateView(
@@ -123,7 +122,7 @@ class TemplateFragment : Fragment() {
             object : TemplateListAdapter.ItemClickListener {
                 override fun onItemClick(template: Template) {
                     templateSelected = template //initializing template details which is clicked
-                    if(templateSelected.title=="Night-Pass")
+                    if (templateSelected.title == "Night-Pass")
                         getRangeCalendar()
                     else
                         getCalendar()
@@ -140,7 +139,7 @@ class TemplateFragment : Fragment() {
 
     //getting the calendar for date selection
     fun getCalendar() {
-        val datePicker:MaterialDatePicker<Long> =
+        val datePicker: MaterialDatePicker<Long> =
             DatePicker().getCalendar(Date().time)
         //show calendar and get a date from user
         datePicker.show(requireFragmentManager(), "tag")
@@ -148,31 +147,33 @@ class TemplateFragment : Fragment() {
             val simpleDateFormat = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
             dateSelectedByUser = simpleDateFormat.format(Date(it))
             dateSelectedLong = it
-            if(templateSelected.title=="Application For Duty Leave")
+            if (templateSelected.title == "Application For Duty Leave")
                 requestBody("")
-            else{
+            else {
                 showdialog()
             }
         }
     }
-    fun getRangeCalendar(){
-        val datePicker=DatePicker().getCalendar2(Date().time,Date().time)
+
+    fun getRangeCalendar() {
+        val datePicker = DatePicker().getCalendar2(Date().time, Date().time)
 //show calendar and get a date from user
         datePicker.show(requireFragmentManager(), "tag")
         datePicker.addOnPositiveButtonClickListener {
             val simpleDateFormat = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
             dateSelectedByUser = simpleDateFormat.format(Date(it.first))
             dateSelectedLong = it.first
-            endDateSelected=simpleDateFormat.format(Date(it.second))
-            endDateSelectedLong=it.second
-            if(templateSelected.title=="Application For Duty Leave")
+            endDateSelected = simpleDateFormat.format(Date(it.second))
+            endDateSelectedLong = it.second
+            if (templateSelected.title == "Application For Duty Leave")
                 requestBody("")
-            else{
+            else {
                 showdialog()
             }
         }
     }
-    private fun showdialog(){
+
+    private fun showdialog() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Reason for Leave")
 
@@ -189,12 +190,15 @@ class TemplateFragment : Fragment() {
             var m_Text = input.text.toString()
             requestBody(m_Text)   //calling requestBody() to generate the body after getting the date
         })
-        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+        builder.setNegativeButton(
+            "Cancel",
+            DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
 
         builder.show()
     }
+
     //creating the request body for post request
-    private fun requestBody(reason:String) {
+    private fun requestBody(reason: String) {
         var reasons = ""
         when (templateSelected.title) {
             "Day-Pass" -> {
@@ -215,7 +219,7 @@ class TemplateFragment : Fragment() {
         //navigating to Confirmation Fragment with the request body for Post Request
         findNavController().navigate(
             TemplateFragmentDirections.actionTemplateFragmentToConfirmationFragment(
-                document, dateSelectedLong,endDateSelectedLong
+                document, dateSelectedLong, endDateSelectedLong
             )
         )
         activity?.fragmentManager?.popBackStack();
