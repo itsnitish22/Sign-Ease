@@ -119,8 +119,10 @@
         android:background="@drawable/round_corners_3"
         app:layout_constraintBottom_toBottomOf="@id/con5"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/con4" />
+        app:layout_constraintTop_toTopOf="@id/con4"
+        app:layout_constraintVertical_bias="1.0" />
 
     <View
         android:id="@+id/view4"
@@ -173,6 +175,7 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/view2"
         app:layout_constraintEnd_toEndOf="@id/view2"
+        app:layout_constraintStart_toEndOf="@id/calander"
         app:layout_constraintTop_toTopOf="@id/view2"
         tools:text="Date selected: 16th September, 2022" />
 
@@ -199,6 +202,16 @@
         app:layout_constraintBottom_toTopOf="@+id/con8"
         app:layout_constraintStart_toStartOf="@id/view4"
         app:layout_constraintTop_toTopOf="@+id/con6" />
+
+    <ImageView
+        android:id="@+id/calander"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_calendar"
+        app:layout_constraintBottom_toBottomOf="@+id/dateSelected"
+        app:layout_constraintEnd_toStartOf="@+id/dateSelected"
+        app:layout_constraintStart_toStartOf="@+id/view3"
+        app:layout_constraintTop_toTopOf="@+id/dateSelected" />
 
     <TextView
         android:id="@+id/personNameText"
