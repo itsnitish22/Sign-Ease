@@ -34,9 +34,8 @@ class TemplateFragment : Fragment() {
     private lateinit var viewModel: TemplateListViewModel //viewmodel
     private val templateList: ArrayList<Template> =
         arrayListOf()   //List of Templates to pass in the recycler view
-    private var templateSelected: Template =
-        Template("", "", 0)   //Empty template created to further store the clicked template
-    private lateinit var currentUserDetail: MutableMap<String, Any> //users detail
+    lateinit var templateSelected: Template  //Empty template created to further store the clicked template
+    lateinit var currentUserDetail: MutableMap<String, Any> //users detail
     private lateinit var dialog: BottomSheetDialog //bottom sheet
     private lateinit var bottomView: View
 
@@ -57,13 +56,6 @@ class TemplateFragment : Fragment() {
         bottomView =
             layoutInflater.inflate(com.teamdefine.signease.R.layout.template_bottom_sheet, null)
         dialog = BottomSheetDialog(requireContext()) //bottom sheet
-
-        //load web view on start of fragment
-        val pdf =
-            "https://firebasestorage.googleapis.com/v0/b/sign-ease.appspot.com/o/DL.pdf?alt=media&token=863e24b4-fd59-496c-ab63-7e3fb78a6476"
-        val webView = bottomView.findViewById<WebView>(com.teamdefine.signease.R.id.webView2)
-        webView.settings.javaScriptEnabled = true
-        webView.loadUrl("https://drive.google.com/viewerng/viewer?embedded=true&url=$pdf")
 
         binding.floatingActionButtonHome.setOnClickListener {
             findNavController().navigate(TemplateFragmentDirections.actionTemplateFragmentToHomePageFragment())
@@ -113,7 +105,7 @@ class TemplateFragment : Fragment() {
         val templates = template?.templates
         if (templates != null) {
             for (i in templates) {
-                val t = Template(i.template_id, i.title, i.updated_at)
+                val t = Template(i.template_id, i.title, i.updated_at,i.signer_roles)
                 templateList.add(t)
             }
             sendToRecyclerView() //sending array list to recycler view
@@ -154,21 +146,19 @@ class TemplateFragment : Fragment() {
 
     //creating the request body for post request
     private fun requestBody() {
-        val template_ids = arrayListOf(templateSelected.template_id)
-        val subject = templateSelected.title
-        val message = "Kindly review and approve my Duty Leave application."
-        val tempSigners = Signers("HOD", "Aniket", "ani.khajanchi257@gmail.com")
-        val signers = arrayListOf(tempSigners)
-        val f1 = CustomFields("Full Name", "${currentUserDetail.getValue("fullName")}")
-        val f2 = CustomFields("UID", "${currentUserDetail.getValue("uid")}")
-        val f3 = CustomFields("Date", dateSelectedByUser)
-        val customFields = arrayListOf<CustomFields>(f1, f2, f3)
-        val signingOptions = SigningOptions(true, true, true, false, "draw")
-
-        val document =
-            Document(template_ids, subject, message, signers, customFields, signingOptions, true)
-        Log.i("helloabc123", document.toString())
-
+        var reason=""
+        when(templateSelected.title){
+            "Application For Duty Leave"->{
+                reason="Application For Duty Leave"
+            }
+            "Day-Pass"->{
+                reason="Day-Pass"
+            }
+            "Night-Pass"->{
+                reason="Night-Pass"
+            }
+        }
+        val document=RequestBody().getRequestBody(reason,templateSelected,currentUserDetail,dateSelectedByUser)
         findNavController().navigate(   //Navigating to Confirmation Fragment with the request body for Post Request
             TemplateFragmentDirections.actionTemplateFragmentToConfirmationFragment(
                 document, dateSelectedLong
@@ -181,11 +171,10 @@ class TemplateFragment : Fragment() {
     //show bottom sheet
     private fun showBottomSheet(template: Template) {
         binding.progressBar.visibility = View.VISIBLE
-//        val pdf =
-//            "https://firebasestorage.googleapis.com/v0/b/sign-ease.appspot.com/o/DL.pdf?alt=media&token=863e24b4-fd59-496c-ab63-7e3fb78a6476"
-//        val webView = bottomView.findViewById<WebView>(com.teamdefine.signease.R.id.webView2)
-//        webView.settings.javaScriptEnabled = true
-//        webView.loadUrl("https://drive.google.com/viewerng/viewer?embedded=true&url=$pdf")
+        val pdf =URLs.getUrlsFromData()[template.title]
+        val webView = bottomView.findViewById<WebView>(com.teamdefine.signease.R.id.webView2)
+        webView.settings.javaScriptEnabled = true
+        webView.loadUrl("https://drive.google.com/viewerng/viewer?embedded=true&url=$pdf")
         bottomView.findViewById<TextView>(com.teamdefine.signease.R.id.subjectTemplate).text =
             template.title
 
