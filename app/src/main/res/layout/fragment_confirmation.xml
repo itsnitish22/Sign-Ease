@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.19977553" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/con4"
@@ -165,20 +165,66 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appName" />
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:gravity="center|top"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/view3"
+        app:layout_constraintTop_toTopOf="@id/view3">
+
+        <ImageView
+            android:id="@+id/calander"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_calendar"
+            app:layout_constraintStart_toStartOf="@id/view3"
+            app:layout_constraintTop_toTopOf="@id/view3" />
+
+        <TextView
+            android:id="@+id/dates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/sharp_grotesk_medium20"
+            android:text="Dates Selected"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/view3"
+            app:layout_constraintStart_toEndOf="@id/calander"
+            app:layout_constraintTop_toTopOf="@id/view3" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/dateSelected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/sharp_grotesk_medium20"
+        android:gravity="center"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/view2"
-        app:layout_constraintEnd_toEndOf="@id/view2"
-        app:layout_constraintStart_toEndOf="@id/calander"
-        app:layout_constraintTop_toTopOf="@id/view2"
-        tools:text="Date selected: 16th September, 2022" />
+        app:layout_constraintEnd_toEndOf="@id/view3"
+        app:layout_constraintStart_toStartOf="@id/view3"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout"
+        tools:text="20th Sept 2022 - 29th Sept 2022" />
+
+    <TextView
+        android:id="@+id/changeTemplateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/sharp_grotesk_medium20"
+        android:gravity="start|center"
+        android:text="Change Template"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/view4"
+        app:layout_constraintEnd_toEndOf="@id/dateSelected"
+        app:layout_constraintTop_toBottomOf="@id/templateSelectedText" />
 
     <TextView
         android:id="@+id/changeDateText"
@@ -203,16 +249,6 @@
         app:layout_constraintBottom_toTopOf="@+id/con8"
         app:layout_constraintStart_toStartOf="@id/view4"
         app:layout_constraintTop_toTopOf="@+id/con6" />
-
-    <ImageView
-        android:id="@+id/calander"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_calendar"
-        app:layout_constraintBottom_toBottomOf="@+id/dateSelected"
-        app:layout_constraintEnd_toStartOf="@+id/dateSelected"
-        app:layout_constraintStart_toStartOf="@+id/view3"
-        app:layout_constraintTop_toTopOf="@+id/dateSelected" />
 
     <TextView
         android:id="@+id/personNameText"
@@ -268,20 +304,6 @@
         app:layout_constraintStart_toEndOf="@id/userId"
         app:layout_constraintTop_toTopOf="@id/con9"
         tools:text="Application For Duty Leave" />
-
-    <TextView
-        android:id="@+id/changeTemplateText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:fontFamily="@font/sharp_grotesk_medium20"
-        android:gravity="start|center"
-        android:text="Change Template"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/view4"
-        app:layout_constraintEnd_toEndOf="@id/dateSelected"
-        app:layout_constraintTop_toBottomOf="@id/templateSelectedText" />
 
     <ImageView
         android:id="@+id/templateSelected"

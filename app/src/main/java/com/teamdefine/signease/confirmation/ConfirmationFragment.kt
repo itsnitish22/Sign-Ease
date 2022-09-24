@@ -130,7 +130,7 @@ class ConfirmationFragment : Fragment() {
                 SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).format(Date(it.second))
             args.requestBody.custom_fields[2].value = newDateSelected
             args.requestBody.custom_fields[3].value = newEndDateSelected
-            binding.dateSelected.text = "Date selected: $newDateSelected-$newEndDateSelected"
+            binding.dateSelected.text = "$newDateSelected - $newEndDateSelected"
         }
     }
 
@@ -144,9 +144,9 @@ class ConfirmationFragment : Fragment() {
     ) {
         binding.progressBar.visibility = View.VISIBLE
         if (templateTitle == "Night-Pass")
-            binding.dateSelected.text = "Date selected: $date-$dateEnd"
+            binding.dateSelected.text = "$date - $dateEnd"
         else
-            binding.dateSelected.text = "Date selected: $date"
+            binding.dateSelected.text = "$date"
         binding.personNameText.text = name
         binding.userIdText.text = uid
         binding.templateSelectedText.text = templateTitle
@@ -162,7 +162,7 @@ class ConfirmationFragment : Fragment() {
             Log.i("helloabc", it.toString())
             val newDateSelected = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).format(Date(it))
             args.requestBody.custom_fields[2].value = newDateSelected
-            binding.dateSelected.text = "Date selected: $newDateSelected"
+            binding.dateSelected.text = "$newDateSelected"
         }
     }
 }

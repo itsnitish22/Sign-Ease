@@ -2,15 +2,14 @@ package com.teamdefine.signease.templates
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
-import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
@@ -22,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamdefine.signease.DatePicker
+import com.teamdefine.signease.R
 import com.teamdefine.signease.api.models.get_all_templates.Template
 import com.teamdefine.signease.api.models.get_all_templates.Templates
 import com.teamdefine.signease.databinding.FragmentTemplateBinding
@@ -173,29 +173,25 @@ class TemplateFragment : Fragment() {
         }
     }
 
+    //custom dialog, don't ask me why!
     private fun showDialog() {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Reason for leave")
+        val reasonDialogView = LayoutInflater.from(activity)
+            .inflate(R.layout.reason_dialog, null)
+        val dialogBuilder =
+            AlertDialog.Builder(activity).setView(reasonDialogView).setTitle("Reason for leave")
+        val alertDialog = dialogBuilder.show()
 
-        // Set up the input
-        val input = EditText(requireContext())
-
-        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-//        input.setHint("Enter Reason")
-        input.inputType = InputType.TYPE_CLASS_TEXT
-        builder.setView(input)
-
-        // Set up the buttons
-        builder.setPositiveButton("OK") { dialog, which ->
-            // Here you get get input text from the Edittext
-            val m_Text = input.text.toString()
-            requestBody(m_Text)   //calling requestBody() to generate the body after getting the date
+        val confirmButton = reasonDialogView.findViewById<Button>(R.id.confirmButton)
+        confirmButton.setOnClickListener {
+            alertDialog.dismiss()
+            var reason = ""
+            reason = reasonDialogView.findViewById<EditText>(R.id.input_reason).text.toString()
+            requestBody(reason)   //calling requestBody() to generate the body after getting the date
         }
-        builder.setNegativeButton(
-            "Cancel"
-        ) { dialog, which -> dialog.cancel() }
-
-        builder.show()
+        val cancelButton = reasonDialogView.findViewById<Button>(R.id.cancelButton)
+        cancelButton.setOnClickListener {
+            alertDialog.dismiss()
+        }
     }
 
     //creating the request body for post request

@@ -8,7 +8,6 @@
     android:backgroundTint="@color/backgroundLightTheme"
     tools:context=".loginandregister.LoginFragment">
 
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/logoCon6.5"
         android:layout_width="wrap_content"
