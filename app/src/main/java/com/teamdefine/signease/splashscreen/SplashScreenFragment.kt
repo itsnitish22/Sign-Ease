@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.teamdefine.signease.databinding.FragmentSplashScreenBinding
@@ -24,13 +25,17 @@ class SplashScreenFragment : Fragment() {
         val loggedIn = HomePageFragment().checkUser(firebaseAuth)
         if (loggedIn) {
             Handler().postDelayed({
-                findNavController().navigate(
-                    SplashScreenFragmentDirections.actionSplashScreenFragmentToHomePageFragment()
-                )
+                lifecycleScope.launchWhenResumed {
+                    findNavController().navigate(
+                        SplashScreenFragmentDirections.actionSplashScreenFragmentToHomePageFragment()
+                    )
+                }
             }, 3000)
         } else {
             Handler().postDelayed({
-                findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToRegisterFragment())
+                lifecycleScope.launchWhenResumed {
+                    findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToRegisterFragment())
+                }
             }, 3000)
         }
 

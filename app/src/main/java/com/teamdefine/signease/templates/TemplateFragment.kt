@@ -71,6 +71,10 @@ class TemplateFragment : Fragment() {
 
         viewModel.getTemplates()    //getting templates and observing changes
         viewModel.templates.observe(requireActivity()) { template ->
+            //if already refreshing, stop it
+            if (binding.swipeRefresh.isRefreshing)
+                binding.swipeRefresh.isRefreshing = false
+
             Log.i("Template Fragment", template.toString())
             addDataToArrayList(template) //adding the data to array list
         }
@@ -85,6 +89,11 @@ class TemplateFragment : Fragment() {
         viewModel.completed.observe(requireActivity()) { completed ->
             if (completed) //if completed, hide progress bar
                 binding.progressBar.visibility = View.GONE
+        }
+
+        //on swipe refresh, call the api can observer changes
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.getTemplates() //calling getTemplates() to update in views
         }
 
         //on back press clicked listener
