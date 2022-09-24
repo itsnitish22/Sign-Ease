@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".loginandregister.LoginFragment">
+    android:backgroundTint="@color/backgroundLightTheme"
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/logoCon6.5"
