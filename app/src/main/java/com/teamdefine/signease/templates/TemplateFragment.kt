@@ -150,14 +150,14 @@ class TemplateFragment : Fragment() {
             if (templateSelected.title == "Application For Duty Leave")
                 requestBody("")
             else {
-                showdialog()
+                showDialog()
             }
         }
     }
 
     fun getRangeCalendar() {
         val datePicker = DatePicker().getCalendar2(Date().time, Date().time)
-//show calendar and get a date from user
+        //show calendar and get a date from user
         datePicker.show(requireFragmentManager(), "tag")
         datePicker.addOnPositiveButtonClickListener {
             val simpleDateFormat = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
@@ -168,31 +168,32 @@ class TemplateFragment : Fragment() {
             if (templateSelected.title == "Application For Duty Leave")
                 requestBody("")
             else {
-                showdialog()
+                showDialog()
             }
         }
     }
 
-    private fun showdialog() {
+    private fun showDialog() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Reason for Leave")
+        builder.setTitle("Reason for leave")
 
-// Set up the input
+        // Set up the input
         val input = EditText(requireContext())
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.setHint("Enter Reason")
+
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+//        input.setHint("Enter Reason")
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
 
-// Set up the buttons
-        builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+        // Set up the buttons
+        builder.setPositiveButton("OK") { dialog, which ->
             // Here you get get input text from the Edittext
-            var m_Text = input.text.toString()
+            val m_Text = input.text.toString()
             requestBody(m_Text)   //calling requestBody() to generate the body after getting the date
-        })
+        }
         builder.setNegativeButton(
-            "Cancel",
-            DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+            "Cancel"
+        ) { dialog, which -> dialog.cancel() }
 
         builder.show()
     }
