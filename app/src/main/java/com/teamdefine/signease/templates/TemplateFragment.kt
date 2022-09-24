@@ -2,12 +2,12 @@ package com.teamdefine.signease.templates
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
@@ -160,7 +160,9 @@ class TemplateFragment : Fragment() {
             currentUserDetail,
             dateSelectedByUser
         )
-        findNavController().navigate(   //Navigating to Confirmation Fragment with the request body for Post Request
+
+        //navigating to Confirmation Fragment with the request body for Post Request
+        findNavController().navigate(
             TemplateFragmentDirections.actionTemplateFragmentToConfirmationFragment(
                 document, dateSelectedLong
             )
@@ -171,7 +173,7 @@ class TemplateFragment : Fragment() {
     @SuppressLint("ResourceAsColor")
     //show bottom sheet
     private fun showBottomSheet(template: Template) {
-        binding.progressBar.visibility = View.VISIBLE
+        binding.progressBar2.visibility = View.VISIBLE
         val pdf = URLs.getUrlsFromData()[template.title]
         val webView = bottomView.findViewById<WebView>(com.teamdefine.signease.R.id.webView2)
         webView.settings.javaScriptEnabled = true
@@ -179,13 +181,15 @@ class TemplateFragment : Fragment() {
         bottomView.findViewById<TextView>(com.teamdefine.signease.R.id.subjectTemplate).text =
             template.title
 
-        Handler().postDelayed({
-            dialog.setContentView(bottomView)
-            binding.progressBar.visibility = View.GONE
-            dialog.show()
-        }, 5000)
+        //web view shown by using onPageFinished function, this helps us by pass the handler post delayed solution
+        webView.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                binding.progressBar2.visibility = View.GONE
+                dialog.setContentView(bottomView)
+                dialog.show()
+                dialog.setCancelable(true)
+            }
+        }
 
-        dialog.setCancelable(true) //dialog can be dismissed upon swipe, back tap etc.
     }
-
 }

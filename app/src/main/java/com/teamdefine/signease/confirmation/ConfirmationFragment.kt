@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.teamdefine.signease.DatePicker
@@ -91,17 +90,14 @@ class ConfirmationFragment : Fragment() {
             if (check) {
                 Handler().postDelayed({ //delay of 3 sec, server takes some time to update the total no of requests
                     binding.progressBar.visibility = View.GONE
-                    //was crashing because of some threading issue, as we have added a postDelayed
-                    //lifecycle scope will help to handle that
-                    //will continue the navigation only when the fragment is resumed
-                    lifecycleScope.launchWhenResumed {
-                        findNavController().navigate(
-                            ConfirmationFragmentDirections.actionConfirmationFragmentToHomePageFragment(
-                                1
-                            )
+//                    view?.post {
+                    findNavController().navigate(
+                        ConfirmationFragmentDirections.actionConfirmationFragmentToHomePageFragment(
+                            1
                         )
-                    }
-                }, 3000)
+                    )
+//                    }
+                }, 5000)
             }
         }
 
