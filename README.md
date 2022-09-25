@@ -36,7 +36,7 @@
   with the type of Role and the application selected. The user can wait till the documents get signed digitally and 
   can download the signed documents or delete their pending requests (if they wish to).
   
-  ![image](https://user-images.githubusercontent.com/73310532/192141122-0a9bc02b-9e41-4ab6-9fb1-1fcf10fc4e9f.png)
+ ![image](https://user-images.githubusercontent.com/73310532/192141153-937039c3-e02d-41bb-a4ce-c95a196cf6ff.png)
   
 ## 🛠 How we built it
 
