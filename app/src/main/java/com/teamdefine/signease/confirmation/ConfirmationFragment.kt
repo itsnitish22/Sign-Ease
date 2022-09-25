@@ -97,13 +97,13 @@ class ConfirmationFragment : Fragment() {
             if (check) {
                 Handler().postDelayed({ //delay of 3 sec, server takes some time to update the total no of requests
                     binding.progressBar.visibility = View.GONE
-//                    view?.post {
-                    findNavController().navigate(
-                        ConfirmationFragmentDirections.actionConfirmationFragmentToHomePageFragment(
-                            1
+                    view?.post {
+                        findNavController().navigate(
+                            ConfirmationFragmentDirections.actionConfirmationFragmentToHomePageFragment(
+                                1
+                            )
                         )
-                    )
-//                    }
+                    }
                 }, 5000)
             }
         }
