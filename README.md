@@ -33,9 +33,11 @@
 - The backend automatically sends an email with the document to the signers, and user can wait till the
   documents get signed digitally.
   
+  ![image](https://user-images.githubusercontent.com/73310532/192137580-67f39f14-57bb-4f38-9205-bb32b057234a.png)
+  
 ## 🛠 How we built it
 
-- Hello Sign, Kotlin, XML, Postman, Firebase, APIs.
+- Hello Sign, Kotlin, XML, Postman, Firebase, APIs, Figma.
 
 ## ❗Challenges we ran into:
 
@@ -44,12 +46,10 @@
   being terminated before the callback of the network thread.
 - Secondly, we weren't able to Pass the auth headers in our API calls.
 
-## ❓ What's next for Feedback Prime
+## ❓ What's next for Sign Ease
 
-1. Able to add locally hosted media files. And support other media formats.
-2. Next, we want to create a cross-platform service to work on a host of Operating Systems.
-3. We also plan to add a Graphic visualization and Portable Document Format with the dataset and
-   will be automated to send it to the company's e-mail, which can be used for Research and Company
-   briefings.
+1. Able to embedd logs of Leaves/ Application on the identity cards of students.
+2. Adding more Templates and Signers across the spectrum of a College.
+3. Build a cross-platform service that can work on a host of Opeating Systems.
    
 ##
