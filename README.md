@@ -33,7 +33,8 @@
 - The backend automatically sends an email with the document to the signers, and user can wait till the
   documents get signed digitally.
   
-  ![image](https://user-images.githubusercontent.com/73310532/192137580-67f39f14-57bb-4f38-9205-bb32b057234a.png)
+  ![image](https://user-images.githubusercontent.com/73310532/192137889-00d2168c-2a32-4080-9dba-5fcc697d03de.png)
+
   
 ## 🛠 How we built it
 
