@@ -2,7 +2,7 @@
 
 - With the utilization of APIs by Hello Sign, we are now able to get the documents signed digitally,
   eliminating the hassle of getting them signed manually. Keeping this feature in mind we had the 
-  idea to consume the APIs and utilize this feature for the **Indian College Hostels** and to put an 
+  idea to consume the APIs and utilize this feature for the **College Hostels** and to put an 
   end to the use of the traditional Pass Book method of Applying For Leaves or submitting Applications 
   and keeping a track of them. Our Goal through **Sign Ease** is to "Ease" the signing of Leaves and
   Applications for the students and for the Authority Members, and ultimately to digitalize the 
