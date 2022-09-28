@@ -12,10 +12,10 @@ import com.teamdefine.signease.api.models.post_template_for_sign.response.Respon
 import kotlinx.coroutines.launch
 
 class ConfirmationViewModel : ViewModel() {
-    private val _check: MutableLiveData<Boolean> = MutableLiveData(false)
-    val check: LiveData<Boolean>
-        get() = _check
-
+    private val _responses: MutableLiveData<ResponseSign> = MutableLiveData()
+    val responses: LiveData<ResponseSign>
+        get() = _responses
+    var check:Boolean?=null
     //function to post doc for signs
     @SuppressLint("LongLogTag")
     fun sendDocumentForSignature(document: Document) {
@@ -23,7 +23,8 @@ class ConfirmationViewModel : ViewModel() {
             try {
                 Log.i("Confirmation View Model 1", document.toString())
                 val response = RetrofitInstance.api.sendDocForSignatures(document)
-                _check.value = true
+                check=true
+                _responses.value=response
                 Log.i("Confirmation View Model 2", "Done")
                 Log.i("Confirmation View Model 3", response.toString())
             } catch (e: Exception) {
