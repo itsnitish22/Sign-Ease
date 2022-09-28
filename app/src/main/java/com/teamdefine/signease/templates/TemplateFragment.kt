@@ -70,7 +70,7 @@ class TemplateFragment : Fragment() {
             if (binding.swipeRefresh.isRefreshing)
                 binding.swipeRefresh.isRefreshing = false
 
-            Log.i("Template Fragment", template.toString())
+//            Log.i("Template Fragment", template.toString())
             addDataToArrayList(template) //adding the data to array list
         }
 

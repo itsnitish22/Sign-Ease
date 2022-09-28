@@ -93,17 +93,19 @@ class ConfirmationFragment : Fragment() {
             viewModel.sendDocumentForSignature(requestBody) //sending request body to Post request
         }
 
-        viewModel.check.observe(requireActivity()) { check ->
-            if (check) {
+        viewModel.responses.observe(viewLifecycleOwner) { response ->
+            Log.i("helloabc",response.toString())
+            if(viewModel.check!=null){
                 Handler().postDelayed({ //delay of 3 sec, server takes some time to update the total no of requests
                     binding.progressBar.visibility = View.GONE
-//                    view?.post {
-                    findNavController().navigate(
-                        ConfirmationFragmentDirections.actionConfirmationFragmentToHomePageFragment(
-                            1
+                    viewModel.check=null
+                    view?.post {
+                        findNavController().navigate(
+                            ConfirmationFragmentDirections.actionConfirmationFragmentToHomePageFragment(
+                                1
+                            )
                         )
-                    )
-//                    }
+                    }
                 }, 5000)
             }
         }
@@ -118,6 +120,12 @@ class ConfirmationFragment : Fragment() {
 
         return binding.root
     }
+
+//    override fun onDestroyView() {
+//        viewModel.check?.removeObservers(this)
+//        super.onDestroyView()
+//
+//    }
 
     private fun getRangeCalendar() {
         val datePicker = DatePicker().getCalendar2(args.dateSelected, args.endDateSelected)

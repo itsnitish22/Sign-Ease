@@ -29,7 +29,7 @@ class TemplateListViewModel : ViewModel() {
     fun getTemplates() {
         viewModelScope.launch {
             val templatesResponse = RetrofitInstance.api.getTemplates()
-            Log.i("Template List VM", templatesResponse.toString())
+//            Log.i("Template List VM", templatesResponse.toString())
             _templates.value = templatesResponse
             _completed.value = true
         }
