@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -90,9 +91,14 @@ class HomePageFragment : Fragment() {
 
         //on receiving the download file url, using intent download the file
         viewModel.url.observe(requireActivity()) { url ->
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(url)
-            startActivity(intent)
+            if(viewModel.urlCheck!=null){
+                Log.i("helloabc",url)
+                viewModel.urlCheck=null
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(url)
+                startActivity(intent)
+            }
+
         }
 
         //observing changes from delete api request
