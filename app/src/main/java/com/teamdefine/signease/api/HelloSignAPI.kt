@@ -3,6 +3,7 @@ package com.teamdefine.signease.api
 import com.teamdefine.signease.api.models.get_all_sign_requests.SignatureRequests
 import com.teamdefine.signease.api.models.get_all_templates.Templates
 import com.teamdefine.signease.api.models.get_download_file.Download
+import com.teamdefine.signease.api.models.post_create_app.CreateAPIApp
 import com.teamdefine.signease.api.models.post_template_for_sign.Document
 import com.teamdefine.signease.api.models.post_template_for_sign.response.ResponseSign
 import retrofit2.http.*
@@ -28,4 +29,7 @@ interface HelloSignAPI {
     suspend fun deleteRequest(
         @Path("sign_id") sign_id: String
     )
+
+    @POST("v3/api_app")
+    suspend fun createApp(@Body body:CreateAPIApp)
 }
