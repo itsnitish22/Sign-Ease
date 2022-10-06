@@ -94,11 +94,11 @@ class ConfirmationFragment : Fragment() {
         }
 
         viewModel.responses.observe(viewLifecycleOwner) { response ->
-            Log.i("helloabc",response.toString())
-            if(viewModel.check!=null){
+            Log.i("helloabc", response.toString())
+            if (viewModel.check != null) {
                 Handler().postDelayed({ //delay of 3 sec, server takes some time to update the total no of requests
                     binding.progressBar.visibility = View.GONE
-                    viewModel.check=null
+                    viewModel.check = null
                     view?.post {
                         findNavController().navigate(
                             ConfirmationFragmentDirections.actionConfirmationFragmentToHomePageFragment(

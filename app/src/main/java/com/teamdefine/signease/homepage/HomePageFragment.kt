@@ -35,6 +35,7 @@ class HomePageFragment : Fragment() {
     private var adapter: RecyclerView.Adapter<HomePageAdapter.ViewHolder>? = null //adapter
     private lateinit var dialog: BottomSheetDialog //bottom sheet
     private val flag: HomePageFragmentArgs by navArgs()
+    lateinit var currentUserDetail: MutableMap<String, Any> //users detail
     private var backPressedTime: Long = 0
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
@@ -64,7 +65,12 @@ class HomePageFragment : Fragment() {
                 showAlert()
             }
         }
-
+        //observing changes from firestore to update the home page
+        viewModel.data.observe(requireActivity()) { data ->
+            val firstName = data["fullName"].toString().substringBefore(" ", "Not Found")
+            currentUserDetail = data
+            binding.welcomeText.text = "Welcome $firstName"
+        }
         //observing changes in the received signature requests
         viewModel.requests.observe(requireActivity()) { requests ->
             //if already refreshing, stop it
@@ -74,26 +80,28 @@ class HomePageFragment : Fragment() {
             //formatting date
             val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
             val currentDate = sdf.format(Date())
-
+            val signatureRequest = arrayListOf<SignatureRequest>()
+            val clientId = currentUserDetail["client_id"]
+            for (i in requests.signature_requests) {
+                if (i.client_id == clientId) {
+                    signatureRequest.add(i)
+                }
+            }
             //setting views with data
-            binding.totalRequests.text = requests.list_info.num_results.toString()
+//            binding.totalRequests.text = requests.list_info.num_results.toString()
+            binding.totalRequests.text = signatureRequest.size.toString()
             binding.lastUpdated.text = "Last Updated: $currentDate"
 
             //on getting data, show in recycler
-            sendSignRequestsToRecycler(requests.signature_requests)
+            sendSignRequestsToRecycler(signatureRequest)
         }
 
-        //observing changes from firestore to update the home page
-        viewModel.data.observe(requireActivity()) { data ->
-            val firstName = data["fullName"].toString().substringBefore(" ", "Not Found")
-            binding.welcomeText.text = "Welcome $firstName"
-        }
 
         //on receiving the download file url, using intent download the file
         viewModel.url.observe(requireActivity()) { url ->
-            if(viewModel.urlCheck!=null){
-                Log.i("helloabc",url)
-                viewModel.urlCheck=null
+            if (viewModel.urlCheck != null) {
+                Log.i("helloabc", url)
+                viewModel.urlCheck = null
                 val intent = Intent(Intent.ACTION_VIEW)
                 intent.data = Uri.parse(url)
                 startActivity(intent)

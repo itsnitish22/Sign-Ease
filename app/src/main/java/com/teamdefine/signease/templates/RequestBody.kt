@@ -60,10 +60,20 @@ class RequestBody {
         val template_ids = arrayListOf(templateSelected.template_id)
         val subject = templateSelected.title
         val message = "Kindly review and approve my ${templateSelected.title}."
+        val clientId = currentUserDetail["client_id"].toString()
         val signingOptions = SigningOptions(true, true, true, false, "draw")
         Log.i("helloabc", "HOD12")
         val document =
-            Document(template_ids, subject, message, signers, customFields, signingOptions, true)
+            Document(
+                template_ids,
+                subject,
+                message,
+                signers,
+                customFields,
+                signingOptions,
+                true,
+                clientId
+            )
         return document
     }
 }
