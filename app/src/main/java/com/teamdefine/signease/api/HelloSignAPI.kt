@@ -31,5 +31,5 @@ interface HelloSignAPI {
     )
 
     @POST("v3/api_app")
-    suspend fun createApp(@Body body:CreateAPIApp)
+    suspend fun createApp(@Body body: CreateAPIApp)
 }

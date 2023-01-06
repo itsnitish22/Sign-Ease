@@ -91,9 +91,9 @@ class HomePageFragment : Fragment() {
 
         //on receiving the download file url, using intent download the file
         viewModel.url.observe(requireActivity()) { url ->
-            if(viewModel.urlCheck!=null){
-                Log.i("helloabc",url)
-                viewModel.urlCheck=null
+            if (viewModel.urlCheck != null) {
+                Log.i("helloabc", url)
+                viewModel.urlCheck = null
                 val intent = Intent(Intent.ACTION_VIEW)
                 intent.data = Uri.parse(url)
                 startActivity(intent)

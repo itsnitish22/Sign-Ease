@@ -32,7 +32,7 @@ class HomeFragmentViewModel : ViewModel() {
     val check: LiveData<Boolean>
         get() = _check
 
-    var urlCheck:Boolean?=null
+    var urlCheck: Boolean? = null
 
     //getting signature requests
     fun getSignatureRequests() {
@@ -72,7 +72,7 @@ class HomeFragmentViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val fileUrl = RetrofitInstance.api.getURL(sign_id, true)
-                urlCheck=true
+                urlCheck = true
                 _url.value = fileUrl.file_url
             } catch (e: Exception) {
                 Log.i("HomePage VM", e.toString())
