@@ -52,7 +52,6 @@ class HomePageAdapter(
 
     private fun convertLongToTime(createdAt: Long): String {
         val simpleDateFormat = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
-        val date = simpleDateFormat.format(createdAt * 1000L)
-        return date
+        return simpleDateFormat.format(createdAt * 1000L)
     }
 }

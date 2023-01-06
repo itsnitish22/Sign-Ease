@@ -4,6 +4,6 @@ import com.teamdefine.signease.api.models.post_template_for_sign.Signers
 
 class SignerDetails {
     val hod = Signers("HOD", "Nitish", "nitish.sharma1186@gmail.com")
-    val warden = Signers("Warden", "Nikhil", "ani.khajanchi07@gmail.com")
-    val parent = Signers("Parent", "Aniket", "ani.khajanchi257@gmail.com")
+    val warden = Signers("Warden", "Nikhil", "20bcs4122@cuchd.in")
+    val parent = Signers("Parent", "Aniket", "nitish.sharma2210@gmail.com")
 }

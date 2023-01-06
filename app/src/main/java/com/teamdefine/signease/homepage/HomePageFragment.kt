@@ -98,7 +98,6 @@ class HomePageFragment : Fragment() {
                 intent.data = Uri.parse(url)
                 startActivity(intent)
             }
-
         }
 
         //observing changes from delete api request
