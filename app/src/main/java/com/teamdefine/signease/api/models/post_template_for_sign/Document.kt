@@ -11,5 +11,6 @@ data class Document(
     val signers: ArrayList<Signers>,
     val custom_fields: ArrayList<CustomFields>,
     val signing_options: SigningOptions,
-    val test_mode: Boolean
+    val test_mode: Boolean,
+    val client_id: String
 ) : Parcelable
