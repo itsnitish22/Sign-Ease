@@ -50,19 +50,23 @@ class HomeFragmentViewModel : ViewModel() {
     @SuppressLint("LongLogTag")
     fun getDataFromFirestore() {
         viewModelScope.launch {
-            firebaseAuth = FirebaseAuth.getInstance()
-            val database = FirebaseFirestore.getInstance()
-            val firebaseUser = firebaseAuth.currentUser
-            if (firebaseUser != null) {
-                database.collection("Users").document(firebaseUser.uid).get()
-                    .addOnSuccessListener { document ->
-                        if (document != null) {
-                            firebaseData =
-                                document.data as MutableMap<String, Any> //setting data to global variable
-                            _data.value = firebaseData
-                            Log.i("HomePageFragment VM", "DocumentSnapshot: $firebaseData")
+            try{
+                firebaseAuth = FirebaseAuth.getInstance()
+                val database = FirebaseFirestore.getInstance()
+                val firebaseUser = firebaseAuth.currentUser
+                if (firebaseUser != null) {
+                    database.collection("Users").document(firebaseUser.uid).get()
+                        .addOnSuccessListener { document ->
+                            if (document != null) {
+                                firebaseData =
+                                    document.data as MutableMap<String, Any> //setting data to global variable
+                                _data.value = firebaseData
+                                Log.i("HomePageFragment VM", "DocumentSnapshot: $firebaseData")
+                            }
                         }
-                    }
+                }
+            }catch (e: Exception){
+                Log.e("HomeFragVM", e.toString())
             }
         }
     }
