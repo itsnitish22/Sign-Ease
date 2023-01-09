@@ -124,11 +124,13 @@ class HomePageFragment : Fragment() {
             viewModel.getSignatureRequests() //calling getSignatureRequests() to update in views
         }
 
-        binding.floatingActionButton.setOnClickListener {
+        //on click addTemplate, go to template fragment for selection of the templates
+        binding.addTemplate.setOnClickListener {
             findNavController().navigate(
                 HomePageFragmentDirections.actionHomePageFragmentToTemplateFragment()
             )
         }
+
         if (flag.temp == 1) {
             binding.swipeRefresh.isRefreshing = true
             viewModel.getSignatureRequests()
