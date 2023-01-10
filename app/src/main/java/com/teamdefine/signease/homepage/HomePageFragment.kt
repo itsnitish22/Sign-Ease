@@ -22,11 +22,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanIntentResult
+import com.journeyapps.barcodescanner.ScanOptions
 import com.teamdefine.signease.R
 import com.teamdefine.signease.api.models.get_all_sign_requests.SignatureRequest
 import com.teamdefine.signease.databinding.FragmentHomePageBinding
+import com.teamdefine.signease.scanner.CaptureCode
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class HomePageFragment : Fragment() {
     private lateinit var binding: FragmentHomePageBinding //binding
@@ -154,22 +159,14 @@ class HomePageFragment : Fragment() {
         return binding.root
     }
 
-    private fun showAlert() {
-        val builder = AlertDialog.Builder(activity)
-        builder.setMessage("Do you really want to sign out?")
-
-        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-            binding.progressBar.visibility = View.VISIBLE
-            firebaseAuth.signOut()
-            Toast.makeText(activity, "Signed out successfully", Toast.LENGTH_SHORT).show()
-            binding.progressBar.visibility = View.GONE
-            val navigation = HomePageFragmentDirections.actionHomePageFragmentToLoginFragment()
-            findNavController().navigate(navigation)
-        }
-        builder.setNegativeButton(android.R.string.no) { dialog, which ->
-            dialog.dismiss()
-        }
-        builder.show()
+    private fun scanBarcode() {
+        val scanOptions = ScanOptions()
+        scanOptions.setPrompt("Press volume up to turn on flash")
+        scanOptions.setBeepEnabled(true)
+        scanOptions.setOrientationLocked(true)
+//        scanOptions.captureActivity = CaptureCode.class
+        scanOptions.captureActivity = CaptureCode::class.java
+        barcodeLauncher.launch(scanOptions)
     }
 
     private fun sendSignRequestsToRecycler(signatureRequests: ArrayList<SignatureRequest>) {
@@ -232,5 +229,37 @@ class HomePageFragment : Fragment() {
         if (firebaseUser != null)
             return true
         return false
+    }
+
+    private val barcodeLauncher = registerForActivityResult(
+        ScanContract()
+    ) { result: ScanIntentResult ->
+        if (result.contents != null) {
+            val builder = AlertDialog.Builder(activity)
+            builder.setTitle("Result")
+            builder.setMessage(result.contents)
+            builder.setPositiveButton("OK"){dialogInterface, result ->
+                dialogInterface.dismiss()
+            }
+            builder.show()
+        }
+    }
+
+    private fun showAlert() {
+        val builder = AlertDialog.Builder(activity)
+        builder.setMessage("Do you really want to sign out?")
+
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+            binding.progressBar.visibility = View.VISIBLE
+            firebaseAuth.signOut()
+            Toast.makeText(activity, "Signed out successfully", Toast.LENGTH_SHORT).show()
+            binding.progressBar.visibility = View.GONE
+            val navigation = HomePageFragmentDirections.actionHomePageFragmentToLoginFragment()
+            findNavController().navigate(navigation)
+        }
+        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+            dialog.dismiss()
+        }
+        builder.show()
     }
 }
