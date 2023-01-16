@@ -15,7 +15,7 @@
   their respective Passbooks. The students are also required to draft the application and get those
   signed manually in the Passbooks by the respective authority member in order to get approval.
 - This traditional process of getting the Leaves/ Applications signed manually has a lot of drawbacks,
-  which includes:
+  that includes:
   1. Hassle for the student to Write and Get the Applications signed manually.
   2. In the case of Application For Night Pass, the student has to get the application approved both by the 
      Hostel's Warden and Parent/ Guardian, which increases the time for getting the approval.
