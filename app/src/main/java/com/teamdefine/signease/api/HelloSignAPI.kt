@@ -34,4 +34,7 @@ interface HelloSignAPI {
     @Headers("Content-Type: application/json")
     @POST("v3/api_app")
     suspend fun createApp(@Body body: CreateAPIApp): CreateAppResponse
+
+    @DELETE("v3/api_app/{client_id}")
+    suspend fun deleteApp(@Path("client_id") clientId: String): retrofit2.Response<Unit>
 }

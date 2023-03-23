@@ -1,9 +1,11 @@
 package com.teamdefine.signease.loginandregister
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +15,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.teamdefine.signease.databinding.FragmentRegisterBinding
+
 
 class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding //binding
@@ -35,6 +38,14 @@ class RegisterFragment : Fragment() {
             clientId = response.api_app.client_id
             binding.progressBar.visibility = View.VISIBLE
             registerUser(fullName, uid, email, password, clientId)
+        }
+        viewModel.deleteClient.observe(requireActivity()) {
+            if (it == true) {
+                binding.progressBar.visibility = View.GONE
+                binding.inputPassword.setText("")
+                binding.inputPassword.requestFocus()
+                view?.showKeyboard()
+            }
         }
         //on click of sign up button
         binding.signUpButton.setOnClickListener {
@@ -74,13 +85,21 @@ class RegisterFragment : Fragment() {
                     //once successfully authenticated, save user data to firestore
                     saveUserData(fullName, uid, clientId, currentUser.uid)
                 }
-            } else
+            } else {
                 Toast.makeText(
                     activity,
                     task.exception!!.message.toString(),
                     Toast.LENGTH_LONG
                 ).show()
+                viewModel.deleteClient(clientId)
+            }
+
         }
+    }
+
+    private fun View.showKeyboard() {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
     }
 
     //saving user data to firestore
@@ -97,7 +116,6 @@ class RegisterFragment : Fragment() {
             Toast.makeText(activity, "Registered Successfully", Toast.LENGTH_SHORT).show()
             findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
         }.addOnFailureListener { e ->
-            binding.progressBar.visibility = View.GONE
             Toast.makeText(activity, e.toString(), Toast.LENGTH_LONG).show()
         }
     }

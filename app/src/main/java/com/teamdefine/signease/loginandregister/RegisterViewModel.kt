@@ -15,6 +15,10 @@ class RegisterViewModel : ViewModel() {
     val appResponse: LiveData<CreateAppResponse>
         get() = _appResponse
 
+    private val _deleteClient: MutableLiveData<Boolean> = MutableLiveData(false)
+    val deleteClient: LiveData<Boolean>
+        get() = _deleteClient
+
     fun getClientId(uid: String) {
         val name = "Sign Ease${uid}"
         val domains = arrayListOf<String>()
@@ -24,7 +28,22 @@ class RegisterViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = RetrofitInstance.api.createApp(body)
+                Log.i("clientId", response.toString())
                 _appResponse.value = response
+            } catch (e: Exception) {
+                Log.i("helloabc", e.toString())
+            }
+        }
+    }
+
+    fun deleteClient(clientId: String) {
+        viewModelScope.launch {
+            try {
+                val response = RetrofitInstance.api.deleteApp(clientId)
+                Log.i("success", response.toString())
+                if (response.code() == 204)
+                    _deleteClient.value = true
+
             } catch (e: Exception) {
                 Log.i("helloabc", e.toString())
             }
