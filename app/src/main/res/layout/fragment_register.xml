@@ -116,14 +116,13 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/usersEmail"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
-        android:layout_marginEnd="21dp"
         android:fontFamily="@font/sharp_grotesk_light20"
         android:hint="Enter your email"
         app:boxBackgroundColor="@color/light_blue"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/verifyEmail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/con2">
 
@@ -135,6 +134,23 @@
             android:inputType="textEmailAddress"
             tools:text="user@signease.com" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/verifyEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="21dp"
+        android:backgroundTint="#0061fe"
+        android:fontFamily="@font/sharp_grotesk_light20"
+        android:text="Verify email"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="@id/usersEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/usersEmail"
+        app:layout_constraintTop_toTopOf="@id/con2" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/usersUID"
