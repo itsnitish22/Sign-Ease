@@ -47,8 +47,16 @@ class RegisterFragment : Fragment() {
                 view?.showKeyboard()
             }
         }
+        viewModel.clientError.observe(requireActivity()){
+            Toast.makeText(activity, it.toString(), Toast.LENGTH_LONG).show()
+            binding.progressBar.visibility = View.GONE
+            binding.inputUid.setText("")
+            binding.inputUid.requestFocus()
+            view?.showKeyboard()
+        }
         //on click of sign up button
         binding.signUpButton.setOnClickListener {
+            binding.progressBar.visibility=View.VISIBLE
             fullName = binding.inputName.text.toString()
             uid = binding.inputUid.text.toString().uppercase()
             email = binding.inputEmail.text.toString().trim()

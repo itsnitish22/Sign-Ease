@@ -1,6 +1,7 @@
 package com.teamdefine.signease.loginandregister
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,6 +20,10 @@ class RegisterViewModel : ViewModel() {
     val deleteClient: LiveData<Boolean>
         get() = _deleteClient
 
+    private val _clientError:MutableLiveData<Exception> = MutableLiveData()
+    val clientError:LiveData<java.lang.Exception>
+        get() = _clientError
+
     fun getClientId(uid: String) {
         val name = "Sign Ease${uid}"
         val domains = arrayListOf<String>()
@@ -31,7 +36,8 @@ class RegisterViewModel : ViewModel() {
                 Log.i("clientId", response.toString())
                 _appResponse.value = response
             } catch (e: Exception) {
-                Log.i("Client Id not getting generated", e.toString())
+//                Log.i("Client Id not getting generated",)
+                _clientError.value=e
             }
         }
     }
