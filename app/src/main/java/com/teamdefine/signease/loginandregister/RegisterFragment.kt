@@ -106,7 +106,7 @@ class RegisterFragment : Fragment() {
     private fun saveUserData(fullName: String, uid: String, clientId: String, currentUser: String) {
         val database = FirebaseFirestore.getInstance()
         val user: MutableMap<String, Any> = HashMap()
-        user["fullName"] = fullName
+        user["fullName"] = fullName+" "
         user["uid"] = uid
         user["client_id"] = clientId
 

@@ -31,7 +31,7 @@ class RegisterViewModel : ViewModel() {
                 Log.i("clientId", response.toString())
                 _appResponse.value = response
             } catch (e: Exception) {
-                Log.i("helloabc", e.toString())
+                Log.i("Client Id not getting generated", e.toString())
             }
         }
     }
