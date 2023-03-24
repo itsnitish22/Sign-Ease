@@ -47,7 +47,7 @@ class RegisterFragment : Fragment() {
                 view?.showKeyboard()
             }
         }
-        viewModel.clientError.observe(requireActivity()){
+        viewModel.clientError.observe(requireActivity()) {
             Toast.makeText(activity, it.toString(), Toast.LENGTH_LONG).show()
             binding.progressBar.visibility = View.GONE
             binding.inputUid.setText("")
@@ -56,7 +56,7 @@ class RegisterFragment : Fragment() {
         }
         //on click of sign up button
         binding.signUpButton.setOnClickListener {
-            binding.progressBar.visibility=View.VISIBLE
+            binding.progressBar.visibility = View.VISIBLE
             fullName = binding.inputName.text.toString()
             uid = binding.inputUid.text.toString().uppercase()
             email = binding.inputEmail.text.toString().trim()
@@ -114,7 +114,7 @@ class RegisterFragment : Fragment() {
     private fun saveUserData(fullName: String, uid: String, clientId: String, currentUser: String) {
         val database = FirebaseFirestore.getInstance()
         val user: MutableMap<String, Any> = HashMap()
-        user["fullName"] = fullName+" "
+        user["fullName"] = fullName + " "
         user["uid"] = uid
         user["client_id"] = clientId
 
@@ -122,7 +122,7 @@ class RegisterFragment : Fragment() {
         database.collection("Users").document(currentUser).set(user).addOnSuccessListener {
             binding.progressBar.visibility = View.GONE
             Toast.makeText(activity, "Registered Successfully", Toast.LENGTH_SHORT).show()
-            findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
+            findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToHomePageFragment())
         }.addOnFailureListener { e ->
             Toast.makeText(activity, e.toString(), Toast.LENGTH_LONG).show()
         }
