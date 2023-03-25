@@ -17,8 +17,8 @@ class RegisterViewModel : ViewModel() {
     val appResponse: LiveData<CreateAppResponse>
         get() = _appResponse
 
-    private val _deleteClient: MutableLiveData<Boolean> = MutableLiveData(false)
-    val deleteClient: LiveData<Boolean>
+    private val _deleteClient: MutableLiveData<Boolean?> = MutableLiveData(null)
+    val deleteClient: LiveData<Boolean?>
         get() = _deleteClient
 
     private val _verifiedEmail: MutableLiveData<Boolean?> = MutableLiveData(null)
@@ -51,10 +51,10 @@ class RegisterViewModel : ViewModel() {
             try {
                 val response = RetrofitInstance.api.deleteApp(clientId)
                 Log.i("success", response.toString())
-                if (response.code() == 204)
-                    _deleteClient.value = true
+                _deleteClient.value = response.code() == 204
 
             } catch (e: Exception) {
+                _deleteClient.value = false
                 Log.i("helloabc", e.toString())
             }
         }

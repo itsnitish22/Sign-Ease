@@ -2,14 +2,14 @@ package com.teamdefine.signease.loginandregister
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -17,11 +17,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.teamdefine.signease.R
 import com.teamdefine.signease.databinding.FragmentRegisterBinding
+import com.teamdefine.signease.utils.Utility.toast
 
 class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding //binding
     private lateinit var auth: FirebaseAuth //firebase auth
-    private lateinit var viewModel: RegisterViewModel
+    private val viewModel: RegisterViewModel by viewModels()
     private var clientId: String = ""
     private var fullName: String = ""
     private var uid: String = ""
@@ -34,14 +35,13 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? = FragmentRegisterBinding.inflate(inflater, container, false).also {
         binding = it
-        viewModel = ViewModelProvider(requireActivity())[RegisterViewModel::class.java]
         auth = FirebaseAuth.getInstance()
+        initObservers()
     }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initClickListeners()
-        initObservers()
         checkAction = false
     }
 
@@ -70,16 +70,18 @@ class RegisterFragment : Fragment() {
                 )
             }
         }
-        viewModel.deleteClient.observe(requireActivity()) {
-            if (it == true) {
-                binding.progressBar.visibility = View.GONE
-                binding.inputPassword.setText("")
-                binding.inputPassword.requestFocus()
-                view?.showKeyboard()
+        viewModel.deleteClient.observe(requireActivity()) { deleteClient ->
+            deleteClient?.let {
+                if (it) {
+                    binding.progressBar.visibility = View.GONE
+                    binding.inputPassword.setText("")
+                    binding.inputPassword.requestFocus()
+                    view?.showKeyboard()
+                }
             }
         }
         viewModel.clientError.observe(requireActivity()) {
-            Toast.makeText(activity, it.toString(), Toast.LENGTH_LONG).show()
+            toast(it.toString())
             binding.progressBar.visibility = View.GONE
             binding.inputUid.setText("")
             binding.inputUid.requestFocus()
@@ -88,16 +90,16 @@ class RegisterFragment : Fragment() {
         }
         viewModel.verifiedEmail.observe(requireActivity(), Observer { verfiedEmail ->
             verfiedEmail?.let {
-                if (it && checkAction) {
+                if (it) {
                     binding.progressBar.visibility = View.VISIBLE
                     checkAction = true
                     viewModel.getClientId(uid)
-                } else if ((!it && checkAction) || (!it && !checkAction)) {
-                    Toast.makeText(
-                        requireActivity(),
-                        "Your email is not verified. First verify it",
-                        Toast.LENGTH_LONG
-                    ).show()
+                } else if (!it) {
+                    try {
+                        toast("Your email is not verified. First verify it")
+                    } catch (e: Exception) {
+                        Log.e("RegisterFragment Toast Ex:", e.toString())
+                    }
                 }
             }
         })
@@ -111,7 +113,7 @@ class RegisterFragment : Fragment() {
             password = binding.inputPassword.text.toString()
 
             if (fullName.isEmpty() || uid.isEmpty() || email.isEmpty() || password.isEmpty())
-                Toast.makeText(activity, "All fields are mandatory", Toast.LENGTH_SHORT).show()
+                toast("All fields are mandatory")
             else {
                 checkIsEmailVerified(email, password)
             }
@@ -120,11 +122,7 @@ class RegisterFragment : Fragment() {
             email = binding.inputEmail.text.toString().trim()
             password = binding.inputPassword.text.toString()
             if (email.isEmpty() || password.isEmpty())
-                Toast.makeText(
-                    requireContext(),
-                    "Enter email and password first",
-                    Toast.LENGTH_SHORT
-                ).show()
+                toast("Enter email and password first")
             else {
                 checkAction = true
                 changeVerifyEmailButtonAppearanceToDisable()
@@ -132,6 +130,7 @@ class RegisterFragment : Fragment() {
             }
         }
         binding.signIn.setOnClickListener {
+            checkAction = false
             findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
         }
     }
@@ -180,11 +179,7 @@ class RegisterFragment : Fragment() {
 //                    saveUserData(fullName, uid, clientId, currentUser.uid)
                 }
             } else {
-                Toast.makeText(
-                    activity,
-                    task.exception!!.message.toString(),
-                    Toast.LENGTH_LONG
-                ).show()
+                toast(task.exception!!.message.toString())
                 viewModel.deleteClient(clientId)
             }
 
@@ -216,10 +211,11 @@ class RegisterFragment : Fragment() {
         //name of collection on firestore is "Users", and the document will be mapped to firebase authentication uid
         database.collection("Users").document(currentUser).set(user).addOnSuccessListener {
             binding.progressBar.visibility = View.GONE
-            Toast.makeText(activity, "Registered Successfully", Toast.LENGTH_SHORT).show()
+            toast("Registered Successfully")
+            checkAction = false
             findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToHomePageFragment())
         }.addOnFailureListener { e ->
-            Toast.makeText(activity, e.toString(), Toast.LENGTH_LONG).show()
+            toast(e.toString())
         }
     }
 }
