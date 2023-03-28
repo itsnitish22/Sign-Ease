@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-kapt'
     id("androidx.navigation.safeargs.kotlin")
     id("kotlin-parcelize")
+    id 'com.starter.easylauncher'
 }
 
 android {
@@ -15,11 +16,12 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.teamdefine.signease"
+        applicationId appConfig.applicationId
         minSdk 26
         targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        versionCode appConfig.versionCode
+        versionName appConfig.versionName
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         Properties properties = new Properties()
         properties.load(project.rootProject.file("local.properties").newDataInputStream())
@@ -28,7 +30,15 @@ android {
 
     buildTypes {
         release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug{
+            debuggable true
             minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -82,4 +92,12 @@ dependencies {
 
     //swipe refresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+}
+
+easylauncher {
+    buildTypes {
+        debug {
+            filters = [chromeLike(label: "${appConfig.versionName}", textSizeRatio: 0.2)]
+        }
+    }
 }
