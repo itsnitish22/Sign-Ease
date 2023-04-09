@@ -1,6 +1,9 @@
 package com.teamdefine.signease.utils
 
+import android.app.DownloadManager
 import android.content.Context
+import android.net.Uri
+import android.os.Environment
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 
@@ -14,5 +17,18 @@ object Utility {
 
     fun Fragment.toast(msg: String) {
         requireContext().toast(msg)
+    }
+
+    fun Context.downloadFile(fileUrl: String, fileTitle: String, fileName: String) {
+        val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val request = DownloadManager.Request(Uri.parse(fileUrl))
+        request.setTitle(fileTitle)
+        request.setDescription("Downloading")
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
+        downloadManager.enqueue(request)
+    }
+
+    fun Fragment.downloadFile(fileUrl: String, fileTitle: String, fileName: String) {
+        requireContext().downloadFile(fileUrl, fileTitle, fileName)
     }
 }

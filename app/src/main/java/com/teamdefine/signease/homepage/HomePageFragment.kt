@@ -2,8 +2,6 @@ package com.teamdefine.signease.homepage
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -25,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.teamdefine.signease.R
 import com.teamdefine.signease.api.models.get_all_sign_requests.SignatureRequest
 import com.teamdefine.signease.databinding.FragmentHomePageBinding
+import com.teamdefine.signease.utils.Utility.downloadFile
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -37,6 +36,8 @@ class HomePageFragment : Fragment() {
     private val flag: HomePageFragmentArgs by navArgs()
     lateinit var currentUserDetail: MutableMap<String, Any> //users detail
     private var backPressedTime: Long = 0
+    var fileDownloadName: String? = null
+    var fileDownloadTitle: String? = null
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onCreateView(
@@ -99,9 +100,11 @@ class HomePageFragment : Fragment() {
         viewModel.url.observe(requireActivity()) { url ->
             url?.let { fileUrl ->
                 Log.i("HomePageFragment", "File URL: $fileUrl")
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse(fileUrl)
-                startActivity(intent)
+                fileDownloadName?.let {
+                    downloadFile(fileUrl, fileDownloadTitle!!, fileDownloadName!!)
+                    fileDownloadTitle = null
+                    fileDownloadName = null
+                }
             }
         }
 
@@ -171,9 +174,13 @@ class HomePageFragment : Fragment() {
         adapter = HomePageAdapter(signatureRequests, object : HomePageAdapter.ItemClickListener {
             override fun onItemClick(
                 signature: SignatureRequest,
-                position: Int
+                position: Int,
+                convertLongToTime: String
             ) { //getting the clicked item
-                showBottomSheet(signature) //show bottom sheet with delete and download button
+                showBottomSheet(
+                    signature,
+                    convertLongToTime
+                ) //show bottom sheet with delete and download button
             }
         })
         //recycler view stuff
@@ -185,7 +192,7 @@ class HomePageFragment : Fragment() {
     }
 
     @SuppressLint("ResourceAsColor")
-    private fun showBottomSheet(signature: SignatureRequest) {
+    private fun showBottomSheet(signature: SignatureRequest, convertLongToTime: String) {
         //inflated bottom sheet
         val view = layoutInflater.inflate(R.layout.bottom_sheet, null)
 
@@ -200,6 +207,9 @@ class HomePageFragment : Fragment() {
 
         //download button will download the file
         downloadButton.setOnClickListener {
+            fileDownloadTitle = signature.subject
+            fileDownloadName =
+                "${signature.subject}_${convertLongToTime.filterNot { it.isWhitespace() }}.pdf"
             Log.i("HomePageFrag", "DownloadClick")
             viewModel.getFileUrl(signature.signature_request_id)
             dialog.dismiss()
