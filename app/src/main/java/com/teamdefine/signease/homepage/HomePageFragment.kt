@@ -22,9 +22,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.teamdefine.signease.R
 import com.teamdefine.signease.api.models.get_all_sign_requests.SignatureRequest
+import com.teamdefine.signease.api.models.get_all_sign_requests.SignatureRequests
 import com.teamdefine.signease.databinding.FragmentHomePageBinding
+import com.teamdefine.signease.utils.Utility
 import com.teamdefine.signease.utils.Utility.downloadFile
-import java.text.SimpleDateFormat
 import java.util.*
 
 class HomePageFragment : Fragment() {
@@ -36,17 +37,25 @@ class HomePageFragment : Fragment() {
     private val flag: HomePageFragmentArgs by navArgs()
     lateinit var currentUserDetail: MutableMap<String, Any> //users detail
     private var backPressedTime: Long = 0
-    var fileDownloadName: String? = null
-    var fileDownloadTitle: String? = null
+    private var fileDownloadName: String? = null
+    private var fileDownloadTitle: String? = null
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentHomePageBinding.inflate(inflater, container, false) //setting binding
+    ): View? = FragmentHomePageBinding.inflate(inflater, container, false).also {
+        binding = it //setting binding
         firebaseAuth = FirebaseAuth.getInstance() //firebase auth getting instance
         dialog = BottomSheetDialog(requireContext()) //bottom sheet
+    }.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initBackListener()
+        initObservers()
+        initClickListeners()
 
         //checking if user is logged in or not
         val loggedIn = checkUser(firebaseAuth)
@@ -57,13 +66,30 @@ class HomePageFragment : Fragment() {
         } else
             Toast.makeText(activity, "Log in first", Toast.LENGTH_SHORT).show()
 
-        //log out button
-        binding.logOut.setOnClickListener {
-            val loggedIn = checkUser(firebaseAuth) //checks if the user if logged in
-            if (loggedIn) { //if yes, log out
-                showAlert()
+        if (flag.temp == 1) {
+            binding.swipeRefresh.isRefreshing = true
+            viewModel.getSignatureRequests()
+        }
+    }
+
+    private fun initBackListener() {
+        //on back press clicked listener
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val toast =
+                    Toast.makeText(requireContext(), "Press again to exit", Toast.LENGTH_SHORT)
+                if (backPressedTime + 2000 > System.currentTimeMillis()) {
+                    toast.show()
+                    activity?.finish()
+                } else
+                    toast.show()
+                backPressedTime = System.currentTimeMillis()
             }
         }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
+    }
+
+    private fun initObservers() {
         //observing changes from firestore to update the home page
         viewModel.data.observe(requireActivity()) { data ->
             val firstName = data["fullName"].toString().substringBefore(" ", "Not Found")
@@ -72,29 +98,8 @@ class HomePageFragment : Fragment() {
         }
         //observing changes in the received signature requests
         viewModel.requests.observe(requireActivity()) { requests ->
-            //if already refreshing, stop it
-            if (binding.swipeRefresh.isRefreshing)
-                binding.swipeRefresh.isRefreshing = false
-
-            //formatting date
-            val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-            val currentDate = sdf.format(Date())
-            val signatureRequest = arrayListOf<SignatureRequest>()
-            val clientId = currentUserDetail["client_id"]
-            for (i in requests.signature_requests) {
-                if (i.client_id == clientId) {
-                    signatureRequest.add(i)
-                }
-            }
-            //setting views with data
-//            binding.totalRequests.text = requests.list_info.num_results.toString()
-            binding.totalRequests.text = signatureRequest.size.toString()
-            binding.lastUpdated.text = "Last Updated: $currentDate"
-
-            //on getting data, show in recycler
-            sendSignRequestsToRecycler(signatureRequest)
+            loadDataInViews(requests)
         }
-
 
         //on receiving the download file url, using intent download the file
         viewModel.url.observe(requireActivity()) { url ->
@@ -118,7 +123,32 @@ class HomePageFragment : Fragment() {
                 }, 1000)
             }
         }
+    }
 
+    private fun loadDataInViews(requests: SignatureRequests) {
+        val signatureRequest = arrayListOf<SignatureRequest>()
+
+        //if already refreshing, stop it
+        if (binding.swipeRefresh.isRefreshing)
+            binding.swipeRefresh.isRefreshing = false
+
+        val currentDate = Utility.getCurrentDate()
+
+        val clientId = currentUserDetail["client_id"]
+        for (i in requests.signature_requests) {
+            if (i.client_id == clientId) {
+                signatureRequest.add(i)
+            }
+        }
+
+        binding.totalRequests.text = signatureRequest.size.toString()
+        binding.lastUpdated.text = "Last Updated: $currentDate"
+
+        //on getting data, show in recycler
+        sendSignRequestsToRecycler(signatureRequest)
+    }
+
+    private fun initClickListeners() {
         //on swipe refresh, call the api can observer changes
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.getSignatureRequests() //calling getSignatureRequests() to update in views
@@ -129,27 +159,14 @@ class HomePageFragment : Fragment() {
                 HomePageFragmentDirections.actionHomePageFragmentToTemplateFragment()
             )
         }
-        if (flag.temp == 1) {
-            binding.swipeRefresh.isRefreshing = true
-            viewModel.getSignatureRequests()
-        }
 
-        //on back press clicked listener
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val toast =
-                    Toast.makeText(requireContext(), "Press again to exit", Toast.LENGTH_SHORT)
-                if (backPressedTime + 2000 > System.currentTimeMillis()) {
-                    toast.show()
-                    activity?.finish()
-                } else
-                    toast.show()
-                backPressedTime = System.currentTimeMillis()
+        //log out button
+        binding.logOut.setOnClickListener {
+            val loggedIn = checkUser(firebaseAuth) //checks if the user if logged in
+            if (loggedIn) { //if yes, log out
+                showAlert()
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(callback)
-
-        return binding.root
     }
 
     private fun showAlert() {

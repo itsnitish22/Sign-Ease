@@ -6,6 +6,8 @@ import android.net.Uri
 import android.os.Environment
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import java.text.SimpleDateFormat
+import java.util.*
 
 object Utility {
     fun Context.toast(message: String) {
@@ -31,4 +33,6 @@ object Utility {
     fun Fragment.downloadFile(fileUrl: String, fileTitle: String, fileName: String) {
         requireContext().downloadFile(fileUrl, fileTitle, fileName)
     }
+
+    fun getCurrentDate() = SimpleDateFormat("dd/M/yyyy hh:mm:ss").format(Date())
 }
