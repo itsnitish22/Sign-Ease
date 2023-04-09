@@ -18,7 +18,7 @@ class HomePageAdapter(
     RecyclerView.Adapter<HomePageAdapter.ViewHolder>() {
 
     interface ItemClickListener {
-        fun onItemClick(signature: SignatureRequest, position: Int)
+        fun onItemClick(signature: SignatureRequest, position: Int, convertLongToTime: String)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -38,7 +38,11 @@ class HomePageAdapter(
         holder.nameOfRequest.text = signature.subject
         holder.timeOfRequest.text = convertLongToTime(signature.created_at)
         holder.itemView.setOnClickListener {
-            itemClickListener.onItemClick(signatureList[position], position)
+            itemClickListener.onItemClick(
+                signatureList[position],
+                position,
+                convertLongToTime(signature.created_at)
+            )
         }
         if (signature.is_complete)
             holder.statusButton.setImageResource(R.drawable.radio_button_2)
