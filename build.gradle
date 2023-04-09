@@ -36,7 +36,7 @@ allprojects {
                 applicationId: 'com.teamdefine.signease',
                 appName      : 'Sign Ease',
                 versionCode  : 2,
-                versionName  : '1.1'
+                versionName  : '1.1.0'
         ]
     }
 }
