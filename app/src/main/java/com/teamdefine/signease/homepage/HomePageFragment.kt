@@ -15,7 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,7 +31,7 @@ import java.util.*
 class HomePageFragment : Fragment() {
     private lateinit var binding: FragmentHomePageBinding //binding
     private lateinit var firebaseAuth: FirebaseAuth //firebase auth
-    private lateinit var viewModel: HomeFragmentViewModel //viewmodel
+    private val viewModel: HomeFragmentViewModel by viewModels() //viewmodel
     private var adapter: RecyclerView.Adapter<HomePageAdapter.ViewHolder>? = null //adapter
     private lateinit var dialog: BottomSheetDialog //bottom sheet
     private val flag: HomePageFragmentArgs by navArgs()
@@ -44,8 +44,6 @@ class HomePageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomePageBinding.inflate(inflater, container, false) //setting binding
-        viewModel =
-            ViewModelProvider(requireActivity())[HomeFragmentViewModel::class.java] //setting viewmodel
         firebaseAuth = FirebaseAuth.getInstance() //firebase auth getting instance
         dialog = BottomSheetDialog(requireContext()) //bottom sheet
 
@@ -99,11 +97,10 @@ class HomePageFragment : Fragment() {
 
         //on receiving the download file url, using intent download the file
         viewModel.url.observe(requireActivity()) { url ->
-            if (viewModel.urlCheck != null) {
-                Log.i("helloabc", url)
-                viewModel.urlCheck = null
+            url?.let { fileUrl ->
+                Log.i("HomePageFragment", "File URL: $fileUrl")
                 val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse(url)
+                intent.data = Uri.parse(fileUrl)
                 startActivity(intent)
             }
         }
@@ -203,6 +200,7 @@ class HomePageFragment : Fragment() {
 
         //download button will download the file
         downloadButton.setOnClickListener {
+            Log.i("HomePageFrag", "DownloadClick")
             viewModel.getFileUrl(signature.signature_request_id)
             dialog.dismiss()
         }
