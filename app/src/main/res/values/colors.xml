@@ -13,5 +13,6 @@
     <color name="red">#FF0000</color>
     <color name="yellow">#FFBF00</color>
     <color name="green">#008000</color>
+    <color name="transparent">#4D000000</color>
     <color name="backgroundLightTheme">#F1F9FF</color>
 </resources>
