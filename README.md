@@ -40,7 +40,7 @@
   
 ## 🛠 How we built it
 
-- Hello Sign, Kotlin (MVVM, NavGraphs, Coroutines, Retrofit), XML, Postman, Firebase (Authentication, Firestore, Storage, Crashlytics, Analytics), APIs, Figma.
+- Hello Sign, Kotlin (MVVM, NavGraphs, Coroutines, Retrofit, Koin, Clean Architecture), XML, Postman, Firebase (Authentication, Firestore, Storage, Crashlytics, Analytics), APIs, Figma.
 
 ## ❗Challenges we ran into:
 
