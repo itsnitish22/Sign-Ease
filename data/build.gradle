@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id("kotlin-parcelize")
 }
 
 android {
@@ -61,6 +62,9 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+
+    //koin
+    implementation("io.insert-koin:koin-android:$koin_version")
 
     api project(path: ':domain')
 }

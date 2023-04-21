@@ -102,6 +102,9 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
+    //koin
+    implementation("io.insert-koin:koin-android:$koin_version")
+
     api project(path: ':domain')
     api project(path: ':data')
 }

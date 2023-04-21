@@ -13,10 +13,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.teamdefine.signease.DatePicker
+import com.teamdefine.domain.models.post_template_for_sign.Document
 import com.teamdefine.signease.R
-import com.teamdefine.signease.api.models.post_template_for_sign.Document
 import com.teamdefine.signease.databinding.FragmentConfirmationBinding
+import com.teamdefine.signease.utils.DatePicker
 import java.util.*
 
 class ConfirmationFragment : Fragment() {

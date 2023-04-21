@@ -1,16 +1,18 @@
 package com.teamdefine.signease.application
 
-import com.teamdefine.signease.di.AppComponent
-import com.teamdefine.signease.di.DaggerAppComponent
-import dagger.android.AndroidInjector
-import dagger.android.support.DaggerApplication
+import android.app.Application
+import com.teamdefine.signease.di.*
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 
-class FirstSign : DaggerApplication() {
-    lateinit var appComponent: AppComponent
-        private set
-
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        appComponent = DaggerAppComponent.builder().application(this).build()
-        return appComponent
+class FirstSign : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidLogger()
+            androidContext(this@FirstSign)
+            modules(applicationModules, viewModelModules, useCaseModules, apiModule, networkModule)
+        }
     }
 }

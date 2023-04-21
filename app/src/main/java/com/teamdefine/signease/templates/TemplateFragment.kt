@@ -19,11 +19,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.teamdefine.signease.DatePicker
+import com.teamdefine.domain.models.get_all_templates.Template
+import com.teamdefine.domain.models.get_all_templates.Templates
 import com.teamdefine.signease.R
-import com.teamdefine.signease.api.models.get_all_templates.Template
-import com.teamdefine.signease.api.models.get_all_templates.Templates
 import com.teamdefine.signease.databinding.FragmentTemplateBinding
+import com.teamdefine.signease.utils.DatePicker
 import java.text.SimpleDateFormat
 import java.util.*
 

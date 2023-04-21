@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.teamdefine.domain.models.get_all_templates.Template
 import com.teamdefine.signease.R
-import com.teamdefine.signease.api.models.get_all_templates.Template
 import java.util.*
 
 class TemplateListAdapter(

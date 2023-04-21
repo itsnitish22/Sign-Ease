@@ -60,7 +60,7 @@
         tools:layout="@layout/fragment_confirmation">
         <argument
             android:name="requestBody"
-            app:argType="com.teamdefine.signease.api.models.post_template_for_sign.Document" />
+            app:argType="com.teamdefine.domain.models.post_template_for_sign.Document" />
         <action
             android:id="@+id/action_confirmationFragment_to_homePageFragment"
             app:destination="@id/homePageFragment"

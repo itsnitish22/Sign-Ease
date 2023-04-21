@@ -6,12 +6,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.teamdefine.signease.api.RetrofitInstance
-import com.teamdefine.signease.api.models.post_template_for_sign.Document
-import com.teamdefine.signease.api.models.post_template_for_sign.response.ResponseSign
+import com.teamdefine.domain.interactors.main.SendDocForSignatureUseCase
+import com.teamdefine.domain.models.post_template_for_sign.Document
+import com.teamdefine.domain.models.post_template_for_sign.response.ResponseSign
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class ConfirmationViewModel : ViewModel() {
+class ConfirmationViewModel : ViewModel(), KoinComponent {
+    private val sendDocForSignatureUseCase: SendDocForSignatureUseCase by inject()
+
     private val _responses: MutableLiveData<ResponseSign> = MutableLiveData()
     val responses: LiveData<ResponseSign>
         get() = _responses
@@ -23,7 +27,7 @@ class ConfirmationViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 Log.i("Confirmation View Model 1", document.toString())
-                val response = RetrofitInstance.api.sendDocForSignatures(document)
+                val response = sendDocForSignatureUseCase.invoke(document)
                 check = true
                 _responses.value = response
                 Log.i("Confirmation View Model 2", "Done")
