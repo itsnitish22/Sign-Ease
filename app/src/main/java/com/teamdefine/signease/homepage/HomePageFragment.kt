@@ -40,6 +40,9 @@ class HomePageFragment : Fragment() {
     private var fileDownloadName: String? = null
     private var fileDownloadTitle: String? = null
 
+//    @Inject
+//    lateinit var getNameUseCase: GetNameUseCase
+
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +59,9 @@ class HomePageFragment : Fragment() {
         initBackListener()
         initObservers()
         initClickListeners()
+
+//        val temp = getNameUseCase.invoke()
+//        Log.i("HomeFrag", temp)
 
         //checking if user is logged in or not
         val loggedIn = checkUser(firebaseAuth)
