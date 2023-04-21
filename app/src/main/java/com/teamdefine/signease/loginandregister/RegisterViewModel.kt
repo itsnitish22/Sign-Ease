@@ -6,13 +6,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import com.teamdefine.signease.api.RetrofitInstance
-import com.teamdefine.signease.api.models.post_create_app.CreateAPIApp
-import com.teamdefine.signease.api.models.post_create_app.response.CreateAppResponse
+import com.teamdefine.domain.interactors.main.CreateAppUseCase
+import com.teamdefine.domain.interactors.main.DeleteAppUseCase
+import com.teamdefine.domain.models.post_create_app.CreateAPIApp
+import com.teamdefine.domain.models.post_create_app.response.CreateAppResponse
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 
-class RegisterViewModel : ViewModel() {
+class RegisterViewModel : ViewModel(), KoinComponent {
+    private val createAppUseCase: CreateAppUseCase by inject()
+    private val deleteAppUseCase: DeleteAppUseCase by inject()
+
     private val _appResponse: MutableLiveData<CreateAppResponse> = MutableLiveData()
     val appResponse: LiveData<CreateAppResponse>
         get() = _appResponse
@@ -37,7 +43,7 @@ class RegisterViewModel : ViewModel() {
         Log.i("helloabc", body.toString())
         viewModelScope.launch {
             try {
-                val response = RetrofitInstance.api.createApp(body)
+                val response = createAppUseCase.invoke(body)
                 Log.i("clientId", response.toString())
                 _appResponse.value = response
             } catch (e: Exception) {
@@ -49,7 +55,7 @@ class RegisterViewModel : ViewModel() {
     fun deleteClient(clientId: String) {
         viewModelScope.launch {
             try {
-                val response = RetrofitInstance.api.deleteApp(clientId)
+                val response = deleteAppUseCase.invoke(clientId)
                 Log.i("success", response.toString())
                 _deleteClient.value = response.code() == 204
 

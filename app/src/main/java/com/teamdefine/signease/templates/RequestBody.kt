@@ -1,12 +1,12 @@
 package com.teamdefine.signease.templates
 
 import android.util.Log
-import com.teamdefine.signease.SignerDetails
-import com.teamdefine.signease.api.models.get_all_templates.Template
-import com.teamdefine.signease.api.models.post_template_for_sign.CustomFields
-import com.teamdefine.signease.api.models.post_template_for_sign.Document
-import com.teamdefine.signease.api.models.post_template_for_sign.Signers
-import com.teamdefine.signease.api.models.post_template_for_sign.SigningOptions
+import com.teamdefine.domain.models.get_all_templates.Template
+import com.teamdefine.domain.models.post_template_for_sign.CustomFields
+import com.teamdefine.domain.models.post_template_for_sign.Document
+import com.teamdefine.domain.models.post_template_for_sign.Signers
+import com.teamdefine.domain.models.post_template_for_sign.SigningOptions
+import com.teamdefine.signease.utils.SignerDetails
 
 class RequestBody {
     fun getRequestBody(

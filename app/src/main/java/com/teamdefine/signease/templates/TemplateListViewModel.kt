@@ -7,11 +7,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.teamdefine.signease.api.RetrofitInstance
-import com.teamdefine.signease.api.models.get_all_templates.Templates
+import com.teamdefine.domain.interactors.main.GetTemplatesUseCase
+import com.teamdefine.domain.models.get_all_templates.Templates
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class TemplateListViewModel : ViewModel() {
+class TemplateListViewModel : ViewModel(), KoinComponent {
+    private val getTemplatesUseCase: GetTemplatesUseCase by inject()
+
     private val _templates: MutableLiveData<Templates> = MutableLiveData()
     val templates: LiveData<Templates>
         get() = _templates
@@ -28,7 +32,7 @@ class TemplateListViewModel : ViewModel() {
 
     fun getTemplates() {
         viewModelScope.launch {
-            val templatesResponse = RetrofitInstance.api.getTemplates()
+            val templatesResponse = getTemplatesUseCase.invoke()
 //            Log.i("Template List VM", templatesResponse.toString())
             _templates.value = templatesResponse
             _completed.value = true

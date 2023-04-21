@@ -20,15 +20,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
+import com.teamdefine.domain.models.get_all_sign_requests.SignatureRequest
+import com.teamdefine.domain.models.get_all_sign_requests.SignatureRequests
 import com.teamdefine.signease.R
-import com.teamdefine.signease.api.models.get_all_sign_requests.SignatureRequest
-import com.teamdefine.signease.api.models.get_all_sign_requests.SignatureRequests
 import com.teamdefine.signease.databinding.FragmentHomePageBinding
 import com.teamdefine.signease.utils.Utility
 import com.teamdefine.signease.utils.Utility.downloadFile
+import org.koin.core.component.KoinComponent
 import java.util.*
 
-class HomePageFragment : Fragment() {
+class HomePageFragment : Fragment(), KoinComponent {
     private lateinit var binding: FragmentHomePageBinding //binding
     private lateinit var firebaseAuth: FirebaseAuth //firebase auth
     private val viewModel: HomeFragmentViewModel by viewModels() //viewmodel

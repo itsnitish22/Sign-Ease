@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.teamdefine.domain.models.get_all_sign_requests.SignatureRequest
 import com.teamdefine.signease.R
-import com.teamdefine.signease.api.models.get_all_sign_requests.SignatureRequest
 import java.text.SimpleDateFormat
 import java.util.*
 

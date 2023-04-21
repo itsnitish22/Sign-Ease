@@ -1,15 +1,10 @@
 package com.teamdefine.signease.utils
 
 import android.app.DownloadManager
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.net.Uri
 import android.os.Environment
-import android.util.Log
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import java.text.SimpleDateFormat
 import java.util.*
@@ -37,6 +32,7 @@ object Utility {
         downloadManager.enqueue(request)
 
     }
+
     fun Fragment.downloadFile(fileUrl: String, fileTitle: String, fileName: String) {
         requireContext().downloadFile(fileUrl, fileTitle, fileName)
     }
