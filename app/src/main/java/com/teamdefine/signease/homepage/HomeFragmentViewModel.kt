@@ -41,25 +41,11 @@ class HomeFragmentViewModel : ViewModel(), KoinComponent {
         get() = _check
 
     //getting signature requests
-//    fun getSignatureRequests() {
-//        viewModelScope.launch {
-//            try {
-//                val signatureRequestsResponse = RetrofitInstance.api.getSignatureRequests()
-//                _requests.value = signatureRequestsResponse
-//            } catch (e: Exception) {
-//                Log.i("HomePage VM", e.toString())
-//            }
-//        }
-//    }
-
-    //    //getting signature requests
     fun getSignatureRequests() {
 
         viewModelScope.launch {
             try {
                 _requests.value = getAllSignatureRequestsUseCase.invoke()
-//                val signatureRequestsResponse = RetrofitInstance.api.getSignatureRequests()
-//                _requests.value = signatureRequestsResponse
             } catch (e: Exception) {
                 Log.i("HomePage VM", e.toString())
             }
