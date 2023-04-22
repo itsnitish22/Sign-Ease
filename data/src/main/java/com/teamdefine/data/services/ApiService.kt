@@ -1,5 +1,6 @@
 package com.teamdefine.data.services
 
+import com.teamdefine.data.constants.Urls
 import com.teamdefine.domain.models.get_all_sign_requests.SignatureRequests
 import com.teamdefine.domain.models.get_all_templates.Templates
 import com.teamdefine.domain.models.get_download_file.Download
@@ -10,31 +11,31 @@ import com.teamdefine.domain.models.post_template_for_sign.response.ResponseSign
 import retrofit2.http.*
 
 interface ApiService {
-    @GET("/v3/signature_request/list")
+    @GET(Urls.GET_ALL_SIGNATURE_REQUESTS)
     suspend fun getSignatureRequests(): SignatureRequests
 
     @Headers("Content-Type: application/json")
-    @POST("/v3/signature_request/send_with_template")
+    @POST(Urls.SEND_WITH_TEMPLATE_FOR_SIGNATURE)
     suspend fun sendDocForSignatures(@Body document: Document): ResponseSign
 
-    @GET("/v3/template/list")
+    @GET(Urls.GET_ALL_TEMPLATES_LIST)
     suspend fun getTemplates(): Templates
 
-    @GET("v3/signature_request/files/{sign_id}")
+    @GET("${Urls.GET_FILE_URL_FOR_DOWNLOAD}/{sign_id}")
     suspend fun getURL(
         @Path("sign_id") sign_id: String,
         @Query("get_url") get_url: Boolean
     ): Download
 
-    @POST("v3/signature_request/cancel/{sign_id}")
+    @POST("${Urls.DELETE_SIGNATURE_REQUEST}/{sign_id}")
     suspend fun deleteRequest(
         @Path("sign_id") sign_id: String
     )
 
     @Headers("Content-Type: application/json")
-    @POST("v3/api_app")
+    @POST(Urls.HELLO_SIGN_APP)
     suspend fun createApp(@Body body: CreateAPIApp): CreateAppResponse
 
-    @DELETE("v3/api_app/{client_id}")
+    @DELETE("${Urls.HELLO_SIGN_APP}/{client_id}")
     suspend fun deleteApp(@Path("client_id") clientId: String): retrofit2.Response<Unit>
 }
